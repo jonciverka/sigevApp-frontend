@@ -1,0 +1,6 @@
+class ScreenPaths {
+  static const String splashRoute = "/";
+  static const String testRoute = "/Test";
+  static const String loginRoute = "/Login";
+  static const String menuClientRoute = "/MenuClient";
+}
