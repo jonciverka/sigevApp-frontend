@@ -43,6 +43,33 @@ mixin AppLocale {
   static const String textButtonMisTramitesMenu = 'textButtonMisTramitesMenu';
   static const String textButtonPerfilMenu = 'textButtonPerfilMenu';
 
+  //Menu socio
+  static const String textButtonNuevoTramiteMenu = 'textButtonNuevoTramiteMenu';
+
+  //Home socio
+  static const String textTituloMisResultadosHomeSocioHomeSocio =
+      'textTituloMisResultadosHomeSocioHomeSocio';
+  static const String textPestaniaFacturacionHomeSocioHomeSocio =
+      'textPestaniaFacturacionHomeSocioHomeSocio';
+  static const String textPestaniaTramitesHomeSocioHomeSocio =
+      'textPestaniaTramitesHomeSocioHomeSocio';
+  static const String textSubtituloFacturacionAnioHomeSocio =
+      'textSubtituloFacturacionAnioHomeSocio';
+  static const String textSubtituloFacturacionMesHomeSocio =
+      'textSubtituloFacturacionMesHomeSocio';
+  static const String textSubtituloFacturacionSemanaHomeSocio =
+      'textSubtituloFacturacionSemanaHomeSocio';
+  static const String textSubtituloTramitesIngresadosHomeSocio =
+      'textSubtituloTramitesIngresadosHomeSocio';
+  static const String textSubtituloTramitesIngresadosSemanaHomeSocio =
+      'textSubtituloTramitesIngresadosSemanaHomeSocio';
+  static const String textSubtituloTramitesEgresadosSemanaHomeSocio =
+      'textSubtituloTramitesEgresadosSemanaHomeSocio';
+  static const String textSubtituloTramitesCanceladosSemanaHomeSocio =
+      'textSubtituloTramitesCanceladosSemanaHomeSocio';
+  static const String botonVerCatalogoHomeSocio = 'botonVerCatalogoHomeSocio';
+  static const String botonIrASitioWebHomeSocio = 'botonIrASitioWebHomeSocio';
+
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
     cargando: 'Cargando...',
@@ -76,5 +103,21 @@ mixin AppLocale {
     textTituloCerrarSesion: "¿Deseas cerrar sesión?",
     textPreguntaCerrarSesion: "Se cerrará tu cuenta de manera segura.",
     textoRespuestaSiCerrarSesion: "Cerrar Sesión",
+    textButtonNuevoTramiteMenu: "Nuevo Trámite",
+    textTituloMisResultadosHomeSocioHomeSocio: "Mis Resultados",
+    textPestaniaFacturacionHomeSocioHomeSocio: "Facturación",
+    textPestaniaTramitesHomeSocioHomeSocio: "Trámites",
+    textSubtituloFacturacionAnioHomeSocio: "Facturación del año",
+    textSubtituloFacturacionMesHomeSocio: "Facturación del mes",
+    textSubtituloFacturacionSemanaHomeSocio: "Facturación de la semana",
+    textSubtituloTramitesIngresadosHomeSocio: "Trámites Ingresados",
+    textSubtituloTramitesIngresadosSemanaHomeSocio:
+        "Trámites Ingresados de la semana",
+    textSubtituloTramitesEgresadosSemanaHomeSocio:
+        "Tramites Egresados de la semana",
+    textSubtituloTramitesCanceladosSemanaHomeSocio:
+        "Trámites Cancelados de la semana",
+    botonVerCatalogoHomeSocio: "Ver Catalogo",
+    botonIrASitioWebHomeSocio: "Ir a sitio web",
   };
 }

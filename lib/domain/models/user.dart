@@ -30,7 +30,7 @@ class User {
     lastName: json["lastName"] ?? json["apellidos"],
     email: json["email"] ?? json["correo"],
     referralCode: json["referralCode"],
-    roleId: json["roleId"],
+    roleId: json["roleId"] ?? json["role_id"],
     phone: json["phone"] ?? json["telefono"],
     phoneAlternative: json["telefono_alterno"],
   );

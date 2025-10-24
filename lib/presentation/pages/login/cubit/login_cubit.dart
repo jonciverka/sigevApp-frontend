@@ -44,7 +44,9 @@ class LoginCubit extends Cubit<LoginState> {
       await userProvider.getUser();
       if (globals.user?.roleId == null) {
         _context.go(ScreenPaths.menuClientRoute);
-      } else if (globals.user?.id != null) {}
+      } else if (globals.user?.id != null) {
+        _context.go(ScreenPaths.menuPartnerRoute);
+      }
       emit(LoginData());
       await Future.delayed(const Duration(milliseconds: 10));
     } on ServerErrorException {

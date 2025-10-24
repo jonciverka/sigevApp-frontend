@@ -1,19 +1,16 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
-import 'package:sigev/presentation/pages/client/home/cubit/home_cubit.dart';
-import 'package:sigev/presentation/pages/client/home/cubit/home_state.dart';
-import 'package:sigev/presentation/pages/client/home/widgets/app_tramites.dart';
-import 'package:sigev/presentation/pages/client/home/widgets/app_tramites_activos.dart';
-import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
-import 'package:sigev/presentation/pages/client/menu/cubit/menu_state.dart';
+import 'package:sigev/presentation/pages/partner/home/cubit/home_cubit.dart';
+import 'package:sigev/presentation/pages/partner/home/cubit/home_state.dart';
+import 'package:sigev/presentation/pages/partner/home/widgets/app_facturacion.dart';
+import 'package:sigev/presentation/pages/partner/home/widgets/app_tramites.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
 import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
+import 'package:sigev/presentation/widgets/app_tab_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -52,34 +49,63 @@ class HomePageBody extends StatelessWidget {
   const HomePageBody({super.key});
   @override
   Widget build(BuildContext context) {
-    var homeCubit = context.watch<HomeCubit>();
-    var menuCubit = context.read<MenuCubit>();
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: context.spacing16,
         vertical: context.spacing12,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           AppHeader(),
           SizedBox(height: context.spacing16),
-          AppTramitesActivos(total: homeCubit.state.tramites.length),
-          SizedBox(height: context.spacing16),
-          AppTramites(
-            tramites: homeCubit.state.tramites.sublist(
-              0,
-              min(3, homeCubit.state.tramites.length),
+          Text(
+            AppLocale.textTituloMisResultadosHomeSocioHomeSocio.getString(
+              context,
             ),
+            style: context.headingLargeTextStyle,
           ),
-          if (homeCubit.state.tramites.length > 3)
-            AppTertiaryButton(
-              width: double.nan,
-              label: AppLocale.textButtonVerMasTramites.getString(context),
-              onPressed: () =>
-                  menuCubit.changeIndex(index: MenuState.homeMisTramites),
-            ),
+          SizedBox(height: context.spacing16),
+          TabHome(),
+          Row(
+            children: [
+              Expanded(
+                child: AppPrimaryButton(
+                  label: AppLocale.botonVerCatalogoHomeSocio.getString(context),
+                  onPressed: () {},
+                ),
+              ),
+              SizedBox(width: context.spacing12),
+              Expanded(
+                child: AppPrimaryButton(
+                  label: AppLocale.botonIrASitioWebHomeSocio.getString(context),
+                  onPressed: () {},
+                ),
+              ),
+            ],
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class TabHome extends StatelessWidget {
+  const TabHome({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: AppTabView(
+        tabsNames: [
+          AppLocale.textPestaniaFacturacionHomeSocioHomeSocio.getString(
+            context,
+          ),
+          AppLocale.textPestaniaTramitesHomeSocioHomeSocio.getString(context),
+        ],
+        isBodyScrollable: false,
+        isBarScrollable: false,
+        isExpanded: true,
+        children: [AppFacturacion(), AppTramites()],
       ),
     );
   }

@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sigev/core/constant/screen_paths.dart';
 import 'package:sigev/presentation/pages/client/menu/screens/menu_page.dart';
+import 'package:sigev/presentation/pages/partner/menu/screens/menu_page.dart'
+    as partner_menu_page;
 import 'package:sigev/presentation/pages/login/screens/login_page.dart';
 import 'package:sigev/presentation/splash_page.dart';
 import 'package:sigev/presentation/test_page.dart';
@@ -43,6 +45,15 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
         child: MenuPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
+    ),
+    GoRoute(
+      path: ScreenPaths.menuPartnerRoute,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: partner_menu_page.MenuPage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),

@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
-import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
-import 'package:sigev/presentation/pages/client/menu/cubit/menu_state.dart';
 import 'package:sigev/presentation/widgets/app_menu_item.dart';
-import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_state.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
 class MenuPage extends StatelessWidget {
@@ -45,11 +44,6 @@ class MenuPageBody extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        floatingActionButton: AppIconButtonWhatsapp(
-          icon: Icons.add,
-          iconSize: IconSize.large,
-          onPressed: () {},
-        ),
         backgroundColor: AppTheme.neutralColorWhite,
         body: Navigator(
           onGenerateRoute: (RouteSettings settings) {
@@ -82,18 +76,27 @@ class MenuPageBody extends StatelessWidget {
                 AppMenuItem(
                   icon: Icons.home_outlined,
                   onTap: () =>
-                      menuCubit.changeIndex(index: MenuState.homeMisTramites),
-                  index: MenuState.homeMisTramites,
-                  active: menuCubit.state.index == MenuState.homeMisTramites,
+                      menuCubit.changeIndex(index: MenuState.homeNewProcess),
+                  index: MenuState.homePageIndex,
+                  active: menuCubit.state.index == MenuState.homeNewProcess,
+                  title: AppLocale.textButtonNuevoTramiteMenu.getString(
+                    context,
+                  ),
+                ),
+                AppMenuItem(
+                  icon: Icons.home_outlined,
+                  onTap: () =>
+                      menuCubit.changeIndex(index: MenuState.homeMyProcess),
+                  index: MenuState.homeMyProcess,
+                  active: menuCubit.state.index == MenuState.homeMyProcess,
                   title: AppLocale.textButtonMisTramitesMenu.getString(context),
                 ),
                 AppMenuItem(
                   icon: Icons.home_outlined,
-                  onTap: () => menuCubit.changeIndex(
-                    index: MenuState.profileMisTramites,
-                  ),
-                  index: MenuState.profileMisTramites,
-                  active: menuCubit.state.index == MenuState.profileMisTramites,
+                  onTap: () =>
+                      menuCubit.changeIndex(index: MenuState.homeProfile),
+                  index: MenuState.homeProfile,
+                  active: menuCubit.state.index == MenuState.homeProfile,
                   title: AppLocale.textButtonPerfilMenu.getString(context),
                 ),
               ],

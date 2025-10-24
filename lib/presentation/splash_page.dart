@@ -31,7 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
         await userProvider.getUser();
         await Future.delayed(const Duration(milliseconds: 10));
         if (mounted) {
-          context.go(ScreenPaths.menuClientRoute);
+          if (globals.user?.roleId == null) {
+            context.go(ScreenPaths.menuClientRoute);
+          } else if (globals.user?.id != null) {
+            context.go(ScreenPaths.menuPartnerRoute);
+          }
         }
       } else {
         if (mounted) {
