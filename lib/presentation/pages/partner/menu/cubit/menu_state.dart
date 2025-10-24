@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/partner/home/screens/home_page.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/nuevo_tramite_page.dart';
 import 'package:sigev/presentation/pages/profile/screens/profile_page.dart';
 
 abstract class MenuState {
@@ -11,7 +12,7 @@ abstract class MenuState {
 
   static List listScreens = [
     HomePage(),
-    Container(),
+    NuevoTramite(),
     Container(),
     ProfilePage(),
   ];
