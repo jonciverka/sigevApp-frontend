@@ -39,7 +39,7 @@ class CatalogoCotizacion {
   List<Extra>? extras;
   List<TipoServicio>? tipoServicio;
   List<TipoVehiculo>? tipoVehiculo;
-  List<Color>? colores;
+  List<ColorVehiculo>? colores;
   List<Area>? areas;
 
   factory CatalogoCotizacion.fromJson(Map<String, dynamic> json) {

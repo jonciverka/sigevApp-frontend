@@ -24,20 +24,20 @@ class DatosVehiculoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+    var catalogos = nuevoTramiteCubit.state.catalogos;
     return Column(
       children: [
         Text(
           AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
           style: context.headingLargeTextStyle,
         ),
+        SizedBox(height: context.spacing20),
         AppDropDown<String>(
           hint: AppLocale.lavelMarcaNuevoTramite.getString(context),
-          items:
-              nuevoTramiteCubit.state.catalogos.vehiculos
-                  ?.map((e) => e.marca ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => print(value),
+          items: catalogos.vehiculos?.map((e) => e.marca ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.vehiculo = catalogos
+              .vehiculos
+              ?.firstWhere((e) => e.marca == value),
           labelBuilder: (item) {
             return item;
           },
@@ -60,13 +60,11 @@ class DatosVehiculoPage extends StatelessWidget {
         ),
         SizedBox(height: context.spacing20),
         AppDropDown<String>(
-          hint: AppLocale.lavelMarcaNuevoTramite.getString(context),
-          items:
-              nuevoTramiteCubit.state.catalogos.tipoModelo
-                  ?.map((e) => e.anio ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => print(value),
+          hint: AppLocale.lavelModeloNuevoTramite.getString(context),
+          items: catalogos.tipoModelo?.map((e) => e.anio ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.tipoModelo = catalogos
+              .tipoModelo
+              ?.firstWhere((e) => e.anio == value),
           labelBuilder: (item) {
             return item;
           },
@@ -77,12 +75,9 @@ class DatosVehiculoPage extends StatelessWidget {
         SizedBox(height: context.spacing20),
         AppDropDown<String>(
           hint: AppLocale.lavelColorNuevoTramite.getString(context),
-          items:
-              nuevoTramiteCubit.state.catalogos.colores
-                  ?.map((e) => e.color ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => print(value),
+          items: catalogos.colores?.map((e) => e.color ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.color = catalogos.colores
+              ?.firstWhere((e) => e.color == value),
           labelBuilder: (item) {
             return item;
           },

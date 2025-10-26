@@ -24,80 +24,96 @@ class DatosContribuyentePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           AppLocale.subtituloDatosContribuyenteNuevoTramite.getString(context),
           style: context.headingLargeTextStyle,
         ),
-        AppTextFormField(
-          keyboardType: TextInputType.emailAddress,
-          controller: nuevoTramiteCubit.correoElectronicoController,
-          hintText: AppLocale.lavelCorreoElectronicoNuevoTramite.getString(
-            context,
+        SizedBox(height: context.spacing20),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                AppTextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: nuevoTramiteCubit.correoElectronicoController,
+                  hintText: AppLocale.lavelCorreoElectronicoNuevoTramite
+                      .getString(context),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocale.campoObligatorio.getString(context);
+                    }
+                    return null;
+                  },
+                  onChanged: (_) {},
+                ),
+                SizedBox(height: context.spacing20),
+                AppTextFormField(
+                  keyboardType: TextInputType.text,
+                  controller: nuevoTramiteCubit.nombreController,
+                  hintText: AppLocale.lavelNombreNuevoTramite.getString(
+                    context,
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocale.campoObligatorio.getString(context);
+                    }
+                    return null;
+                  },
+                  onChanged: (_) {},
+                ),
+                SizedBox(height: context.spacing20),
+                AppTextFormField(
+                  keyboardType: TextInputType.text,
+                  controller: nuevoTramiteCubit.apellidoController,
+                  hintText: AppLocale.lavelApellidosNuevoTramite.getString(
+                    context,
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocale.campoObligatorio.getString(context);
+                    }
+                    return null;
+                  },
+                  onChanged: (_) {},
+                ),
+                SizedBox(height: context.spacing20),
+                AppTextFormField(
+                  keyboardType: TextInputType.number,
+                  maxLengthFormatter: 10,
+                  controller: nuevoTramiteCubit.telefonoController,
+                  hintText: AppLocale.lavelTelefonoMovilNuevoTramite.getString(
+                    context,
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocale.campoObligatorio.getString(context);
+                    }
+                    return null;
+                  },
+                  onChanged: (_) {},
+                ),
+                SizedBox(height: context.spacing20),
+                AppTextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: nuevoTramiteCubit.telefonoAlternoController,
+                  hintText: AppLocale.lavelTelefonoMovilAlternoNuevoTramite
+                      .getString(context),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return AppLocale.campoObligatorio.getString(context);
+                    }
+                    return null;
+                  },
+                  onChanged: (_) {},
+                ),
+              ],
+            ),
           ),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-          onChanged: (_) {},
         ),
-        SizedBox(height: context.spacing20),
-        AppTextFormField(
-          keyboardType: TextInputType.text,
-          controller: nuevoTramiteCubit.nombreController,
-          hintText: AppLocale.lavelNombreNuevoTramite.getString(context),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-          onChanged: (_) {},
-        ),
-        SizedBox(height: context.spacing20),
-        AppTextFormField(
-          keyboardType: TextInputType.text,
-          controller: nuevoTramiteCubit.apellidoController,
-          hintText: AppLocale.lavelApellidosNuevoTramite.getString(context),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-          onChanged: (_) {},
-        ),
-        SizedBox(height: context.spacing20),
-        AppTextFormField(
-          keyboardType: TextInputType.number,
-          controller: nuevoTramiteCubit.telefonoController,
-          hintText: AppLocale.lavelTelefonoMovilNuevoTramite.getString(context),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-          onChanged: (_) {},
-        ),
-        SizedBox(height: context.spacing20),
-        AppTextFormField(
-          keyboardType: TextInputType.number,
-          controller: nuevoTramiteCubit.telefonoAlternoController,
-          hintText: AppLocale.lavelTelefonoMovilAlternoNuevoTramite.getString(
-            context,
-          ),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-          onChanged: (_) {},
-        ),
-        Spacer(),
         AppFooter(
           onButtonBackPressed: onButtonBackPressed,
           onButtonCatalogPressed: onButtonCatalogPressed,

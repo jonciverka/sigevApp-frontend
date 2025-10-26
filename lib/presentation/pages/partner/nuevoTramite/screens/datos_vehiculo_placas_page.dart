@@ -29,18 +29,25 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
           style: context.headingLargeTextStyle,
         ),
+        SizedBox(height: context.spacing20),
         AppRowOpcionsRadioButton(
           groupValue: nuevoTramiteCubit.groupRadioButtonPlacaActual,
           label: AppLocale.lavelPlacaActualNuevoTramite.getString(context),
           child: SizedBox.shrink(),
-          onChanged: (value) => {},
+          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+            value ?? '',
+            "groupRadioButtonPlacaActual",
+          ),
         ),
         SizedBox(height: context.spacing12),
         AppRowOpcionsRadioButton(
           groupValue: nuevoTramiteCubit.groupRadioButtonDesechoPlaca,
           label: AppLocale.lavelDesechoDePlacaNuevoTramite.getString(context),
           child: SizedBox.shrink(),
-          onChanged: (value) => {},
+          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+            value ?? '',
+            "groupRadioButtonDesechoPlaca",
+          ),
         ),
         SizedBox(height: context.spacing12),
         AppRowOpcionsRadioButton(
@@ -48,16 +55,22 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           label: AppLocale.lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite
               .getString(context),
           child: SizedBox.shrink(),
-          onChanged: (value) => {},
+          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+            value ?? '',
+            "groupRadioButtonDesechoTarjeta",
+          ),
         ),
         SizedBox(height: context.spacing12),
         AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonDesechoTarjeta,
+          groupValue: nuevoTramiteCubit.groupRadioButtonTerminacionPlacaNueva,
           label: AppLocale.lavelTerminacionDePlacaNuevoTramite.getString(
             context,
           ),
           child: SizedBox.shrink(),
-          onChanged: (value) => {},
+          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+            value ?? '',
+            "groupRadioButtonTerminacionPlacaNueva",
+          ),
         ),
         Spacer(),
         AppFooter(

@@ -10,6 +10,14 @@ class Utilities {
     globals.refresh = '';
     globals.user = null;
   }
+
+  static bool isEmailValid(String email) {
+    // Expresión regular para validar un correo electrónico
+    RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
+    return emailRegex.hasMatch(email);
+  }
 }
 
 extension StringExtension on String? {

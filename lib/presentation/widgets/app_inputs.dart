@@ -143,6 +143,7 @@ class AppTextFormField extends StatefulWidget {
   final int maxLines;
   final int minLines;
   final int? maxLength;
+  final int? maxLengthFormatter;
 
   final void Function(String) onChanged;
   final void Function(String?)? onSubmitted;
@@ -171,6 +172,7 @@ class AppTextFormField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines = 1,
     this.maxLength,
+    this.maxLengthFormatter,
     this.textAlign = TextAlign.start,
   });
 
@@ -198,7 +200,10 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         textAlignVertical: TextAlignVertical.top,
         decoration: _buildDecoration(),
         obscureText: widget.obscureText,
-        inputFormatters: widget.inputFormatters,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(widget.maxLengthFormatter ?? 30),
+          ...?widget.inputFormatters,
+        ],
         textInputAction: TextInputAction.next,
         textAlign: widget.textAlign,
         controller: widget.controller,

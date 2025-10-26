@@ -16,6 +16,8 @@ mixin AppLocale {
   static const String error = 'error';
   static const String errorInicioSesion = 'errorInicioSesion';
   static const String campoObligatorio = 'campoObligatorio';
+  static const String camposObligatorios = 'camposObligatorios';
+  static const String errorCorreoMalFormado = 'errorCorreoMalFormado';
   //Tramites
   static const String inputSearchTramite = 'inputSearchTramite';
   //Perfil
@@ -148,6 +150,9 @@ mixin AppLocale {
     avisoSinInternet: 'No hay conexión a Internet.',
     errorInicioSesion: "Usuario o contraseña incorrectos. Inténtalo de nuevo.",
     campoObligatorio: "Este campo es obligatorio.",
+    camposObligatorios: "Parece que faltan algunos datos obligatorios.",
+    errorCorreoMalFormado:
+        "Ups, parece que tu correo no tiene el formato correcto. Revísalo por favor.",
     inputLoginUsuarioLogin: 'Correo Electronico',
     inputLoginPasswordLogin: 'Contraseña',
     botonIniciarSesionLogin: 'Iniciar Sesión',
@@ -191,20 +196,20 @@ mixin AppLocale {
     botonVerCatalogoHomeSocio: "Ver Catalogo",
     botonIrASitioWebHomeSocio: "Ir a sitio web",
     textTituloNuevoTramiteNuevoTramite: "Nuevo Trámite",
-    lavelSucursalNuevoTramite: "Surcursal",
-    lavelCorreoElectronicoNuevoTramite: "Correo Electronico",
-    lavelNombreNuevoTramite: "Nombre",
-    lavelApellidosNuevoTramite: "Apellidos",
-    lavelTelefonoMovilNuevoTramite: "Telefono Movil",
+    lavelSucursalNuevoTramite: "Surcursal *",
+    lavelCorreoElectronicoNuevoTramite: "Correo Electronico *",
+    lavelNombreNuevoTramite: "Nombre *",
+    lavelApellidosNuevoTramite: "Apellidos *",
+    lavelTelefonoMovilNuevoTramite: "Telefono Movil *",
     lavelTelefonoMovilAlternoNuevoTramite: "Telefono Movil Alterno",
-    lavelTipoDeTramiteNuevoTramite: "Tipo de Tramite*",
-    lavelTipoVehiculoNuevoTramite: "Tipo de Vehiculo*",
+    lavelTipoDeTramiteNuevoTramite: "Tipo de Tramite *",
+    lavelTipoVehiculoNuevoTramite: "Tipo de Vehiculo *",
     lavelEntidadNuevoTramite: "Entidad*",
-    lavelTipoDeServicioNuevoTramite: "Tipo de Servicio*",
-    lavelMarcaNuevoTramite: "Marca*",
+    lavelTipoDeServicioNuevoTramite: "Tipo de Servicio *",
+    lavelMarcaNuevoTramite: "Marca *",
     lavelSubmarcaNuevoTramite: "Submarca",
-    lavelModeloNuevoTramite: "Modelo*",
-    lavelColorNuevoTramite: "Color*",
+    lavelModeloNuevoTramite: "Modelo *",
+    lavelColorNuevoTramite: "Color *",
     textButtonSiguiente: "Siguiente",
     textButtonVerCatalogo: "Ver Catálogo",
     textButtonAgregar: "Agregar",
@@ -222,15 +227,15 @@ mixin AppLocale {
     textRadionoAplica: "No Aplica",
     textRadioEntregado: "Entregado",
     textRadioPendiente: "Pendiente",
-    lavelPlacaActualNuevoTramite: "Placa Actual*",
-    lavelDesechoDePlacaNuevoTramite: "Desecho de Placa*",
+    lavelPlacaActualNuevoTramite: "Placa Actual *",
+    lavelDesechoDePlacaNuevoTramite: "Desecho de Placa *",
     lavelDesechoDeTarjetaDeCirculacionNuevoTramite:
-        "Desecho de Tarjeta de Circulación*",
-    lavelTerminacionDePlacaNuevoTramite: "Terminación de Placa Nueva*",
-    lavelEntidadDeLaPlacaActualNuevoTramite: "Entidad de la Placa Actua*",
+        "Desecho de Tarjeta de Circulación *",
+    lavelTerminacionDePlacaNuevoTramite: "Terminación de Placa Nueva *",
+    lavelEntidadDeLaPlacaActualNuevoTramite: "Entidad de la Placa Actua *",
     lavelDesechoDePlacaNuevaNuevoTramite: "Desecho",
     lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite:
-        "Desecho tarjeta de circulación*",
+        "Desecho tarjeta de circulación *",
     lavelOpcionUnoNuevoTramite: "Opcion 1",
     lavelOpcionDosNuevoTramite: "Opcion 2",
     lavelSubtotalNuevoTramite: "Subtotal",

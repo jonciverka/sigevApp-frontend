@@ -23,20 +23,21 @@ class DatosTramitePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+    var catalogos = nuevoTramiteCubit.state.catalogos;
     return Column(
       children: [
         Text(
           AppLocale.subtituloDatosDelTramiteNuevoTramite.getString(context),
           style: context.headingLargeTextStyle,
         ),
+        SizedBox(height: context.spacing20),
         AppDropDown<String>(
           hint: AppLocale.lavelTipoDeTramiteNuevoTramite.getString(context),
           items:
-              nuevoTramiteCubit.state.catalogos.tiposTramite
-                  ?.map((e) => e.nombre ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => print(value),
+              catalogos.tiposTramite?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.tipoTramite = catalogos
+              .tiposTramite
+              ?.firstWhere((e) => e.nombre == value),
           labelBuilder: (item) {
             return item;
           },
@@ -48,11 +49,10 @@ class DatosTramitePage extends StatelessWidget {
         AppDropDown<String>(
           hint: AppLocale.lavelTipoVehiculoNuevoTramite.getString(context),
           items:
-              nuevoTramiteCubit.state.catalogos.tipoVehiculo
-                  ?.map((e) => e.nombre ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => print(value),
+              catalogos.tipoVehiculo?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.tipoVehiculo = catalogos
+              .tipoVehiculo
+              ?.firstWhere((e) => e.nombre == value),
           labelBuilder: (item) {
             return item;
           },
@@ -64,11 +64,10 @@ class DatosTramitePage extends StatelessWidget {
         AppDropDown<String>(
           hint: AppLocale.lavelEntidadNuevoTramite.getString(context),
           items:
-              nuevoTramiteCubit.state.catalogos.entidad
-                  ?.map((e) => e.entidadNombre ?? '')
-                  .toList() ??
+              catalogos.entidad?.map((e) => e.entidadNombre ?? '').toList() ??
               [],
-          onSelectItem: (value) => print(value),
+          onSelectItem: (value) => nuevoTramiteCubit.entidad = catalogos.entidad
+              ?.firstWhere((e) => e.entidadNombre == value),
           labelBuilder: (item) {
             return item;
           },
@@ -80,11 +79,10 @@ class DatosTramitePage extends StatelessWidget {
         AppDropDown<String>(
           hint: AppLocale.lavelTipoDeServicioNuevoTramite.getString(context),
           items:
-              nuevoTramiteCubit.state.catalogos.tipoServicio
-                  ?.map((e) => e.nombre ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => print(value),
+              catalogos.tipoServicio?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.tipoServicio = catalogos
+              .tipoServicio
+              ?.firstWhere((e) => e.nombre == value),
           labelBuilder: (item) {
             return item;
           },

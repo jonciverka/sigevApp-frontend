@@ -29,6 +29,7 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
           AppLocale.subtituloDatosContribuyenteNuevoTramite.getString(context),
           style: context.headingLargeTextStyle,
         ),
+        SizedBox(height: context.spacing20),
         AppDropDown<String>(
           hint: AppLocale.lavelSucursalNuevoTramite.getString(context),
           items:
@@ -36,7 +37,11 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
                   ?.map((e) => e.nombre ?? '')
                   .toList() ??
               [],
-          onSelectItem: (value) => print(value),
+          onSelectItem: (value) => nuevoTramiteCubit.idSucursal =
+              nuevoTramiteCubit.state.catalogos.sucursal
+                  ?.firstWhere((e) => e.nombre == value)
+                  .id ??
+              0,
           labelBuilder: (item) {
             return item;
           },

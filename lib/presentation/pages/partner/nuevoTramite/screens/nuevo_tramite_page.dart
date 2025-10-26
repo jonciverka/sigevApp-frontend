@@ -11,6 +11,7 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_docu
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_tramite_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_placas_page.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_progress_bar.dart';
 import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
@@ -60,6 +61,8 @@ class NuevoTramiteBody extends StatelessWidget {
       child: Column(
         children: [
           AppHeader(),
+          AppProgressBar(),
+          SizedBox(height: context.spacing12),
           Expanded(
             child: PageView(
               controller: nuevoTramiteCubit.pageController,
@@ -122,7 +125,6 @@ class NuevoTramiteBody extends StatelessWidget {
                 ),
                 DatosDocumentos(
                   onButtonGenerateCodePressed: () {},
-
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.detallePagoSaldo,
                   ),

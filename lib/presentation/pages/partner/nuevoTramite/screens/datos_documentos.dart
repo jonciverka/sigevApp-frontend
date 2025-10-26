@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
-import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
 
 class DatosDocumentos extends StatelessWidget {
@@ -21,7 +19,6 @@ class DatosDocumentos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
     return Column(
       children: [
         Text(
