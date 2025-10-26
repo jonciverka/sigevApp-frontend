@@ -4,7 +4,6 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/partner/home/cubit/home_cubit.dart';
-import 'package:sigev/presentation/pages/partner/home/widgets/app_row_cantidad_facturada.dart';
 import 'package:sigev/presentation/pages/partner/home/widgets/app_row_tramites.dart';
 
 class AppTramites extends StatelessWidget {

@@ -69,6 +69,75 @@ mixin AppLocale {
       'textSubtituloTramitesCanceladosSemanaHomeSocio';
   static const String botonVerCatalogoHomeSocio = 'botonVerCatalogoHomeSocio';
   static const String botonIrASitioWebHomeSocio = 'botonIrASitioWebHomeSocio';
+  //Nuevo tramite
+  static const String textTituloNuevoTramiteNuevoTramite =
+      'textTituloNuevoTramiteNuevoTramite';
+  static const String textSubtituloDatosContribuyenteNuevoTramite =
+      'textSubtituloDatosContribuyenteNuevoTramite';
+  static const String lavelSucursalNuevoTramite = 'lavelSucursalNuevoTramite';
+  static const String lavelCorreoElectronicoNuevoTramite =
+      'lavelCorreoElectronicoNuevoTramite';
+  static const String lavelNombreNuevoTramite = 'lavelNombreNuevoTramite';
+  static const String lavelApellidosNuevoTramite = 'lavelApellidosNuevoTramite';
+  static const String lavelTelefonoMovilNuevoTramite =
+      'lavelTelefonoMovilNuevoTramite';
+  static const String lavelTelefonoMovilAlternoNuevoTramite =
+      'lavelTelefonoMovilAlternoNuevoTramite';
+  static const String lavelTipoDeTramiteNuevoTramite =
+      'lavelTipoDeTramiteNuevoTramite';
+  static const String lavelTipoVehiculoNuevoTramite =
+      'lavelTipoVehiculoNuevoTramite';
+  static const String lavelEntidadNuevoTramite = 'lavelEntidadNuevoTramite';
+  static const String lavelTipoDeServicioNuevoTramite =
+      'lavelTipoDeServicioNuevoTramite';
+  static const String lavelMarcaNuevoTramite = 'lavelMarcaNuevoTramite';
+  static const String lavelSubmarcaNuevoTramite = 'lavelSubmarcaNuevoTramite';
+  static const String lavelModeloNuevoTramite = 'lavelModeloNuevoTramite';
+  static const String lavelColorNuevoTramite = 'lavelColorNuevoTramite';
+  static const String textButtonSiguiente = 'textButtonSiguiente';
+  static const String textButtonVerCatalogo = 'textButtonVerCatalogo';
+  static const String textButtonAgregar = 'textButtonAgregar';
+  static const String textButtonQuitar = 'textButtonQuitar';
+  static const String textButtonGenerarCodigo = 'textButtonGenerarCodigo';
+  static const String subtituloDatosContribuyenteNuevoTramite =
+      'subtituloDatosContribuyenteNuevoTramite';
+  static const String subtituloDatosDelTramiteNuevoTramite =
+      'subtituloDatosDelTramiteNuevoTramite';
+  static const String subtituloDatosDelVehiculoNuevoTramite =
+      'subtituloDatosDelVehiculoNuevoTramite';
+  static const String subtituloDetalleDePagoNuevoTramite =
+      'subtituloDetalleDePagoNuevoTramite';
+  static const String subtituloDocumentosNuevoTramite =
+      'subtituloDocumentosNuevoTramite';
+  static const String textInstruccionDatosObligatorios =
+      'textInstruccionDatosObligatorios';
+  static const String textRadioAplica = 'textRadioAplica';
+  static const String textRadionoAplica = 'textRadionoAplica';
+  static const String textButtonCancelar = 'textButtonCancelar';
+  static const String textRadioEntregado = 'textRadioEntregado';
+  static const String lavelPlacaActualNuevoTramite =
+      'lavelPlacaActualNuevoTramite';
+  static const String lavelDesechoDePlacaNuevoTramite =
+      'lavelDesechoDePlacaNuevoTramite';
+  static const String lavelDesechoDeTarjetaDeCirculacionNuevoTramite =
+      'lavelDesechoDeTarjetaDeCirculacionNuevoTramite';
+  static const String lavelTerminacionDePlacaNuevoTramite =
+      'lavelTerminacionDePlacaNuevoTramite';
+  static const String lavelEntidadDeLaPlacaActualNuevoTramite =
+      'lavelEntidadDeLaPlacaActualNuevoTramite';
+  static const String lavelDesechoDePlacaNuevaNuevoTramite =
+      'lavelDesechoDePlacaNuevaNuevoTramite';
+  static const String lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite =
+      'lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite';
+  static const String lavelOpcionUnoNuevoTramite = 'lavelOpcionUnoNuevoTramite';
+  static const String lavelOpcionDosNuevoTramite = 'lavelOpcionDosNuevoTramite';
+  static const String lavelSubtotalNuevoTramite = 'lavelSubtotalNuevoTramite';
+  static const String lavelExtrasNuevoTramite = 'lavelExtrasNuevoTramite';
+  static const String lavelDescuentoNuevoTramite = 'lavelDescuentoNuevoTramite';
+  static const String lavelTotalNuevoTramite = 'lavelTotalNuevoTramite';
+  static const String lavelACuentaNuevoTramite = 'lavelACuentaNuevoTramite';
+  static const String subtituloDocumentosTramite = 'subtituloDocumentosTramite';
+  static const String textRadioPendiente = 'textRadioPendiente';
 
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
@@ -119,5 +188,53 @@ mixin AppLocale {
         "Trámites Cancelados de la semana",
     botonVerCatalogoHomeSocio: "Ver Catalogo",
     botonIrASitioWebHomeSocio: "Ir a sitio web",
+    textTituloNuevoTramiteNuevoTramite: "Nuevo Trámite",
+    lavelSucursalNuevoTramite: "Surcursal",
+    lavelCorreoElectronicoNuevoTramite: "Correo Electronico",
+    lavelNombreNuevoTramite: "Nombre",
+    lavelApellidosNuevoTramite: "Apellidos",
+    lavelTelefonoMovilNuevoTramite: "Telefono Movil",
+    lavelTelefonoMovilAlternoNuevoTramite: "Telefono Movil Alterno",
+    lavelTipoDeTramiteNuevoTramite: "Tipo de Tramite*",
+    lavelTipoVehiculoNuevoTramite: "Tipo de Vehiculo*",
+    lavelEntidadNuevoTramite: "Entidad*",
+    lavelTipoDeServicioNuevoTramite: "Tipo de Servicio*",
+    lavelMarcaNuevoTramite: "Marca*",
+    lavelSubmarcaNuevoTramite: "Submarca",
+    lavelModeloNuevoTramite: "Modelo*",
+    lavelColorNuevoTramite: "Color*",
+    textButtonSiguiente: "Siguiente",
+    textButtonVerCatalogo: "Ver Catálogo",
+    textButtonAgregar: "Agregar",
+    textButtonQuitar: "Quitar",
+    textButtonCancelar: "Cancelar",
+    textButtonGenerarCodigo: "Generar Codigo",
+    subtituloDatosContribuyenteNuevoTramite: "Datos del contribuyente",
+    subtituloDatosDelTramiteNuevoTramite: "Datos del trámite",
+    subtituloDatosDelVehiculoNuevoTramite: "Datos del vehículo",
+    subtituloDetalleDePagoNuevoTramite: "Detalle de Pago",
+    subtituloDocumentosTramite: "Documentos",
+    subtituloDocumentosNuevoTramite: "Documentos",
+    textInstruccionDatosObligatorios: "*Datos obligatorios",
+    textRadioAplica: "Aplica",
+    textRadionoAplica: "No Aplica",
+    textRadioEntregado: "Entregado",
+    textRadioPendiente: "Pendiente",
+    lavelPlacaActualNuevoTramite: "Placa Actual*",
+    lavelDesechoDePlacaNuevoTramite: "Desecho de Placa*",
+    lavelDesechoDeTarjetaDeCirculacionNuevoTramite:
+        "Desecho de Tarjeta de Circulación*",
+    lavelTerminacionDePlacaNuevoTramite: "Terminación de Placa Nueva*",
+    lavelEntidadDeLaPlacaActualNuevoTramite: "Entidad de la Placa Actua*",
+    lavelDesechoDePlacaNuevaNuevoTramite: "Desecho",
+    lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite:
+        "Desecho tarjeta de circulación*",
+    lavelOpcionUnoNuevoTramite: "Opcion 1",
+    lavelOpcionDosNuevoTramite: "Opcion 2",
+    lavelSubtotalNuevoTramite: "Subtotal",
+    lavelExtrasNuevoTramite: "Extras",
+    lavelDescuentoNuevoTramite: "Descuento",
+    lavelTotalNuevoTramite: "Total",
+    lavelACuentaNuevoTramite: "A cuenta",
   };
 }

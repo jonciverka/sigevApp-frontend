@@ -1,40 +1,52 @@
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 
 abstract class NuevoTramiteState {
-  NuevoTramiteState({required this.barraFija});
+  static const int datosDelContribuyenteSucursal = 0;
+  static const int datosDelContribuyente = 1;
+  static const int datosDelTramite = 2;
+  static const int datosDelVehiculo = 3;
+  static const int datosDelVehiculoPlacas = 4;
+  static const int datosDelVehiculoDesechos = 5;
+  static const int datosDelVehiculoTarjetaDeCirculacion = 6;
+  static const int detallePago = 7;
+  static const int detallePagoExtras = 8;
+  static const int detallePagoSubtotal = 9;
+  static const int detallePagoSaldo = 10;
+  static const int detalleDocumentos = 11;
+  NuevoTramiteState({required this.catalogos});
 
-  final CatalogoCotizacion barraFija;
+  final CatalogoCotizacion catalogos;
   NuevoTramiteState copyWith();
 }
 
 class NuevoTramiteInitial extends NuevoTramiteState {
-  NuevoTramiteInitial() : super(barraFija: CatalogoCotizacion());
+  NuevoTramiteInitial() : super(catalogos: CatalogoCotizacion());
 
   @override
   NuevoTramiteState copyWith() => NuevoTramiteInitial();
 }
 
 class NuevoTramiteLoading extends NuevoTramiteState {
-  NuevoTramiteLoading({CatalogoCotizacion? barraFija})
-    : super(barraFija: barraFija ?? CatalogoCotizacion());
+  NuevoTramiteLoading({CatalogoCotizacion? catalogos})
+    : super(catalogos: catalogos ?? CatalogoCotizacion());
 
   @override
-  NuevoTramiteState copyWith({CatalogoCotizacion? barraFija}) =>
-      NuevoTramiteLoading(barraFija: barraFija ?? this.barraFija);
+  NuevoTramiteState copyWith({CatalogoCotizacion? catalogos}) =>
+      NuevoTramiteLoading(catalogos: catalogos ?? this.catalogos);
 }
 
 class NuevoTramiteData extends NuevoTramiteState {
-  NuevoTramiteData({required super.barraFija}) : super();
+  NuevoTramiteData({required super.catalogos}) : super();
 
   @override
-  NuevoTramiteState copyWith({CatalogoCotizacion? barraFija}) =>
-      NuevoTramiteData(barraFija: barraFija ?? this.barraFija);
+  NuevoTramiteState copyWith({CatalogoCotizacion? catalogos}) =>
+      NuevoTramiteData(catalogos: catalogos ?? this.catalogos);
 }
 
 class NuevoTramiteError extends NuevoTramiteState {
-  NuevoTramiteError() : super(barraFija: CatalogoCotizacion());
+  NuevoTramiteError() : super(catalogos: CatalogoCotizacion());
 
   @override
-  NuevoTramiteState copyWith({CatalogoCotizacion? barraFija}) =>
+  NuevoTramiteState copyWith({CatalogoCotizacion? catalogos}) =>
       NuevoTramiteError();
 }

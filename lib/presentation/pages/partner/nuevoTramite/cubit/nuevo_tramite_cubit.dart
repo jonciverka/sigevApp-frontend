@@ -13,6 +13,26 @@ import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final provider = CotizacionTramiteProvider();
   final BuildContext _context;
+
+  final PageController _pageController = PageController();
+  PageController get pageController => _pageController;
+
+  //Datos contribuyente
+  final correoElectronicoController = TextEditingController();
+  final nombreController = TextEditingController();
+  final apellidoController = TextEditingController();
+  final telefonoController = TextEditingController();
+  final telefonoAlternoController = TextEditingController();
+  final subMarcaController = TextEditingController();
+  final groupRadioButtonPlacaActual = "placaActual";
+  final placaActualController = TextEditingController();
+
+  final groupRadioButtonDesechoPlaca = "desechoPlaca";
+  final desechoPlacaController = TextEditingController();
+  final groupRadioButtonDesechoTarjeta = "desechoTarjetaCirculacion";
+  final groupRadioButtonDesechoTarjetaEntregado =
+      "desechoTarjetaCirculacionEntregado";
+  final groupRadioButtonTerminacionPlacaNueva = "terminacionPlacaNueva";
   NuevoTramiteCubit({required BuildContext context})
     : _context = context,
       super(NuevoTramiteInitial()) {
@@ -21,8 +41,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   Future<void> obtenerCatalogos() async {
     try {
       emit(NuevoTramiteLoading());
-      CatalogoCotizacion barraFija = await provider.getCatalogos();
-      emit(NuevoTramiteData(barraFija: barraFija));
+      CatalogoCotizacion catalogos = await provider.getCatalogos();
+      emit(NuevoTramiteData(catalogos: catalogos));
     } on ServerErrorException {
       showToastNotification(
         context: _context,
@@ -57,4 +77,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       return;
     }
   }
+
+  void cambiarPagina(int index) => _pageController.animateToPage(
+    index,
+    duration: const Duration(milliseconds: 300),
+    curve: Curves.easeInOut,
+  );
 }
