@@ -47,10 +47,13 @@ class AppFooter extends StatelessWidget {
               ),
             if (onButtonNextPressed != null)
               Expanded(
-                child: AppPrimaryButton(
-                  width: double.infinity,
-                  label: AppLocale.textButtonSiguiente.getString(context),
-                  onPressed: () => onButtonNextPressed?.call(),
+                child: Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: AppPrimaryButton(
+                    width: double.infinity,
+                    label: AppLocale.textButtonSiguiente.getString(context),
+                    onPressed: () => onButtonNextPressed?.call(),
+                  ),
                 ),
               ),
             if (onButtonGenerateCodePressed != null)

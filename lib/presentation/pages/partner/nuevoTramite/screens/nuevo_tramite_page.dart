@@ -5,6 +5,9 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramit
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_state.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_contribuyente_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_contribuyente_sucursal_page.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_detalle_pago.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_detalle_saldo_pago.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_documentos.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_tramite_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_placas_page.dart';
@@ -94,10 +97,34 @@ class NuevoTramiteBody extends StatelessWidget {
                 ),
                 DatosVehiculoPlacasPage(
                   onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                    NuevoTramiteState.datosDelVehiculoDesechos,
+                    NuevoTramiteState.detallePago,
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelVehiculo,
+                  ),
+                ),
+                DatosDetallePago(
+                  onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
+                    NuevoTramiteState.detallePagoSaldo,
+                  ),
+                  onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
+                    NuevoTramiteState.datosDelVehiculoPlacas,
+                  ),
+                  onButtonCatalogPressed: () => {},
+                ),
+                DatosDetalleSaldoPago(
+                  onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
+                    NuevoTramiteState.detalleDocumentos,
+                  ),
+                  onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
+                    NuevoTramiteState.detallePago,
+                  ),
+                ),
+                DatosDocumentos(
+                  onButtonGenerateCodePressed: () {},
+
+                  onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
+                    NuevoTramiteState.detallePagoSaldo,
                   ),
                 ),
               ],

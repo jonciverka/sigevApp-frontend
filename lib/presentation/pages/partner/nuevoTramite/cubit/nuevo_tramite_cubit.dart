@@ -33,6 +33,16 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final groupRadioButtonDesechoTarjetaEntregado =
       "desechoTarjetaCirculacionEntregado";
   final groupRadioButtonTerminacionPlacaNueva = "terminacionPlacaNueva";
+
+  final subtotalController = TextEditingController();
+  final extrasController = TextEditingController();
+  final descuentoController = TextEditingController();
+  final totalController = TextEditingController();
+  final aCuentaController = TextEditingController();
+
+  final saldoController = TextEditingController();
+  final notasController = TextEditingController();
+
   NuevoTramiteCubit({required BuildContext context})
     : _context = context,
       super(NuevoTramiteInitial()) {

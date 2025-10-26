@@ -6,13 +6,10 @@ abstract class NuevoTramiteState {
   static const int datosDelTramite = 2;
   static const int datosDelVehiculo = 3;
   static const int datosDelVehiculoPlacas = 4;
-  static const int datosDelVehiculoDesechos = 5;
-  static const int datosDelVehiculoTarjetaDeCirculacion = 6;
-  static const int detallePago = 7;
-  static const int detallePagoExtras = 8;
-  static const int detallePagoSubtotal = 9;
-  static const int detallePagoSaldo = 10;
-  static const int detalleDocumentos = 11;
+  static const int detallePago = 5;
+  // static const int detallePagoExtras = 6;
+  static const int detallePagoSaldo = 6;
+  static const int detalleDocumentos = 7;
   NuevoTramiteState({required this.catalogos});
 
   final CatalogoCotizacion catalogos;

@@ -138,6 +138,8 @@ mixin AppLocale {
   static const String lavelACuentaNuevoTramite = 'lavelACuentaNuevoTramite';
   static const String subtituloDocumentosTramite = 'subtituloDocumentosTramite';
   static const String textRadioPendiente = 'textRadioPendiente';
+  static const String lavelSaldoNuevoTramite = 'lavelSaldoNuevoTramite';
+  static const String lavelNotasNuevoTramite = 'lavelNotasNuevoTramite';
 
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
@@ -236,5 +238,7 @@ mixin AppLocale {
     lavelDescuentoNuevoTramite: "Descuento",
     lavelTotalNuevoTramite: "Total",
     lavelACuentaNuevoTramite: "A cuenta",
+    lavelSaldoNuevoTramite: "Saldo",
+    lavelNotasNuevoTramite: "Notas",
   };
 }
