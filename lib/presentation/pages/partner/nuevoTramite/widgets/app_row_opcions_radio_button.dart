@@ -41,7 +41,7 @@ class AppRowOpcionsRadioButton extends StatelessWidget {
             ),
           ],
         ),
-        child,
+        if (groupValue == '1') child,
       ],
     );
   }

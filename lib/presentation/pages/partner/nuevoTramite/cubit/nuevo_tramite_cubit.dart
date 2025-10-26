@@ -9,6 +9,8 @@ import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/domain/models/color.dart';
 import 'package:sigev/domain/models/entidad.dart';
+import 'package:sigev/domain/models/terminacion_placa.dart';
+import 'package:sigev/domain/models/tipo_desecho.dart';
 import 'package:sigev/domain/models/tipo_modelo.dart';
 import 'package:sigev/domain/models/tipo_servicio.dart';
 import 'package:sigev/domain/models/tipo_tramite.dart';
@@ -33,7 +35,6 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final apellidoController = TextEditingController();
   final telefonoController = TextEditingController();
   final telefonoAlternoController = TextEditingController();
-  final placaActualController = TextEditingController();
   //Datos tramite
   TipoTramite? tipoTramite;
   TipoVehiculo? tipoVehiculo;
@@ -45,14 +46,18 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   TipoModelo? tipoModelo;
   ColorVehiculo? color;
 
+  //Datos del vehiculo placa
   String groupRadioButtonPlacaActual = "";
   String groupRadioButtonDesechoPlaca = "";
   String groupRadioButtonDesechoTarjeta = "";
   String groupRadioButtonTerminacionPlacaNueva = "";
-
-  final desechoPlacaController = TextEditingController();
-  final groupRadioButtonDesechoTarjetaEntregado =
-      "desechoTarjetaCirculacionEntregado";
+  final placaActualController = TextEditingController();
+  Entidad? entidadPlacaActual;
+  String groupRadioButtonDesechoPlacaEntregado = "";
+  TipoDesecho? tipoDesechoPlacaEntregado;
+  String groupRadioButtonDesechoTarjetaEntregado = "";
+  TerminacionPlaca? terminacionPlacaEntregadoOpcionUno;
+  TerminacionPlaca? terminacionPlacaEntregadoOpcionDos;
 
   final subtotalController = TextEditingController();
   final extrasController = TextEditingController();
@@ -146,11 +151,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
 
   bool validateDatosContribuyenteSucursal() {
     if (idSucursal == 0) {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.camposObligatorios.getString(_context),
-        type: ToastType.error,
-      );
+      _showToastNotification();
       return false;
     }
     return true;
@@ -161,11 +162,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         nombreController.text.isEmpty ||
         apellidoController.text.isEmpty ||
         telefonoController.text.isEmpty) {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.camposObligatorios.getString(_context),
-        type: ToastType.error,
-      );
+      _showToastNotification();
       return false;
     }
     if (Utilities.isEmailValid(correoElectronicoController.text) == false) {
@@ -185,11 +182,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         tipoVehiculo == null ||
         entidad == null ||
         tipoServicio == null) {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.camposObligatorios.getString(_context),
-        type: ToastType.error,
-      );
+      _showToastNotification();
       return false;
     }
 
@@ -198,11 +191,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
 
   bool validateDatosVehiculo() {
     if (vehiculo == null || tipoModelo == null || color == null) {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.camposObligatorios.getString(_context),
-        type: ToastType.error,
-      );
+      _showToastNotification();
       return false;
     }
 
@@ -214,30 +203,73 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         groupRadioButtonDesechoPlaca == '' ||
         groupRadioButtonDesechoTarjeta == '' ||
         groupRadioButtonTerminacionPlacaNueva == '') {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.camposObligatorios.getString(_context),
-        type: ToastType.error,
-      );
+      _showToastNotification();
       return false;
+    }
+    if (groupRadioButtonPlacaActual == '1') {
+      if (placaActualController.text.isEmpty || entidadPlacaActual == null) {
+        _showToastNotification();
+        return false;
+      }
+    }
+    if (groupRadioButtonDesechoPlaca == '1') {
+      if (tipoDesechoPlacaEntregado == null ||
+          groupRadioButtonDesechoPlacaEntregado == '') {
+        _showToastNotification();
+        return false;
+      }
+    }
+    if (groupRadioButtonDesechoTarjeta == '1') {
+      if (groupRadioButtonDesechoTarjetaEntregado == '') {
+        _showToastNotification();
+        return false;
+      }
+    }
+    if (groupRadioButtonTerminacionPlacaNueva == '1') {
+      if (terminacionPlacaEntregadoOpcionUno == null ||
+          terminacionPlacaEntregadoOpcionDos == null) {
+        _showToastNotification();
+        return false;
+      }
     }
 
     return true;
   }
 
+  void _showToastNotification() {
+    showToastNotification(
+      context: _context,
+      message: AppLocale.camposObligatorios.getString(_context),
+      type: ToastType.error,
+    );
+  }
+
   void changeValueRadio(String value, String groupValue) {
     switch (groupValue) {
       case "groupRadioButtonPlacaActual":
+        placaActualController.clear();
+        entidadPlacaActual = null;
         groupRadioButtonPlacaActual = value;
         break;
       case "groupRadioButtonDesechoPlaca":
         groupRadioButtonDesechoPlaca = value;
+        tipoDesechoPlacaEntregado = null;
+        groupRadioButtonDesechoPlacaEntregado = '';
         break;
       case "groupRadioButtonDesechoTarjeta":
         groupRadioButtonDesechoTarjeta = value;
+        groupRadioButtonDesechoTarjetaEntregado = '';
         break;
       case "groupRadioButtonTerminacionPlacaNueva":
         groupRadioButtonTerminacionPlacaNueva = value;
+        terminacionPlacaEntregadoOpcionUno = null;
+        terminacionPlacaEntregadoOpcionDos = null;
+        break;
+      case "groupRadioButtonDesechoPlacaEntregado":
+        groupRadioButtonDesechoPlacaEntregado = value;
+        break;
+      case "groupRadioButtonDesechoTarjetaEntregado":
+        groupRadioButtonDesechoTarjetaEntregado = value;
         break;
     }
     groupValue = value;

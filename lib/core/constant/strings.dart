@@ -232,7 +232,7 @@ mixin AppLocale {
     lavelDesechoDeTarjetaDeCirculacionNuevoTramite:
         "Desecho de Tarjeta de Circulación *",
     lavelTerminacionDePlacaNuevoTramite: "Terminación de Placa Nueva *",
-    lavelEntidadDeLaPlacaActualNuevoTramite: "Entidad de la Placa Actua *",
+    lavelEntidadDeLaPlacaActualNuevoTramite: "Entidad de la Placa Actual *",
     lavelDesechoDePlacaNuevaNuevoTramite: "Desecho",
     lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite:
         "Desecho tarjeta de circulación *",

@@ -6,6 +6,8 @@ import 'package:sigev/domain/models/entidad.dart';
 import 'package:sigev/domain/models/extra.dart';
 import 'package:sigev/domain/models/socio.dart';
 import 'package:sigev/domain/models/sucursal.dart';
+import 'package:sigev/domain/models/terminacion_placa.dart';
+import 'package:sigev/domain/models/tipo_desecho.dart';
 import 'package:sigev/domain/models/tipo_modelo.dart';
 import 'package:sigev/domain/models/tipo_servicio.dart';
 import 'package:sigev/domain/models/tipo_tramite.dart';
@@ -28,6 +30,8 @@ class CatalogoCotizacion {
     this.tipoVehiculo,
     this.colores,
     this.areas,
+    this.tipoDesecho,
+    this.terminacionPlaca,
   });
 
   List<TipoTramite>? tiposTramite;
@@ -41,6 +45,8 @@ class CatalogoCotizacion {
   List<TipoVehiculo>? tipoVehiculo;
   List<ColorVehiculo>? colores;
   List<Area>? areas;
+  List<TipoDesecho>? tipoDesecho;
+  List<TerminacionPlaca>? terminacionPlaca;
 
   factory CatalogoCotizacion.fromJson(Map<String, dynamic> json) {
     return CatalogoCotizacion(
@@ -55,6 +61,10 @@ class CatalogoCotizacion {
       tipoVehiculo: tipoVehiculosFromJsonList(json["catTipovehiculo"]),
       colores: colorsFromJsonList(json["catColor"]),
       areas: areasFromJsonList(json["catArea"]),
+      tipoDesecho: tipoDesechosFromJsonList(json["catTipodesecho"]),
+      terminacionPlaca: terminacionPlacasFromJsonList(
+        json["catTerminacionPlaca"],
+      ),
     );
   }
 }
