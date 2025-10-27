@@ -1,20 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/catalogo.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
+import 'package:sigev/presentation/widgets/app_inputs.dart';
 
 class CatalogoPreciosPage extends StatelessWidget {
-  const CatalogoPreciosPage({super.key, required this.catalogoPrecios});
-  final List<Catalogo> catalogoPrecios;
+  const CatalogoPreciosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: catalogoPrecios
-          .map((e) => AppCardCatalogo(catalogo: e))
-          .toList()
-          .sublist(4),
+    var menuCubit = context.watch<MenuCubit>();
+    return Expanded(
+      child: Column(
+        children: [
+          SearchBar(
+            onSearch: () => menuCubit.searchCatalogoPrecio(),
+            searchController: menuCubit.searchController,
+            onClear: () => menuCubit.clearSearch(),
+            haveText: menuCubit.searchController.text.isNotEmpty,
+          ),
+          SizedBox(height: context.spacing16),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: menuCubit.state.catalogoPrecios
+                    .map((e) => AppCardCatalogo(catalogo: e))
+                    .take(menuCubit.searchController.text.isEmpty ? 10 : 1000)
+                    .toList(),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -28,11 +49,15 @@ class AppCardCatalogo extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: context.spacing16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            "${AppLocale.textoUltimaActualizacion.getString(context)} ${catalogo.actualizacion ?? ''}",
+            "${AppLocale.textoUltimaActualizacion.getString(context)} : ${catalogo.actualizacion ?? ''}",
             style: context.bodyBoldTextStyle,
           ),
+          SizedBox(height: context.spacing8),
           RowCatalogo(
             title: AppLocale.textValorEntidadCatalogoPrecios.getString(context),
             valor: catalogo.entidad ?? '',
@@ -199,6 +224,37 @@ class RowCatalogoTipos extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+    required this.onSearch,
+    required this.searchController,
+    required this.onClear,
+    required this.haveText,
+  });
+  final TextEditingController searchController;
+  final Function onSearch;
+  final Function onClear;
+  final bool haveText;
+  @override
+  Widget build(BuildContext context) {
+    return AppTextFormField(
+      controller: searchController,
+      hintText: AppLocale.inputLoginPasswordLogin.getString(context),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return AppLocale.campoObligatorio.getString(context);
+        }
+        return null;
+      },
+      onSubmitted: (_) => onSearch(),
+      onChanged: (_) => onSearch(),
+      suffixIcon: haveText ? AppIcons.clean : AppIcons.search,
+      onIconButtonPressed: haveText ? () => onClear() : null,
     );
   }
 }

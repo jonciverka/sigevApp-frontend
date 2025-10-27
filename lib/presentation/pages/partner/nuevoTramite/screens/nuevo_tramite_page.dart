@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_state.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/catalogo_precios_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_contribuyente_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_contribuyente_sucursal_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_detalle_pago.dart';
@@ -117,10 +119,13 @@ class NuevoTramiteBody extends StatelessWidget {
                     NuevoTramiteState.datosDelVehiculoPlacas,
                   ),
                   onButtonCatalogPressed: () => showAppBottomSheet(
-                    child: SizedBox.shrink(),
                     context: context,
                     title: AppLocale.textTituloCatalogoPrecios.getString(
                       context,
+                    ),
+                    child: BlocProvider.value(
+                      value: context.read<MenuCubit>(),
+                      child: CatalogoPreciosPage(),
                     ),
                   ),
                 ),

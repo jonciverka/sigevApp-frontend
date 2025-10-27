@@ -13,6 +13,8 @@ import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 class MenuCubit extends Cubit<MenuState> {
   final BuildContext context;
   final provider = CotizacionTramiteProvider();
+  final searchController = TextEditingController();
+  List<Catalogo> catalogos = [];
   MenuCubit({required this.context})
     : super(MenuData(index: MenuState.homePageIndex, catalogoPrecios: [])) {
     obtenerCatalogos();
@@ -21,7 +23,7 @@ class MenuCubit extends Cubit<MenuState> {
   Future<void> obtenerCatalogos() async {
     try {
       emit(MenuLoading());
-      List<Catalogo> catalogos = await provider.apiGetCatalogo();
+      catalogos = await provider.apiGetCatalogo();
       emit(MenuData(catalogoPrecios: catalogos, index: state.index));
     } on ServerErrorException {
       if (context.mounted) {
@@ -68,5 +70,32 @@ class MenuCubit extends Cubit<MenuState> {
 
   void changeIndex({required int index}) {
     emit(MenuData(index: index, catalogoPrecios: state.catalogoPrecios));
+  }
+
+  void searchCatalogoPrecio() {
+    String text = searchController.text;
+    if (text.isEmpty) {
+      emit(MenuData(index: state.index, catalogoPrecios: catalogos));
+    }
+    List<Catalogo> catalogosFound = catalogos
+        .where(
+          (element) =>
+              (element.entidad ?? '').toLowerCase().contains(
+                text.toLowerCase(),
+              ) ||
+              (element.tramiteAlias ?? '').toLowerCase().contains(
+                text.toLowerCase(),
+              ) ||
+              (element.tipoVehiculo ?? '').toLowerCase().contains(
+                text.toLowerCase(),
+              ),
+        )
+        .toList();
+    emit(MenuData(index: state.index, catalogoPrecios: catalogosFound));
+  }
+
+  void clearSearch() {
+    searchController.clear();
+    emit(MenuData(index: state.index, catalogoPrecios: catalogos));
   }
 }

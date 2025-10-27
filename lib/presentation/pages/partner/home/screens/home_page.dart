@@ -52,6 +52,7 @@ class HomePageBody extends StatelessWidget {
   const HomePageBody({super.key});
   @override
   Widget build(BuildContext context) {
+    var menuCubit = context.read<MenuCubit>();
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: context.spacing16,
@@ -76,15 +77,13 @@ class HomePageBody extends StatelessWidget {
                 child: AppPrimaryButton(
                   label: AppLocale.botonVerCatalogoHomeSocio.getString(context),
                   onPressed: () => showAppBottomSheet(
-                    child: CatalogoPreciosPage(
-                      catalogoPrecios: context
-                          .read<MenuCubit>()
-                          .state
-                          .catalogoPrecios,
-                    ),
                     context: context,
                     title: AppLocale.textTituloCatalogoPrecios.getString(
                       context,
+                    ),
+                    child: BlocProvider.value(
+                      value: menuCubit,
+                      child: CatalogoPreciosPage(),
                     ),
                   ),
                 ),

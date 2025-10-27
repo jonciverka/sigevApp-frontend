@@ -26,6 +26,7 @@ class AppIcons {
 
   // Navigation Icons
   static const IconData search = Icons.search;
+  static const IconData clean = Icons.cleaning_services_outlined;
   static const IconData arrowBack = Icons.arrow_back;
   static const IconData arrowDownward = Icons.arrow_downward;
   static const IconData arrowForward = Icons.arrow_forward;

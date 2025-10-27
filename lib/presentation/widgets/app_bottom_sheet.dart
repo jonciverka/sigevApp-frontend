@@ -11,7 +11,7 @@ Future<T?> showAppBottomSheet<T extends Object?>({
   context: context,
   isScrollControlled: true,
   useSafeArea: true,
-  isDismissible: false,
+  isDismissible: true,
   useRootNavigator: true,
   builder: (context) {
     return FractionallySizedBox(
