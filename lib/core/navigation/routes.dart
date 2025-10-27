@@ -7,6 +7,7 @@ import 'package:sigev/presentation/pages/partner/menu/screens/menu_page.dart'
 import 'package:sigev/presentation/pages/login/screens/login_page.dart';
 import 'package:sigev/presentation/splash_page.dart';
 import 'package:sigev/presentation/test_page.dart';
+//git add .
 
 final GoRouter router = GoRouter(
   debugLogDiagnostics: true,
