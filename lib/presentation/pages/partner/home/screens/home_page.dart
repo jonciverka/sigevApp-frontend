@@ -7,6 +7,9 @@ import 'package:sigev/presentation/pages/partner/home/cubit/home_cubit.dart';
 import 'package:sigev/presentation/pages/partner/home/cubit/home_state.dart';
 import 'package:sigev/presentation/pages/partner/home/widgets/app_facturacion.dart';
 import 'package:sigev/presentation/pages/partner/home/widgets/app_tramites.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/catalogo_precios_page.dart';
+import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
 import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
@@ -72,7 +75,18 @@ class HomePageBody extends StatelessWidget {
               Expanded(
                 child: AppPrimaryButton(
                   label: AppLocale.botonVerCatalogoHomeSocio.getString(context),
-                  onPressed: () {},
+                  onPressed: () => showAppBottomSheet(
+                    child: CatalogoPreciosPage(
+                      catalogoPrecios: context
+                          .read<MenuCubit>()
+                          .state
+                          .catalogoPrecios,
+                    ),
+                    context: context,
+                    title: AppLocale.textTituloCatalogoPrecios.getString(
+                      context,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(width: context.spacing12),

@@ -42,7 +42,7 @@ class AppFooter extends StatelessWidget {
                 child: AppPrimaryButton(
                   width: double.infinity,
                   label: AppLocale.botonVerCatalogoHomeSocio.getString(context),
-                  onPressed: () => onButtonNextPressed?.call(),
+                  onPressed: () => onButtonCatalogPressed?.call(),
                 ),
               ),
             if (onButtonNextPressed != null)
@@ -61,7 +61,7 @@ class AppFooter extends StatelessWidget {
                 child: AppPrimaryButton(
                   width: double.infinity,
                   label: AppLocale.textButtonGenerarCodigo.getString(context),
-                  onPressed: () => onButtonNextPressed?.call(),
+                  onPressed: () => onButtonGenerateCodePressed?.call(),
                 ),
               ),
           ],

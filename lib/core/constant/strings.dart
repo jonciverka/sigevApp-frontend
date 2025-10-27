@@ -142,6 +142,18 @@ mixin AppLocale {
   static const String textRadioPendiente = 'textRadioPendiente';
   static const String lavelSaldoNuevoTramite = 'lavelSaldoNuevoTramite';
   static const String lavelNotasNuevoTramite = 'lavelNotasNuevoTramite';
+  //Catalogo precios
+  static const String textTituloCatalogoPrecios = 'textTituloCatalogoPrecios';
+  static const String textValorEntidadCatalogoPrecios =
+      'textValorEntidadCatalogoPrecios';
+  static const String textValorTramitePrecios = 'textValorTramitePrecios';
+  static const String textValorVehiculoPrecios = 'textValorVehiculoPrecios';
+  static const String textValorEntregaPrecios = 'textValorEntregaPrecios';
+  static const String textValorNotasPrecios = 'textValorNotasPrecios';
+  static const String textValorCLPrecios = 'textValorCLPrecios';
+  static const String textValorVIPPrecios = 'textValorVIPPrecios';
+  static const String textValorXPPrecios = 'textValorXPPrecios';
+  static const String textoUltimaActualizacion = 'textoUltimaActualizacion';
 
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
@@ -238,12 +250,22 @@ mixin AppLocale {
         "Desecho tarjeta de circulación *",
     lavelOpcionUnoNuevoTramite: "Opcion 1",
     lavelOpcionDosNuevoTramite: "Opcion 2",
-    lavelSubtotalNuevoTramite: "Subtotal",
+    lavelSubtotalNuevoTramite: "Subtotal *",
     lavelExtrasNuevoTramite: "Extras",
     lavelDescuentoNuevoTramite: "Descuento",
     lavelTotalNuevoTramite: "Total",
-    lavelACuentaNuevoTramite: "A cuenta",
+    lavelACuentaNuevoTramite: "A cuenta *",
     lavelSaldoNuevoTramite: "Saldo",
     lavelNotasNuevoTramite: "Notas",
+    textTituloCatalogoPrecios: "Catálogo de precios",
+    textValorEntidadCatalogoPrecios: "Entidad",
+    textValorTramitePrecios: "Trámite",
+    textValorVehiculoPrecios: "Vehículo",
+    textValorEntregaPrecios: "Entrega",
+    textValorNotasPrecios: "Notas",
+    textValorCLPrecios: "CL",
+    textValorVIPPrecios: "VIP",
+    textValorXPPrecios: "XP",
+    textoUltimaActualizacion: "Ult. act",
   };
 }

@@ -140,6 +140,11 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
           return;
         }
         break;
+      case 5:
+        if (!validateDetalleDePago()) {
+          return;
+        }
+        break;
     }
     await _pageController.animateToPage(
       index,
@@ -231,6 +236,15 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         _showToastNotification();
         return false;
       }
+    }
+
+    return true;
+  }
+
+  bool validateDetalleDePago() {
+    if (subtotalController.text.isEmpty || aCuentaController.text.isEmpty) {
+      _showToastNotification();
+      return false;
     }
 
     return true;

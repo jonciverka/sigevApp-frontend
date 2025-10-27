@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
+import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_state.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_contribuyente_page.dart';
@@ -12,6 +14,7 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_tram
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_placas_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_progress_bar.dart';
+import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
@@ -113,7 +116,13 @@ class NuevoTramiteBody extends StatelessWidget {
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelVehiculoPlacas,
                   ),
-                  onButtonCatalogPressed: () => {},
+                  onButtonCatalogPressed: () => showAppBottomSheet(
+                    child: SizedBox.shrink(),
+                    context: context,
+                    title: AppLocale.textTituloCatalogoPrecios.getString(
+                      context,
+                    ),
+                  ),
                 ),
                 DatosDetalleSaldoPago(
                   onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(

@@ -1,15 +1,72 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_buildcontext_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
+import 'package:sigev/config/errors/exceptions.dart';
+import 'package:sigev/core/constant/strings.dart';
+import 'package:sigev/domain/models/catalogo.dart';
+import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_state.dart';
+import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 
 class MenuCubit extends Cubit<MenuState> {
   final BuildContext context;
+  final provider = CotizacionTramiteProvider();
   MenuCubit({required this.context})
-    : super(MenuData(index: MenuState.homePageIndex));
+    : super(MenuData(index: MenuState.homePageIndex, catalogoPrecios: [])) {
+    obtenerCatalogos();
+  }
+
+  Future<void> obtenerCatalogos() async {
+    try {
+      emit(MenuLoading());
+      List<Catalogo> catalogos = await provider.apiGetCatalogo();
+      emit(MenuData(catalogoPrecios: catalogos, index: state.index));
+    } on ServerErrorException {
+      if (context.mounted) {
+        showToastNotification(
+          context: context,
+          message: AppLocale.error.getString(context),
+          type: ToastType.error,
+        );
+      }
+      emit(MenuLoading());
+      return;
+    } on NetworkException {
+      if (context.mounted) {
+        showToastNotification(
+          context: context,
+          message: AppLocale.avisoSinInternet.getString(context),
+          type: ToastType.error,
+        );
+      }
+      emit(MenuLoading());
+      return;
+    } on ApiClientException catch (e) {
+      if (context.mounted) {
+        showToastNotification(
+          context: context,
+          message: e.message,
+          type: ToastType.error,
+        );
+      }
+      emit(MenuLoading());
+      return;
+    } catch (e) {
+      if (context.mounted) {
+        showToastNotification(
+          context: context,
+          message: AppLocale.error.getString(context),
+          type: ToastType.error,
+        );
+      }
+      emit(MenuLoading());
+      return;
+    }
+  }
 
   void changeIndex({required int index}) {
-    emit(MenuData(index: index));
+    emit(MenuData(index: index, catalogoPrecios: state.catalogoPrecios));
   }
 }
