@@ -59,7 +59,15 @@ class TramitesPageBody extends StatelessWidget {
             style: context.headingLargeTextStyle,
           ),
           SizedBox(height: context.spacing16),
-          AppSearchBar(),
+          AppSearchBar(
+            items: homeCubit.state.tramites,
+            onSearch: (value) => homeCubit.getTramitesBuscados(busqueda: value),
+            searchPredicate: (item, query) {
+              return (item.clave ?? '').toString().toLowerCase().contains(
+                query.toLowerCase(),
+              );
+            },
+          ),
           SizedBox(height: context.spacing16),
           AppTramites(tramites: homeCubit.state.tramitesBuscados),
         ],

@@ -54,7 +54,12 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           onSelectItem: (value) => nuevoTramiteCubit.entidadPlacaActual =
               catalogos.entidad?.firstWhere((e) => e.entidadNombre == value),
           labelBuilder: (item) => item,
-          validator: (_) => null,
+          validator: (p0) {
+            if (p0?.isEmpty ?? true) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
         ),
         SizedBox(height: context.spacing20),
       ],
@@ -78,7 +83,12 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           onSelectItem: (value) => nuevoTramiteCubit.tipoDesechoPlacaEntregado =
               catalogos.tipoDesecho?.firstWhere((e) => e.nombre == value),
           labelBuilder: (item) => item,
-          validator: (_) => null,
+          validator: (p0) {
+            if (p0?.isEmpty ?? true) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
         ),
         SizedBox(height: context.spacing12),
         Row(
@@ -167,7 +177,12 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
                   .terminacionPlaca
                   ?.firstWhere((e) => e.nombre == value),
           labelBuilder: (item) => item,
-          validator: (_) => null,
+          validator: (p0) {
+            if (p0?.isEmpty ?? true) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
         ),
         SizedBox(height: context.spacing12),
         AppDropDown<String>(
@@ -180,7 +195,12 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
                   .terminacionPlaca
                   ?.firstWhere((e) => e.nombre == value),
           labelBuilder: (item) => item,
-          validator: (_) => null,
+          validator: (p0) {
+            if (p0?.isEmpty ?? true) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
         ),
         SizedBox(height: context.spacing20),
       ],
@@ -191,79 +211,95 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
     var catalogos = nuevoTramiteCubit.state.catalogos;
-    return Column(
-      children: [
-        Text(
-          AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
-          style: context.headingLargeTextStyle,
-        ),
-        SizedBox(height: context.spacing20),
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonPlacaActual,
-          label: AppLocale.lavelPlacaActualNuevoTramite.getString(context),
-          child: columnPlacaActual(
-            nuevoTramiteCubit: nuevoTramiteCubit,
-            catalogos: catalogos,
-            context: context,
+    return Form(
+      key: nuevoTramiteCubit.formularioStateVehiculoPlaca,
+      child: Column(
+        children: [
+          Text(
+            AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
+            style: context.headingLargeTextStyle,
           ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonPlacaActual",
+          SizedBox(height: context.spacing20),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AppRowOpcionsRadioButton(
+                    groupValue: nuevoTramiteCubit.groupRadioButtonPlacaActual,
+                    label: AppLocale.lavelPlacaActualNuevoTramite.getString(
+                      context,
+                    ),
+                    child: columnPlacaActual(
+                      nuevoTramiteCubit: nuevoTramiteCubit,
+                      catalogos: catalogos,
+                      context: context,
+                    ),
+                    onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+                      value ?? '',
+                      "groupRadioButtonPlacaActual",
+                    ),
+                  ),
+                  SizedBox(height: context.spacing12),
+                  AppRowOpcionsRadioButton(
+                    groupValue: nuevoTramiteCubit.groupRadioButtonDesechoPlaca,
+                    label: AppLocale.lavelDesechoDePlacaNuevoTramite.getString(
+                      context,
+                    ),
+                    child: columnDesechoPlaca(
+                      nuevoTramiteCubit: nuevoTramiteCubit,
+                      catalogos: catalogos,
+                      context: context,
+                    ),
+                    onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+                      value ?? '',
+                      "groupRadioButtonDesechoPlaca",
+                    ),
+                  ),
+                  SizedBox(height: context.spacing12),
+                  AppRowOpcionsRadioButton(
+                    groupValue:
+                        nuevoTramiteCubit.groupRadioButtonDesechoTarjeta,
+                    label: AppLocale
+                        .lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite
+                        .getString(context),
+                    child: columnDesechoTarjetaCirulacion(
+                      nuevoTramiteCubit: nuevoTramiteCubit,
+                      catalogos: catalogos,
+                      context: context,
+                    ),
+                    onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+                      value ?? '',
+                      "groupRadioButtonDesechoTarjeta",
+                    ),
+                  ),
+                  SizedBox(height: context.spacing12),
+                  AppRowOpcionsRadioButton(
+                    groupValue:
+                        nuevoTramiteCubit.groupRadioButtonTerminacionPlacaNueva,
+                    label: AppLocale.lavelTerminacionDePlacaNuevoTramite
+                        .getString(context),
+                    child: columnTerminacionPlacaNueva(
+                      nuevoTramiteCubit: nuevoTramiteCubit,
+                      catalogos: catalogos,
+                      context: context,
+                    ),
+                    onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
+                      value ?? '',
+                      "groupRadioButtonTerminacionPlacaNueva",
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        SizedBox(height: context.spacing12),
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonDesechoPlaca,
-          label: AppLocale.lavelDesechoDePlacaNuevoTramite.getString(context),
-          child: columnDesechoPlaca(
-            nuevoTramiteCubit: nuevoTramiteCubit,
-            catalogos: catalogos,
-            context: context,
+          AppFooter(
+            onButtonBackPressed: onButtonBackPressed,
+            onButtonCatalogPressed: onButtonCatalogPressed,
+            onButtonGenerateCodePressed: onButtonGenerateCodePressed,
+            onButtonNextPressed: onButtonNextPressed,
           ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonDesechoPlaca",
-          ),
-        ),
-        SizedBox(height: context.spacing12),
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonDesechoTarjeta,
-          label: AppLocale.lavelDesechoDeTarjetaDeCirculacionNuevaNuevoTramite
-              .getString(context),
-          child: columnDesechoTarjetaCirulacion(
-            nuevoTramiteCubit: nuevoTramiteCubit,
-            catalogos: catalogos,
-            context: context,
-          ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonDesechoTarjeta",
-          ),
-        ),
-        SizedBox(height: context.spacing12),
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonTerminacionPlacaNueva,
-          label: AppLocale.lavelTerminacionDePlacaNuevoTramite.getString(
-            context,
-          ),
-          child: columnTerminacionPlacaNueva(
-            nuevoTramiteCubit: nuevoTramiteCubit,
-            catalogos: catalogos,
-            context: context,
-          ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonTerminacionPlacaNueva",
-          ),
-        ),
-        Spacer(),
-        AppFooter(
-          onButtonBackPressed: onButtonBackPressed,
-          onButtonCatalogPressed: onButtonCatalogPressed,
-          onButtonGenerateCodePressed: onButtonGenerateCodePressed,
-          onButtonNextPressed: onButtonNextPressed,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

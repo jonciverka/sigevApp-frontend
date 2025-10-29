@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
-import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/catalogo.dart';
+import 'package:sigev/presentation/pages/client/tramites/widgets/app_search_bar.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
-import 'package:sigev/presentation/widgets/app_inputs.dart';
 
 class CatalogoPreciosPage extends StatelessWidget {
   const CatalogoPreciosPage({super.key});
@@ -17,19 +16,29 @@ class CatalogoPreciosPage extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          SearchBar(
-            onSearch: () => menuCubit.searchCatalogoPrecio(),
-            searchController: menuCubit.searchController,
-            onClear: () => menuCubit.clearSearch(),
-            haveText: menuCubit.searchController.text.isNotEmpty,
+          SizedBox(height: context.spacing8),
+          AppSearchBar(
+            items: menuCubit.catalogos,
+            onSearch: (value) =>
+                menuCubit.searchCatalogoPrecio(busqueda: value),
+            searchPredicate: (item, query) {
+              return (item.entidad ?? '').toLowerCase().contains(
+                    query.toLowerCase(),
+                  ) ||
+                  (item.tramiteAlias ?? '').toLowerCase().contains(
+                    query.toLowerCase(),
+                  ) ||
+                  (item.tipoVehiculo ?? '').toLowerCase().contains(
+                    query.toLowerCase(),
+                  );
+            },
           ),
-          SizedBox(height: context.spacing16),
+          SizedBox(height: context.spacing24),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: menuCubit.state.catalogoPrecios
                     .map((e) => AppCardCatalogo(catalogo: e))
-                    .take(menuCubit.searchController.text.isEmpty ? 10 : 1000)
                     .toList(),
               ),
             ),
@@ -224,37 +233,6 @@ class RowCatalogoTipos extends StatelessWidget {
           ],
         ),
       ],
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({
-    super.key,
-    required this.onSearch,
-    required this.searchController,
-    required this.onClear,
-    required this.haveText,
-  });
-  final TextEditingController searchController;
-  final Function onSearch;
-  final Function onClear;
-  final bool haveText;
-  @override
-  Widget build(BuildContext context) {
-    return AppTextFormField(
-      controller: searchController,
-      hintText: AppLocale.inputLoginPasswordLogin.getString(context),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocale.campoObligatorio.getString(context);
-        }
-        return null;
-      },
-      onSubmitted: (_) => onSearch(),
-      onChanged: (_) => onSearch(),
-      suffixIcon: haveText ? AppIcons.clean : AppIcons.search,
-      onIconButtonPressed: haveText ? () => onClear() : null,
     );
   }
 }

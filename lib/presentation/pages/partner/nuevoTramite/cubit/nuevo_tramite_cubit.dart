@@ -9,6 +9,7 @@ import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/domain/models/color.dart';
 import 'package:sigev/domain/models/entidad.dart';
+import 'package:sigev/domain/models/sucursal.dart';
 import 'package:sigev/domain/models/terminacion_placa.dart';
 import 'package:sigev/domain/models/tipo_desecho.dart';
 import 'package:sigev/domain/models/tipo_modelo.dart';
@@ -29,36 +30,44 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   double get page => _pageController.hasClients ? _pageController.page ?? 0 : 0;
 
   //Datos contribuyente
-  int idSucursal = 0;
+  GlobalKey<FormState> formularioStateContribuyente = GlobalKey<FormState>();
+  GlobalKey<FormState> formularioStateDatosContribuyente =
+      GlobalKey<FormState>();
+  Sucursal? sucursal;
   final correoElectronicoController = TextEditingController();
   final nombreController = TextEditingController();
   final apellidoController = TextEditingController();
   final telefonoController = TextEditingController();
   final telefonoAlternoController = TextEditingController();
   //Datos tramite
+  GlobalKey<FormState> formularioStateDatosTramite = GlobalKey<FormState>();
   TipoTramite? tipoTramite;
   TipoVehiculo? tipoVehiculo;
   Entidad? entidad;
   TipoServicio? tipoServicio;
   //Datos del vehiculo
+  GlobalKey<FormState> formularioStateVehiculo = GlobalKey<FormState>();
   Vehiculo? vehiculo;
   final subMarcaController = TextEditingController();
   TipoModelo? tipoModelo;
   ColorVehiculo? color;
 
   //Datos del vehiculo placa
-  String groupRadioButtonPlacaActual = "";
-  String groupRadioButtonDesechoPlaca = "";
-  String groupRadioButtonDesechoTarjeta = "";
-  String groupRadioButtonTerminacionPlacaNueva = "";
+  GlobalKey<FormState> formularioStateVehiculoPlaca = GlobalKey<FormState>();
+  String groupRadioButtonPlacaActual = "2";
+  String groupRadioButtonDesechoPlaca = "2";
+  String groupRadioButtonDesechoTarjeta = "2";
+  String groupRadioButtonTerminacionPlacaNueva = "2";
   final placaActualController = TextEditingController();
   Entidad? entidadPlacaActual;
-  String groupRadioButtonDesechoPlacaEntregado = "";
+  String groupRadioButtonDesechoPlacaEntregado = "1";
   TipoDesecho? tipoDesechoPlacaEntregado;
-  String groupRadioButtonDesechoTarjetaEntregado = "";
+  String groupRadioButtonDesechoTarjetaEntregado = "1";
   TerminacionPlaca? terminacionPlacaEntregadoOpcionUno;
   TerminacionPlaca? terminacionPlacaEntregadoOpcionDos;
 
+  //Detalles de pago
+  GlobalKey<FormState> formularioStateDetalleDePago = GlobalKey<FormState>();
   final subtotalController = TextEditingController();
   final extrasController = TextEditingController();
   final descuentoController = TextEditingController();
@@ -155,7 +164,11 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   bool validateDatosContribuyenteSucursal() {
-    if (idSucursal == 0) {
+    if (!formularioStateContribuyente.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
+    if (sucursal == null) {
       _showToastNotification();
       return false;
     }
@@ -163,6 +176,11 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   bool validateDatosContribuyente() {
+    if (!formularioStateDatosContribuyente.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
+    ;
     if (correoElectronicoController.text.isEmpty ||
         nombreController.text.isEmpty ||
         apellidoController.text.isEmpty ||
@@ -183,6 +201,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   bool validateDatosTramite() {
+    if (!formularioStateDatosTramite.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
     if (tipoTramite == null ||
         tipoVehiculo == null ||
         entidad == null ||
@@ -195,6 +217,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   bool validateDatosVehiculo() {
+    if (!formularioStateVehiculo.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
     if (vehiculo == null || tipoModelo == null || color == null) {
       _showToastNotification();
       return false;
@@ -204,6 +230,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   bool validateDatosVehiculoPlacas() {
+    if (!formularioStateVehiculoPlaca.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
     if (groupRadioButtonPlacaActual == '' ||
         groupRadioButtonDesechoPlaca == '' ||
         groupRadioButtonDesechoTarjeta == '' ||
@@ -242,6 +272,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   bool validateDetalleDePago() {
+    if (!formularioStateDetalleDePago.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
     if (subtotalController.text.isEmpty || aCuentaController.text.isEmpty) {
       _showToastNotification();
       return false;

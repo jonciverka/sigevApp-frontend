@@ -13,7 +13,6 @@ import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 class MenuCubit extends Cubit<MenuState> {
   final BuildContext context;
   final provider = CotizacionTramiteProvider();
-  final searchController = TextEditingController();
   List<Catalogo> catalogos = [];
   MenuCubit({required this.context})
     : super(MenuData(index: MenuState.homePageIndex, catalogoPrecios: [])) {
@@ -72,30 +71,7 @@ class MenuCubit extends Cubit<MenuState> {
     emit(MenuData(index: index, catalogoPrecios: state.catalogoPrecios));
   }
 
-  void searchCatalogoPrecio() {
-    String text = searchController.text;
-    if (text.isEmpty) {
-      emit(MenuData(index: state.index, catalogoPrecios: catalogos));
-    }
-    List<Catalogo> catalogosFound = catalogos
-        .where(
-          (element) =>
-              (element.entidad ?? '').toLowerCase().contains(
-                text.toLowerCase(),
-              ) ||
-              (element.tramiteAlias ?? '').toLowerCase().contains(
-                text.toLowerCase(),
-              ) ||
-              (element.tipoVehiculo ?? '').toLowerCase().contains(
-                text.toLowerCase(),
-              ),
-        )
-        .toList();
-    emit(MenuData(index: state.index, catalogoPrecios: catalogosFound));
-  }
-
-  void clearSearch() {
-    searchController.clear();
-    emit(MenuData(index: state.index, catalogoPrecios: catalogos));
+  void searchCatalogoPrecio({required List<Catalogo> busqueda}) {
+    emit(MenuData(index: state.index, catalogoPrecios: busqueda));
   }
 }

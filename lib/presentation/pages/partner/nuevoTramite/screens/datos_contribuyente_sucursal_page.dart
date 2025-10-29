@@ -23,40 +23,47 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
-    return Column(
-      children: [
-        Text(
-          AppLocale.subtituloDatosContribuyenteNuevoTramite.getString(context),
-          style: context.headingLargeTextStyle,
-        ),
-        SizedBox(height: context.spacing20),
-        AppDropDown<String>(
-          hint: AppLocale.lavelSucursalNuevoTramite.getString(context),
-          items:
-              nuevoTramiteCubit.state.catalogos.sucursal
-                  ?.map((e) => e.nombre ?? '')
-                  .toList() ??
-              [],
-          onSelectItem: (value) => nuevoTramiteCubit.idSucursal =
-              nuevoTramiteCubit.state.catalogos.sucursal
-                  ?.firstWhere((e) => e.nombre == value)
-                  .id ??
-              0,
-          labelBuilder: (item) {
-            return item;
-          },
-          validator: (p0) {
-            return null;
-          },
-        ),
-        Spacer(),
-        AppFooter(
-          onButtonBackPressed: onButtonBackPressed,
-          onButtonCatalogPressed: onButtonCatalogPressed,
-          onButtonGenerateCodePressed: onButtonGenerateCodePressed,
-          onButtonNextPressed: onButtonNextPressed,
-        ),
-      ],
+    return Form(
+      key: nuevoTramiteCubit.formularioStateContribuyente,
+      child: Column(
+        children: [
+          Text(
+            AppLocale.subtituloDatosContribuyenteNuevoTramite.getString(
+              context,
+            ),
+            style: context.headingLargeTextStyle,
+          ),
+          SizedBox(height: context.spacing20),
+          AppDropDown<String>(
+            hint: AppLocale.lavelSucursalNuevoTramite.getString(context),
+            items:
+                nuevoTramiteCubit.state.catalogos.sucursal
+                    ?.map((e) => e.nombre ?? '')
+                    .toList() ??
+                [],
+            onSelectItem: (value) =>
+                nuevoTramiteCubit.sucursal = nuevoTramiteCubit
+                    .state
+                    .catalogos
+                    .sucursal
+                    ?.firstWhere((e) => e.nombre == value),
+            labelBuilder: (item) => item,
+            validator: (p0) {
+              if (p0?.isEmpty ?? true) {
+                return AppLocale.campoObligatorio.getString(context);
+              }
+              return null;
+            },
+          ),
+          Spacer(),
+          AppFooter(
+            onButtonBackPressed: onButtonBackPressed,
+            onButtonCatalogPressed: onButtonCatalogPressed,
+            onButtonGenerateCodePressed: onButtonGenerateCodePressed,
+            onButtonNextPressed: onButtonNextPressed,
+          ),
+        ],
+      ),
     );
   }
 }

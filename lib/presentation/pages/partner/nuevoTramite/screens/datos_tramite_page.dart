@@ -24,80 +24,91 @@ class DatosTramitePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
     var catalogos = nuevoTramiteCubit.state.catalogos;
-    return Column(
-      children: [
-        Text(
-          AppLocale.subtituloDatosDelTramiteNuevoTramite.getString(context),
-          style: context.headingLargeTextStyle,
-        ),
-        SizedBox(height: context.spacing20),
-        AppDropDown<String>(
-          hint: AppLocale.lavelTipoDeTramiteNuevoTramite.getString(context),
-          items:
-              catalogos.tiposTramite?.map((e) => e.nombre ?? '').toList() ?? [],
-          onSelectItem: (value) => nuevoTramiteCubit.tipoTramite = catalogos
-              .tiposTramite
-              ?.firstWhere((e) => e.nombre == value),
-          labelBuilder: (item) {
-            return item;
-          },
-          validator: (p0) {
-            return null;
-          },
-        ),
-        SizedBox(height: context.spacing20),
-        AppDropDown<String>(
-          hint: AppLocale.lavelTipoVehiculoNuevoTramite.getString(context),
-          items:
-              catalogos.tipoVehiculo?.map((e) => e.nombre ?? '').toList() ?? [],
-          onSelectItem: (value) => nuevoTramiteCubit.tipoVehiculo = catalogos
-              .tipoVehiculo
-              ?.firstWhere((e) => e.nombre == value),
-          labelBuilder: (item) {
-            return item;
-          },
-          validator: (p0) {
-            return null;
-          },
-        ),
-        SizedBox(height: context.spacing20),
-        AppDropDown<String>(
-          hint: AppLocale.lavelEntidadNuevoTramite.getString(context),
-          items:
-              catalogos.entidad?.map((e) => e.entidadNombre ?? '').toList() ??
-              [],
-          onSelectItem: (value) => nuevoTramiteCubit.entidad = catalogos.entidad
-              ?.firstWhere((e) => e.entidadNombre == value),
-          labelBuilder: (item) {
-            return item;
-          },
-          validator: (p0) {
-            return null;
-          },
-        ),
-        SizedBox(height: context.spacing20),
-        AppDropDown<String>(
-          hint: AppLocale.lavelTipoDeServicioNuevoTramite.getString(context),
-          items:
-              catalogos.tipoServicio?.map((e) => e.nombre ?? '').toList() ?? [],
-          onSelectItem: (value) => nuevoTramiteCubit.tipoServicio = catalogos
-              .tipoServicio
-              ?.firstWhere((e) => e.nombre == value),
-          labelBuilder: (item) {
-            return item;
-          },
-          validator: (p0) {
-            return null;
-          },
-        ),
-        Spacer(),
-        AppFooter(
-          onButtonBackPressed: onButtonBackPressed,
-          onButtonCatalogPressed: onButtonCatalogPressed,
-          onButtonGenerateCodePressed: onButtonGenerateCodePressed,
-          onButtonNextPressed: onButtonNextPressed,
-        ),
-      ],
+    return Form(
+      key: nuevoTramiteCubit.formularioStateDatosTramite,
+      child: Column(
+        children: [
+          Text(
+            AppLocale.subtituloDatosDelTramiteNuevoTramite.getString(context),
+            style: context.headingLargeTextStyle,
+          ),
+          SizedBox(height: context.spacing20),
+          AppDropDown<String>(
+            hint: AppLocale.lavelTipoDeTramiteNuevoTramite.getString(context),
+            items:
+                catalogos.tiposTramite?.map((e) => e.nombre ?? '').toList() ??
+                [],
+            onSelectItem: (value) => nuevoTramiteCubit.tipoTramite = catalogos
+                .tiposTramite
+                ?.firstWhere((e) => e.nombre == value),
+            labelBuilder: (item) => item,
+            validator: (p0) {
+              if (p0?.isEmpty ?? true) {
+                return AppLocale.campoObligatorio.getString(context);
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: context.spacing20),
+          AppDropDown<String>(
+            hint: AppLocale.lavelTipoVehiculoNuevoTramite.getString(context),
+            items:
+                catalogos.tipoVehiculo?.map((e) => e.nombre ?? '').toList() ??
+                [],
+            onSelectItem: (value) => nuevoTramiteCubit.tipoVehiculo = catalogos
+                .tipoVehiculo
+                ?.firstWhere((e) => e.nombre == value),
+            labelBuilder: (item) => item,
+            validator: (p0) {
+              if (p0?.isEmpty ?? true) {
+                return AppLocale.campoObligatorio.getString(context);
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: context.spacing20),
+          AppDropDown<String>(
+            hint: AppLocale.lavelEntidadNuevoTramite.getString(context),
+            items:
+                catalogos.entidad?.map((e) => e.entidadNombre ?? '').toList() ??
+                [],
+            onSelectItem: (value) => nuevoTramiteCubit.entidad = catalogos
+                .entidad
+                ?.firstWhere((e) => e.entidadNombre == value),
+            labelBuilder: (item) => item,
+            validator: (p0) {
+              if (p0?.isEmpty ?? true) {
+                return AppLocale.campoObligatorio.getString(context);
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: context.spacing20),
+          AppDropDown<String>(
+            hint: AppLocale.lavelTipoDeServicioNuevoTramite.getString(context),
+            items:
+                catalogos.tipoServicio?.map((e) => e.nombre ?? '').toList() ??
+                [],
+            onSelectItem: (value) => nuevoTramiteCubit.tipoServicio = catalogos
+                .tipoServicio
+                ?.firstWhere((e) => e.nombre == value),
+            labelBuilder: (item) => item,
+            validator: (p0) {
+              if (p0?.isEmpty ?? true) {
+                return AppLocale.campoObligatorio.getString(context);
+              }
+              return null;
+            },
+          ),
+          Spacer(),
+          AppFooter(
+            onButtonBackPressed: onButtonBackPressed,
+            onButtonCatalogPressed: onButtonCatalogPressed,
+            onButtonGenerateCodePressed: onButtonGenerateCodePressed,
+            onButtonNextPressed: onButtonNextPressed,
+          ),
+        ],
+      ),
     );
   }
 }

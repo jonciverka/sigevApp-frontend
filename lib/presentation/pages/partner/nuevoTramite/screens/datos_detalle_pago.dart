@@ -23,102 +23,98 @@ class DatosDetallePago extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
-    return Column(
-      children: [
-        Text(
-          AppLocale.subtituloDetalleDePagoNuevoTramite.getString(context),
-          style: context.headingLargeTextStyle,
-        ),
-        SizedBox(height: context.spacing20),
-
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                AppTextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: nuevoTramiteCubit.subtotalController,
-                  hintText: AppLocale.lavelSubtotalNuevoTramite.getString(
-                    context,
+    return Form(
+      key: nuevoTramiteCubit.formularioStateDetalleDePago,
+      child: Column(
+        children: [
+          Text(
+            AppLocale.subtituloDetalleDePagoNuevoTramite.getString(context),
+            style: context.headingLargeTextStyle,
+          ),
+          SizedBox(height: context.spacing20),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AppTextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: nuevoTramiteCubit.subtotalController,
+                    hintText: AppLocale.lavelSubtotalNuevoTramite.getString(
+                      context,
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocale.campoObligatorio.getString(context);
+                      }
+                      return null;
+                    },
+                    onChanged: (_) {},
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppLocale.campoObligatorio.getString(context);
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {},
-                ),
-                SizedBox(height: context.spacing20),
-                AppTextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: nuevoTramiteCubit.extrasController,
-                  hintText: AppLocale.lavelExtrasNuevoTramite.getString(
-                    context,
+                  SizedBox(height: context.spacing20),
+                  AppTextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: nuevoTramiteCubit.extrasController,
+                    hintText: AppLocale.lavelExtrasNuevoTramite.getString(
+                      context,
+                    ),
+                    validator: (value) {
+                      return null;
+                    },
+                    onChanged: (_) {},
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppLocale.campoObligatorio.getString(context);
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {},
-                ),
-                SizedBox(height: context.spacing20),
-                AppTextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: nuevoTramiteCubit.descuentoController,
-                  hintText: AppLocale.lavelDescuentoNuevoTramite.getString(
-                    context,
+                  SizedBox(height: context.spacing20),
+                  AppTextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: nuevoTramiteCubit.descuentoController,
+                    hintText: AppLocale.lavelDescuentoNuevoTramite.getString(
+                      context,
+                    ),
+                    validator: (value) {
+                      return null;
+                    },
+                    onChanged: (_) {},
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppLocale.campoObligatorio.getString(context);
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {},
-                ),
-                SizedBox(height: context.spacing20),
-                AppTextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: nuevoTramiteCubit.totalController,
-                  hintText: AppLocale.lavelTotalNuevoTramite.getString(context),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppLocale.campoObligatorio.getString(context);
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {},
-                ),
-                SizedBox(height: context.spacing20),
-                AppTextFormField(
-                  keyboardType: TextInputType.number,
-                  controller: nuevoTramiteCubit.aCuentaController,
-                  hintText: AppLocale.lavelACuentaNuevoTramite.getString(
-                    context,
+                  SizedBox(height: context.spacing20),
+                  AppTextFormField(
+                    enabled: false,
+                    keyboardType: TextInputType.number,
+                    controller: nuevoTramiteCubit.totalController,
+                    hintText: AppLocale.lavelTotalNuevoTramite.getString(
+                      context,
+                    ),
+                    validator: (value) {
+                      return null;
+                    },
+                    onChanged: (_) {},
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return AppLocale.campoObligatorio.getString(context);
-                    }
-                    return null;
-                  },
-                  onChanged: (_) {},
-                ),
-              ],
+                  SizedBox(height: context.spacing20),
+                  AppTextFormField(
+                    keyboardType: TextInputType.number,
+                    controller: nuevoTramiteCubit.aCuentaController,
+                    hintText: AppLocale.lavelACuentaNuevoTramite.getString(
+                      context,
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocale.campoObligatorio.getString(context);
+                      }
+                      return null;
+                    },
+                    onChanged: (_) {},
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
 
-        AppFooter(
-          onButtonBackPressed: onButtonBackPressed,
-          onButtonCatalogPressed: onButtonCatalogPressed,
-          onButtonGenerateCodePressed: onButtonGenerateCodePressed,
-          onButtonNextPressed: onButtonNextPressed,
-        ),
-      ],
+          AppFooter(
+            onButtonBackPressed: onButtonBackPressed,
+            onButtonCatalogPressed: onButtonCatalogPressed,
+            onButtonGenerateCodePressed: onButtonGenerateCodePressed,
+            onButtonNextPressed: onButtonNextPressed,
+          ),
+        ],
+      ),
     );
   }
 }

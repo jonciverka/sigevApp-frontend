@@ -58,27 +58,9 @@ class TramitesCubit extends Cubit<TramitesState> {
     }
   }
 
-  void getTramitesBuscados({required String busqueda}) {
-    if (busqueda.isEmpty) {
-      emit(
-        TramitesData(
-          tramites: state.tramites,
-          tramitesBuscados: state.tramites,
-        ),
-      );
-    }
-    List<Tramite> tramitesBuscados = state.tramites
-        .where(
-          (tramite) => (tramite.clave ?? '').toLowerCase().contains(
-            busqueda.toLowerCase(),
-          ),
-        )
-        .toList();
+  void getTramitesBuscados({required List<Tramite> busqueda}) {
     emit(
-      TramitesData(
-        tramites: state.tramites,
-        tramitesBuscados: tramitesBuscados,
-      ),
+      TramitesData(tramites: state.tramites, tramitesBuscados: state.tramites),
     );
   }
 

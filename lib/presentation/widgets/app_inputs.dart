@@ -136,7 +136,7 @@ class AppTextFormField extends StatefulWidget {
   final String? hintText;
   final String? errorText;
   final IconData? suffixIcon;
-
+  final bool readOnly;
   final TextAlign textAlign;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -144,7 +144,7 @@ class AppTextFormField extends StatefulWidget {
   final int minLines;
   final int? maxLength;
   final int? maxLengthFormatter;
-
+  final VoidCallback? onTap;
   final void Function(String) onChanged;
   final void Function(String?)? onSubmitted;
   final void Function(String?)? onSaved;
@@ -174,6 +174,8 @@ class AppTextFormField extends StatefulWidget {
     this.maxLength,
     this.maxLengthFormatter,
     this.textAlign = TextAlign.start,
+    this.onTap,
+    this.readOnly = false,
   });
 
   @override
@@ -217,6 +219,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         onFieldSubmitted: widget.onSubmitted,
         onSaved: widget.onSaved,
         validator: widget.validator,
+        readOnly: widget.readOnly,
+        onTap: widget.onTap,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
       ),
     );
   }

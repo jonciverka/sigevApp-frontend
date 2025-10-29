@@ -19,7 +19,7 @@ mixin AppLocale {
   static const String camposObligatorios = 'camposObligatorios';
   static const String errorCorreoMalFormado = 'errorCorreoMalFormado';
   //Tramites
-  static const String inputSearchTramite = 'inputSearchTramite';
+  static const String inputSearch = 'inputSearch';
   //Perfil
   static const String textTituloPerfil = 'textTituloPerfil';
   static const String inputNombreCompletoPerfil = 'inputNombreCompletoPerfil';
@@ -173,7 +173,7 @@ mixin AppLocale {
     textTramitesActivosTotalHomeCliente: 'Trámites Activos',
     textTituloHomeCliente: "Mis Trámites",
     textButtonVerMasTramites: "Ver Mas",
-    inputSearchTramite: "Buscar Trámites",
+    inputSearch: "Buscar...",
     textTituloPerfil: "Mi perfíl",
     inputNombreCompletoPerfil: "Nombre Completo",
     inputCorreoElectronicoPerfil: "Correo electrónico",
