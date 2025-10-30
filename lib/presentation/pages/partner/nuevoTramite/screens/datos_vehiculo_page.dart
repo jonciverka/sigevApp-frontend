@@ -60,6 +60,7 @@ class DatosVehiculoPage extends StatelessWidget {
               if (value!.isEmpty) {
                 return AppLocale.campoObligatorio.getString(context);
               }
+              return null;
             },
             onChanged: (_) {},
           ),
