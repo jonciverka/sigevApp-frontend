@@ -32,7 +32,7 @@ class AppTheme {
     fontFamily: headLineFontFamily,
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
-    fontSize: convertPixelsToLogicalPixels(context, 24),
+    fontSize: convertPixelsToLogicalPixels(context, 28),
     color: neutralColorGrey950,
     letterSpacing: 0.0,
   );
@@ -41,7 +41,7 @@ class AppTheme {
     fontFamily: headLineFontFamily,
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
-    fontSize: convertPixelsToLogicalPixels(context, 20),
+    fontSize: convertPixelsToLogicalPixels(context, 22),
     color: neutralColorGrey950,
     letterSpacing: 0.0,
   );
@@ -50,7 +50,7 @@ class AppTheme {
     fontFamily: headLineFontFamily,
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
-    fontSize: convertPixelsToLogicalPixels(context, 16),
+    fontSize: convertPixelsToLogicalPixels(context, 20),
     color: neutralColorGrey950,
     letterSpacing: 0.0,
   );

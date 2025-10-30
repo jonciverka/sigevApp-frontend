@@ -34,7 +34,7 @@ class DatosContribuyentePage extends StatelessWidget {
             AppLocale.subtituloDatosContribuyenteNuevoTramite.getString(
               context,
             ),
-            style: context.headingLargeTextStyle,
+            style: context.headingMediumTextStyle,
           ),
           SizedBox(height: context.spacing20),
           Expanded(
@@ -101,6 +101,7 @@ class DatosContribuyentePage extends StatelessWidget {
                   ),
                   SizedBox(height: context.spacing20),
                   AppTextFormField(
+                    maxLengthFormatter: 10,
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.telefonoAlternoController,
                     hintText: AppLocale.lavelTelefonoMovilAlternoNuevoTramite

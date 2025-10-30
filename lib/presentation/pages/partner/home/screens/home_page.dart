@@ -61,7 +61,6 @@ class HomePageBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          AppHeader(),
           SizedBox(height: context.spacing16),
           Text(
             AppLocale.textTituloMisResultadosHomeSocioHomeSocio.getString(

@@ -53,7 +53,7 @@ class DatosDetallePago extends StatelessWidget {
         children: [
           Text(
             AppLocale.subtituloDetalleDePagoNuevoTramite.getString(context),
-            style: context.headingLargeTextStyle,
+            style: context.headingMediumTextStyle,
           ),
           SizedBox(height: context.spacing20),
           Expanded(

@@ -64,6 +64,7 @@ class NuevoTramiteBody extends StatelessWidget {
         vertical: context.spacing12,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           AppHeader(),
           AppProgressBar(),

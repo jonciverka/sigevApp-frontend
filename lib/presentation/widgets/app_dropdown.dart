@@ -20,18 +20,21 @@ class AppDropDown<T> extends StatelessWidget {
   });
 
   final List<T> items;
-  final ValueChanged<String> onSelectItem;
+  final ValueChanged<T> onSelectItem;
   final String hint;
-  final LabelItemBuilder<String> labelBuilder;
+  final LabelItemBuilder<T> labelBuilder;
   final DropDownValidator<String> validator;
   final T? initialValue;
   final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    if (initialValue != null && initialValue is T) {
+      _textController.text = labelBuilder(initialValue as T);
+    }
     return AppTextFormField(
       hintText: hint,
-      validator: (value) => validator(value as String),
+      validator: (value) => validator(value),
       controller: _textController,
       onChanged: (_) {},
       suffixIcon: AppIcons.keyBoardArrowDown,
@@ -39,10 +42,10 @@ class AppDropDown<T> extends StatelessWidget {
       onTap: () => showAppBottomSheet(
         context: context,
         title: hint,
-        child: _BodyBottomSheet(
+        child: _BodyBottomSheet<T>(
           items: items,
           onSelectItem: (value) => onSelectItem(value),
-          labelBuilder: (item) => labelBuilder(item),
+          labelBuilder: labelBuilder,
           initialValue: initialValue,
           textController: _textController,
         ),
@@ -61,12 +64,12 @@ class _BodyBottomSheet<T> extends StatefulWidget {
     required this.textController,
   });
   final List<T> items;
-  final ValueChanged<String> onSelectItem;
-  final LabelItemBuilder<String> labelBuilder;
+  final ValueChanged<T> onSelectItem;
+  final LabelItemBuilder<T> labelBuilder;
   final T? initialValue;
   final TextEditingController textController;
   @override
-  State<_BodyBottomSheet> createState() => _BodyBottomSheetState();
+  State<_BodyBottomSheet<T>> createState() => _BodyBottomSheetState<T>();
 }
 
 class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
@@ -118,11 +121,11 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
                         isLast: widget.items.last == e,
                         value: e,
                         onTap: () {
-                          widget.textController.text = e;
+                          widget.textController.text = widget.labelBuilder(e);
                           widget.onSelectItem(e);
                         },
                         child: Text(
-                          e,
+                          widget.labelBuilder(e),
                           style: context.bodyRegularTextStyle.copyWith(
                             color: AppTheme.neutralColorGrey700,
                           ),

@@ -144,6 +144,7 @@ mixin AppLocale {
   static const String textRadioPendiente = 'textRadioPendiente';
   static const String lavelSaldoNuevoTramite = 'lavelSaldoNuevoTramite';
   static const String lavelNotasNuevoTramite = 'lavelNotasNuevoTramite';
+  static const String textoInstruccionDocumentos = 'textoInstruccionDocumentos';
   //Catalogo precios
   static const String textTituloCatalogoPrecios = 'textTituloCatalogoPrecios';
   static const String textValorEntidadCatalogoPrecios =
@@ -274,5 +275,7 @@ mixin AppLocale {
     inputExtras: "Ex. 10",
     errorNoCumpleConElMontoMinimoAnticipo:
         "No cumple con el monto mínimo a cuenta",
+    textoInstruccionDocumentos:
+        "Seleccione los documentos que el usuario deberá subir para completar el trámite.",
   };
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
+import 'package:sigev/domain/models/sucursal.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
 import 'package:sigev/presentation/widgets/app_dropdown.dart';
@@ -31,23 +32,20 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
             AppLocale.subtituloDatosContribuyenteNuevoTramite.getString(
               context,
             ),
-            style: context.headingLargeTextStyle,
+            style: context.headingMediumTextStyle,
           ),
           SizedBox(height: context.spacing20),
-          AppDropDown<String>(
+          AppDropDown<Sucursal>(
+            initialValue: nuevoTramiteCubit.sucursal,
             hint: AppLocale.lavelSucursalNuevoTramite.getString(context),
-            items:
-                nuevoTramiteCubit.state.catalogos.sucursal
-                    ?.map((e) => e.nombre ?? '')
-                    .toList() ??
-                [],
+            items: nuevoTramiteCubit.state.catalogos.sucursal?.toList() ?? [],
             onSelectItem: (value) =>
                 nuevoTramiteCubit.sucursal = nuevoTramiteCubit
                     .state
                     .catalogos
                     .sucursal
-                    ?.firstWhere((e) => e.nombre == value),
-            labelBuilder: (item) => item,
+                    ?.firstWhere((e) => e == value),
+            labelBuilder: (item) => "${item.alias ?? ''} - ${item.nombre}",
             validator: (p0) {
               if (p0?.isEmpty ?? true) {
                 return AppLocale.campoObligatorio.getString(context);

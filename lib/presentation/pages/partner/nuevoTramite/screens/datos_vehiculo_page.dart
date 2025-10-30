@@ -31,10 +31,11 @@ class DatosVehiculoPage extends StatelessWidget {
         children: [
           Text(
             AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
-            style: context.headingLargeTextStyle,
+            style: context.headingMediumTextStyle,
           ),
           SizedBox(height: context.spacing20),
           AppDropDown<String>(
+            initialValue: nuevoTramiteCubit.vehiculo?.marca,
             hint: AppLocale.lavelMarcaNuevoTramite.getString(context),
             items:
                 catalogos.vehiculos?.map((e) => e.marca ?? '').toList() ?? [],
@@ -66,6 +67,7 @@ class DatosVehiculoPage extends StatelessWidget {
           ),
           SizedBox(height: context.spacing20),
           AppDropDown<String>(
+            initialValue: nuevoTramiteCubit.tipoModelo?.anio,
             hint: AppLocale.lavelModeloNuevoTramite.getString(context),
             items:
                 catalogos.tipoModelo?.map((e) => e.anio ?? '').toList() ?? [],
@@ -84,6 +86,7 @@ class DatosVehiculoPage extends StatelessWidget {
           ),
           SizedBox(height: context.spacing20),
           AppDropDown<String>(
+            initialValue: nuevoTramiteCubit.color?.color,
             hint: AppLocale.lavelColorNuevoTramite.getString(context),
             items: catalogos.colores?.map((e) => e.color ?? '').toList() ?? [],
             onSelectItem: (value) => nuevoTramiteCubit.color = catalogos.colores

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
+import 'package:sigev/domain/models/entidad.dart';
+import 'package:sigev/domain/models/tipo_tramite.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
 import 'package:sigev/presentation/widgets/app_dropdown.dart';
@@ -30,18 +32,17 @@ class DatosTramitePage extends StatelessWidget {
         children: [
           Text(
             AppLocale.subtituloDatosDelTramiteNuevoTramite.getString(context),
-            style: context.headingLargeTextStyle,
+            style: context.headingMediumTextStyle,
           ),
           SizedBox(height: context.spacing20),
-          AppDropDown<String>(
+          AppDropDown<TipoTramite>(
+            initialValue: nuevoTramiteCubit.tipoTramite,
             hint: AppLocale.lavelTipoDeTramiteNuevoTramite.getString(context),
-            items:
-                catalogos.tiposTramite?.map((e) => e.nombre ?? '').toList() ??
-                [],
+            items: catalogos.tiposTramite?.toList() ?? [],
             onSelectItem: (value) => nuevoTramiteCubit.tipoTramite = catalogos
                 .tiposTramite
-                ?.firstWhere((e) => e.nombre == value),
-            labelBuilder: (item) => item,
+                ?.firstWhere((e) => e == value),
+            labelBuilder: (item) => "${item.alias} - ${item.nombre}",
             validator: (p0) {
               if (p0?.isEmpty ?? true) {
                 return AppLocale.campoObligatorio.getString(context);
@@ -51,6 +52,7 @@ class DatosTramitePage extends StatelessWidget {
           ),
           SizedBox(height: context.spacing20),
           AppDropDown<String>(
+            initialValue: nuevoTramiteCubit.tipoVehiculo?.nombre,
             hint: AppLocale.lavelTipoVehiculoNuevoTramite.getString(context),
             items:
                 catalogos.tipoVehiculo?.map((e) => e.nombre ?? '').toList() ??
@@ -67,15 +69,14 @@ class DatosTramitePage extends StatelessWidget {
             },
           ),
           SizedBox(height: context.spacing20),
-          AppDropDown<String>(
+          AppDropDown<Entidad>(
+            initialValue: nuevoTramiteCubit.entidad,
             hint: AppLocale.lavelEntidadNuevoTramite.getString(context),
-            items:
-                catalogos.entidad?.map((e) => e.entidadNombre ?? '').toList() ??
-                [],
+            items: catalogos.entidad?.toList() ?? [],
             onSelectItem: (value) => nuevoTramiteCubit.entidad = catalogos
                 .entidad
-                ?.firstWhere((e) => e.entidadNombre == value),
-            labelBuilder: (item) => item,
+                ?.firstWhere((e) => e == value),
+            labelBuilder: (item) => item.entidadAbreviatura ?? '',
             validator: (p0) {
               if (p0?.isEmpty ?? true) {
                 return AppLocale.campoObligatorio.getString(context);
@@ -85,6 +86,7 @@ class DatosTramitePage extends StatelessWidget {
           ),
           SizedBox(height: context.spacing20),
           AppDropDown<String>(
+            initialValue: nuevoTramiteCubit.tipoServicio?.nombre,
             hint: AppLocale.lavelTipoDeServicioNuevoTramite.getString(context),
             items:
                 catalogos.tipoServicio?.map((e) => e.nombre ?? '').toList() ??

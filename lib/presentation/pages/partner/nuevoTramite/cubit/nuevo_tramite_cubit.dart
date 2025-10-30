@@ -8,6 +8,7 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/domain/models/color.dart';
+import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/domain/models/entidad.dart';
 import 'package:sigev/domain/models/extra.dart';
 import 'package:sigev/domain/models/sucursal.dart';
@@ -69,6 +70,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
 
   //Detalles de pago
   GlobalKey<FormState> formularioStateDetalleDePago = GlobalKey<FormState>();
+  GlobalKey<FormState> formularioStateDetalleDePagoSaldo =
+      GlobalKey<FormState>();
   final subtotalController = TextEditingController();
   final extrasController = TextEditingController();
   final descuentoController = TextEditingController();
@@ -80,6 +83,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
 
   final saldoController = TextEditingController();
   final notasController = TextEditingController();
+  //Documentos
+  List<Documentacion> documentaciones = [];
 
   NuevoTramiteCubit({required BuildContext context})
     : _context = context,
@@ -156,6 +161,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
           break;
         case 5:
           if (!validateDetalleDePago()) {
+            return;
+          }
+        case 6:
+          if (!validateDetalleDePagoSaldo()) {
             return;
           }
           break;
@@ -281,7 +290,12 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       _showToastNotification();
       return false;
     }
-    if (subtotalController.text.isEmpty || aCuentaController.text.isEmpty) {
+
+    return true;
+  }
+
+  bool validateDetalleDePagoSaldo() {
+    if (!formularioStateDetalleDePagoSaldo.currentState!.validate()) {
       _showToastNotification();
       return false;
     }
@@ -368,6 +382,20 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
     double total = double.tryParse(totalController.text) ?? 0;
     double aCuenta = double.tryParse(aCuentaController.text) ?? 0;
     saldoController.text = (total - aCuenta).toString();
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  void addDocumentacion({required Documentacion documentacion}) {
+    documentaciones.add(documentacion);
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  bool haveDocumentacion({required Documentacion documentacion}) {
+    return documentaciones.contains(documentacion);
+  }
+
+  void removeDocumentacion({required Documentacion documentacion}) {
+    documentaciones.remove(documentacion);
     emit(NuevoTramiteData(catalogos: state.catalogos));
   }
 }

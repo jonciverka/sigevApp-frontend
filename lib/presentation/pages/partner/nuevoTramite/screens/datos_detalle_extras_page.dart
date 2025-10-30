@@ -61,7 +61,7 @@ class AppTramiteDetalleBody extends StatelessWidget {
           children: [
             SizedBox(height: context.spacing20),
             AppDropDown<String>(
-              hint: AppLocale.lavelSucursalNuevoTramite.getString(context),
+              hint: AppLocale.lavelExtrasNuevoTramite.getString(context),
               items:
                   nuevoTramiteCubit.state.catalogos.extras
                       ?.map((e) => e.alias ?? '')

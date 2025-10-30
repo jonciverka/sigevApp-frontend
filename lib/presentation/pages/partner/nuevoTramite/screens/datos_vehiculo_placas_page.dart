@@ -4,6 +4,8 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
+import 'package:sigev/domain/models/entidad.dart';
+import 'package:sigev/domain/models/tipo_desecho.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_row_opcions_radio_button.dart';
@@ -44,16 +46,15 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           onChanged: (_) {},
         ),
         SizedBox(height: context.spacing12),
-        AppDropDown<String>(
+        AppDropDown<Entidad>(
+          initialValue: nuevoTramiteCubit.entidadPlacaActual,
           hint: AppLocale.lavelEntidadDeLaPlacaActualNuevoTramite.getString(
             context,
           ),
-          items:
-              catalogos.entidad?.map((e) => e.entidadNombre ?? '').toList() ??
-              [],
+          items: catalogos.entidad?.toList() ?? [],
           onSelectItem: (value) => nuevoTramiteCubit.entidadPlacaActual =
-              catalogos.entidad?.firstWhere((e) => e.entidadNombre == value),
-          labelBuilder: (item) => item,
+              catalogos.entidad?.firstWhere((e) => e == value),
+          labelBuilder: (item) => item.entidadAbreviatura ?? '',
           validator: (p0) {
             if (p0?.isEmpty ?? true) {
               return AppLocale.campoObligatorio.getString(context);
@@ -74,15 +75,15 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: context.spacing12),
-        AppDropDown<String>(
+        AppDropDown<TipoDesecho>(
+          initialValue: nuevoTramiteCubit.tipoDesechoPlacaEntregado,
           hint: AppLocale.lavelDesechoDePlacaNuevaNuevoTramite.getString(
             context,
           ),
-          items:
-              catalogos.tipoDesecho?.map((e) => e.nombre ?? '').toList() ?? [],
+          items: catalogos.tipoDesecho?.toList() ?? [],
           onSelectItem: (value) => nuevoTramiteCubit.tipoDesechoPlacaEntregado =
-              catalogos.tipoDesecho?.firstWhere((e) => e.nombre == value),
-          labelBuilder: (item) => item,
+              catalogos.tipoDesecho?.firstWhere((e) => e == value),
+          labelBuilder: (item) => item.nombre ?? '',
           validator: (p0) {
             if (p0?.isEmpty ?? true) {
               return AppLocale.campoObligatorio.getString(context);
@@ -168,6 +169,8 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
       children: [
         SizedBox(height: context.spacing12),
         AppDropDown<String>(
+          initialValue:
+              nuevoTramiteCubit.terminacionPlacaEntregadoOpcionUno?.nombre,
           hint: AppLocale.lavelOpcionUnoNuevoTramite.getString(context),
           items:
               catalogos.terminacionPlaca?.map((e) => e.nombre ?? '').toList() ??
@@ -186,6 +189,8 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
         ),
         SizedBox(height: context.spacing12),
         AppDropDown<String>(
+          initialValue:
+              nuevoTramiteCubit.terminacionPlacaEntregadoOpcionDos?.nombre,
           hint: AppLocale.lavelOpcionDosNuevoTramite.getString(context),
           items:
               catalogos.terminacionPlaca?.map((e) => e.nombre ?? '').toList() ??
@@ -217,7 +222,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
         children: [
           Text(
             AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
-            style: context.headingLargeTextStyle,
+            style: context.headingMediumTextStyle,
           ),
           SizedBox(height: context.spacing20),
           Expanded(
