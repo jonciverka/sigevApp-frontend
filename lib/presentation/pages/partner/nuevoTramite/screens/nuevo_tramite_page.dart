@@ -85,6 +85,7 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelContribuyenteSucursal,
+                    isBack: true,
                   ),
                 ),
                 DatosTramitePage(
@@ -93,6 +94,7 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelContribuyente,
+                    isBack: true,
                   ),
                 ),
                 DatosVehiculoPage(
@@ -101,6 +103,7 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelTramite,
+                    isBack: true,
                   ),
                 ),
                 DatosVehiculoPlacasPage(
@@ -109,6 +112,7 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelVehiculo,
+                    isBack: true,
                   ),
                 ),
                 DatosDetallePago(
@@ -117,6 +121,7 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.datosDelVehiculoPlacas,
+                    isBack: true,
                   ),
                   onButtonCatalogPressed: () => showAppBottomSheet(
                     context: context,
@@ -135,12 +140,14 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.detallePago,
+                    isBack: true,
                   ),
                 ),
                 DatosDocumentos(
                   onButtonGenerateCodePressed: () {},
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.detallePagoSaldo,
+                    isBack: true,
                   ),
                 ),
               ],

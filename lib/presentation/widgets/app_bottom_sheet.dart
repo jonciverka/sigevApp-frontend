@@ -19,7 +19,7 @@ Future<T?> showAppBottomSheet<T extends Object?>({
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(
-          horizontal: context.spacing20,
+          horizontal: context.spacing16,
           vertical: context.spacing20,
         ),
         child: Column(

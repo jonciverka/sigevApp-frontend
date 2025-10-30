@@ -4,6 +4,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_detalle_extras_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
 import 'package:sigev/presentation/widgets/app_inputs.dart';
 
@@ -19,6 +20,29 @@ class DatosDetallePago extends StatelessWidget {
   final void Function()? onButtonBackPressed;
   final void Function()? onButtonCatalogPressed;
   final void Function()? onButtonGenerateCodePressed;
+
+  Future<T?> showExtrasModalDialog<T extends Object?>({
+    required BuildContext context,
+  }) {
+    final nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+
+    return showModalBottomSheet<T>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      isDismissible: false,
+      enableDrag: false,
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 1,
+          child: BlocProvider.value(
+            value: nuevoTramiteCubit,
+            child: const DatosDetalleExtrasPage(),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +72,7 @@ class DatosDetallePago extends StatelessWidget {
                       }
                       return null;
                     },
-                    onChanged: (_) {},
+                    onChanged: (p0) => nuevoTramiteCubit.setTotal(),
                   ),
                   SizedBox(height: context.spacing20),
                   AppTextFormField(
@@ -60,7 +84,9 @@ class DatosDetallePago extends StatelessWidget {
                     validator: (value) {
                       return null;
                     },
-                    onChanged: (_) {},
+                    readOnly: true,
+                    onTap: () => showExtrasModalDialog(context: context),
+                    onChanged: (p0) => nuevoTramiteCubit.setTotal(),
                   ),
                   SizedBox(height: context.spacing20),
                   AppTextFormField(
@@ -72,8 +98,9 @@ class DatosDetallePago extends StatelessWidget {
                     validator: (value) {
                       return null;
                     },
-                    onChanged: (_) {},
+                    onChanged: (p0) => nuevoTramiteCubit.setTotal(),
                   ),
+
                   SizedBox(height: context.spacing20),
                   AppTextFormField(
                     enabled: false,
@@ -83,21 +110,6 @@ class DatosDetallePago extends StatelessWidget {
                       context,
                     ),
                     validator: (value) {
-                      return null;
-                    },
-                    onChanged: (_) {},
-                  ),
-                  SizedBox(height: context.spacing20),
-                  AppTextFormField(
-                    keyboardType: TextInputType.number,
-                    controller: nuevoTramiteCubit.aCuentaController,
-                    hintText: AppLocale.lavelACuentaNuevoTramite.getString(
-                      context,
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return AppLocale.campoObligatorio.getString(context);
-                      }
                       return null;
                     },
                     onChanged: (_) {},

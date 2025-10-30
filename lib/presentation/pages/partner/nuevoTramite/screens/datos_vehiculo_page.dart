@@ -48,6 +48,7 @@ class DatosVehiculoPage extends StatelessWidget {
               if (value!.isEmpty) {
                 return AppLocale.campoObligatorio.getString(context);
               }
+              return null;
             },
           ),
           SizedBox(height: context.spacing20),
@@ -56,7 +57,9 @@ class DatosVehiculoPage extends StatelessWidget {
             controller: nuevoTramiteCubit.subMarcaController,
             hintText: AppLocale.lavelSubmarcaNuevoTramite.getString(context),
             validator: (value) {
-              return null;
+              if (value!.isEmpty) {
+                return AppLocale.campoObligatorio.getString(context);
+              }
             },
             onChanged: (_) {},
           ),
@@ -75,6 +78,7 @@ class DatosVehiculoPage extends StatelessWidget {
               if (value!.isEmpty) {
                 return AppLocale.campoObligatorio.getString(context);
               }
+              return null;
             },
           ),
           SizedBox(height: context.spacing20),
@@ -90,6 +94,8 @@ class DatosVehiculoPage extends StatelessWidget {
               if (value!.isEmpty) {
                 return AppLocale.campoObligatorio.getString(context);
               }
+
+              return null;
             },
           ),
           Spacer(),

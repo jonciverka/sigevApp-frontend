@@ -18,6 +18,8 @@ mixin AppLocale {
   static const String campoObligatorio = 'campoObligatorio';
   static const String camposObligatorios = 'camposObligatorios';
   static const String errorCorreoMalFormado = 'errorCorreoMalFormado';
+  static const String errorNoCumpleConElMontoMinimoAnticipo =
+      'errorNoCumpleConElMontoMinimoAnticipo';
   //Tramites
   static const String inputSearch = 'inputSearch';
   //Perfil
@@ -154,6 +156,8 @@ mixin AppLocale {
   static const String textValorVIPPrecios = 'textValorVIPPrecios';
   static const String textValorXPPrecios = 'textValorXPPrecios';
   static const String textoUltimaActualizacion = 'textoUltimaActualizacion';
+  //Extras
+  static const String inputExtras = 'inputExtras';
 
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
@@ -219,7 +223,7 @@ mixin AppLocale {
     lavelEntidadNuevoTramite: "Entidad*",
     lavelTipoDeServicioNuevoTramite: "Tipo de Servicio *",
     lavelMarcaNuevoTramite: "Marca *",
-    lavelSubmarcaNuevoTramite: "Submarca",
+    lavelSubmarcaNuevoTramite: "Submarca *",
     lavelModeloNuevoTramite: "Modelo *",
     lavelColorNuevoTramite: "Color *",
     textButtonSiguiente: "Siguiente",
@@ -267,5 +271,8 @@ mixin AppLocale {
     textValorVIPPrecios: "VIP",
     textValorXPPrecios: "XP",
     textoUltimaActualizacion: "Ult. act",
+    inputExtras: "Ex. 10",
+    errorNoCumpleConElMontoMinimoAnticipo:
+        "No cumple con el monto mínimo a cuenta",
   };
 }

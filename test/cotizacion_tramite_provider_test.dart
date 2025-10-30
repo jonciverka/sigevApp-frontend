@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sigev/domain/models/catalogo.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';

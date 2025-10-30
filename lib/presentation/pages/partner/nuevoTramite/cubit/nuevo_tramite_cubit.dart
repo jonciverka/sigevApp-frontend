@@ -9,6 +9,7 @@ import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/domain/models/color.dart';
 import 'package:sigev/domain/models/entidad.dart';
+import 'package:sigev/domain/models/extra.dart';
 import 'package:sigev/domain/models/sucursal.dart';
 import 'package:sigev/domain/models/terminacion_placa.dart';
 import 'package:sigev/domain/models/tipo_desecho.dart';
@@ -73,6 +74,9 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final descuentoController = TextEditingController();
   final totalController = TextEditingController();
   final aCuentaController = TextEditingController();
+  //Extras
+  List<Extra> extras = [];
+  GlobalKey<FormState> formularioStateExtras = GlobalKey<FormState>();
 
   final saldoController = TextEditingController();
   final notasController = TextEditingController();
@@ -122,38 +126,40 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
     }
   }
 
-  Future<void> cambiarPagina(int index) async {
-    switch (index - 1) {
-      case 0:
-        if (!validateDatosContribuyenteSucursal()) {
-          return;
-        }
-        break;
-      case 1:
-        if (!validateDatosContribuyente()) {
-          return;
-        }
-        break;
-      case 2:
-        if (!validateDatosTramite()) {
-          return;
-        }
-        break;
-      case 3:
-        if (!validateDatosVehiculo()) {
-          return;
-        }
-        break;
-      case 4:
-        if (!validateDatosVehiculoPlacas()) {
-          return;
-        }
-        break;
-      case 5:
-        if (!validateDetalleDePago()) {
-          return;
-        }
-        break;
+  Future<void> cambiarPagina(int index, {bool isBack = false}) async {
+    if (!isBack) {
+      switch (index - 1) {
+        case 0:
+          if (!validateDatosContribuyenteSucursal()) {
+            return;
+          }
+          break;
+        case 1:
+          if (!validateDatosContribuyente()) {
+            return;
+          }
+          break;
+        case 2:
+          if (!validateDatosTramite()) {
+            return;
+          }
+          break;
+        case 3:
+          if (!validateDatosVehiculo()) {
+            return;
+          }
+          break;
+        case 4:
+          if (!validateDatosVehiculoPlacas()) {
+            return;
+          }
+          break;
+        case 5:
+          if (!validateDetalleDePago()) {
+            return;
+          }
+          break;
+      }
     }
     await _pageController.animateToPage(
       index,
@@ -180,7 +186,6 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       _showToastNotification();
       return false;
     }
-    ;
     if (correoElectronicoController.text.isEmpty ||
         nombreController.text.isEmpty ||
         apellidoController.text.isEmpty ||
@@ -284,6 +289,20 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
     return true;
   }
 
+  bool validateExtras() {
+    if (!formularioStateExtras.currentState!.validate()) {
+      _showToastNotification();
+      return false;
+    }
+
+    extrasController.text = extras
+        .fold<double>(0, (sum, e) => sum + (e.monto ?? 0))
+        .toString();
+    if (extrasController.text == '0.0') extrasController.clear();
+    setTotal();
+    return true;
+  }
+
   void _showToastNotification() {
     showToastNotification(
       context: _context,
@@ -321,6 +340,34 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         break;
     }
     groupValue = value;
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  void addExtras(Extra extra) {
+    extras.add(extra.copyWith());
+
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  void removeExtras(Extra extra) {
+    extras.remove(extra);
+
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  void setTotal() {
+    double subTotal = double.tryParse(subtotalController.text) ?? 0;
+    double extras = double.tryParse(extrasController.text) ?? 0;
+    double descuento = double.tryParse(descuentoController.text) ?? 0;
+    totalController.text = (subTotal + extras - descuento).toString();
+    setSaldo();
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  void setSaldo() {
+    double total = double.tryParse(totalController.text) ?? 0;
+    double aCuenta = double.tryParse(aCuentaController.text) ?? 0;
+    saldoController.text = (total - aCuenta).toString();
     emit(NuevoTramiteData(catalogos: state.catalogos));
   }
 }

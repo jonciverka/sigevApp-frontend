@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:sigev/domain/models/anticipo.dart';
 import 'package:sigev/domain/models/area.dart';
 import 'package:sigev/domain/models/color.dart';
 import 'package:sigev/domain/models/entidad.dart';
@@ -32,6 +33,7 @@ class CatalogoCotizacion {
     this.areas,
     this.tipoDesecho,
     this.terminacionPlaca,
+    this.anticipos,
   });
 
   List<TipoTramite>? tiposTramite;
@@ -47,6 +49,7 @@ class CatalogoCotizacion {
   List<Area>? areas;
   List<TipoDesecho>? tipoDesecho;
   List<TerminacionPlaca>? terminacionPlaca;
+  List<Anticipo>? anticipos;
 
   factory CatalogoCotizacion.fromJson(Map<String, dynamic> json) {
     return CatalogoCotizacion(
@@ -65,6 +68,10 @@ class CatalogoCotizacion {
       terminacionPlaca: terminacionPlacasFromJsonList(
         json["catTerminacionPlaca"],
       ),
+      anticipos: anticiposFromJsonList(json["anticipos"]),
     );
+  }
+  int? valorSiNombreCoincide(String nombreBuscado) {
+    return anticipos?.firstWhere((e) => e.nombre == nombreBuscado).valor;
   }
 }

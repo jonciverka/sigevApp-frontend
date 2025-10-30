@@ -30,7 +30,28 @@ class DatosDetalleSaldoPago extends StatelessWidget {
           style: context.headingLargeTextStyle,
         ),
         SizedBox(height: context.spacing20),
-
+        AppTextFormField(
+          keyboardType: TextInputType.number,
+          controller: nuevoTramiteCubit.aCuentaController,
+          hintText: AppLocale.lavelACuentaNuevoTramite.getString(context),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            if ((nuevoTramiteCubit.state.catalogos.valorSiNombreCoincide(
+                      nuevoTramiteCubit.tipoTramite?.alias ?? '',
+                    ) ??
+                    0) >=
+                (double.tryParse(value) ?? 0)) {
+              return AppLocale.errorNoCumpleConElMontoMinimoAnticipo.getString(
+                context,
+              );
+            }
+            return null;
+          },
+          onChanged: (p0) => nuevoTramiteCubit.setSaldo(),
+        ),
+        SizedBox(height: context.spacing20),
         AppTextFormField(
           keyboardType: TextInputType.number,
           controller: nuevoTramiteCubit.saldoController,
@@ -45,7 +66,10 @@ class DatosDetalleSaldoPago extends StatelessWidget {
         ),
         SizedBox(height: context.spacing20),
         AppTextFormField(
-          keyboardType: TextInputType.number,
+          maxLines: 5,
+          maxLengthFormatter: 1000,
+          minLines: 3,
+          keyboardType: TextInputType.multiline,
           controller: nuevoTramiteCubit.notasController,
           hintText: AppLocale.lavelNotasNuevoTramite.getString(context),
           validator: (value) {
