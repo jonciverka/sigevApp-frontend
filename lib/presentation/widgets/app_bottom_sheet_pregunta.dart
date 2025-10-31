@@ -19,7 +19,7 @@ Future<T?> showAppBottomSheetPregunta<T extends Object?>({
       useRootNavigator: true,
       builder: (context) {
         return FractionallySizedBox(
-          heightFactor: .6,
+          heightFactor: .65,
           child: Container(
             width: double.infinity,
             padding: EdgeInsets.symmetric(
@@ -34,13 +34,20 @@ Future<T?> showAppBottomSheetPregunta<T extends Object?>({
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(title, style: context.headingLargeTextStyle),
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: context.headingLargeTextStyle,
+                        overflow: TextOverflow.clip,
+                      ),
+                    ),
                     AppSecondaryIconButton(
                       icon: AppIcons.close,
                       onPressed: () => Navigator.pop(context),
                     ),
                   ],
                 ),
+                SizedBox(height: context.spacing12),
                 AppBottomSheetPreguntaBody(question: question, yes: yes),
               ],
             ),

@@ -161,6 +161,11 @@ mixin AppLocale {
   static const String textValorVIPPrecios = 'textValorVIPPrecios';
   static const String textValorXPPrecios = 'textValorXPPrecios';
   static const String textoUltimaActualizacion = 'textoUltimaActualizacion';
+  static const String textGenerandoCodigo = 'textGenerandoCodigo';
+  static const String textSolicitandoDocumentos = 'textSolicitandoDocumentos';
+  static const String textCargando = 'textCargando';
+  static const String textCodigoGenerado = 'textCodigoGenerado';
+
   //Extras
   static const String inputExtras = 'inputExtras';
 
@@ -285,5 +290,9 @@ mixin AppLocale {
     descripcionGenerarCodigo:
         "Una vez generado, podrás continuar con el trámite en la sección de “Trámites”.",
     botonGenerarCodigo: "Generar",
+    textGenerandoCodigo: "Generando código del trámite...",
+    textSolicitandoDocumentos: "Solicitando documentos de forma segura...",
+    textCargando: "Ya casi, por favor espera un momento...",
+    textCodigoGenerado: "Código Generado",
   };
 }

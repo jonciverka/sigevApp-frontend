@@ -34,6 +34,7 @@ class AppIcons {
   static const IconData chevronLeft = Icons.chevron_left_rounded;
   static const IconData chevronRight = Icons.chevron_right_rounded;
   static const IconData keyBoardArrowUp = Icons.keyboard_arrow_up_rounded;
+  //Others
 
   // Icons
   static Icon smallIcon(IconData icon, {Color? color}) =>

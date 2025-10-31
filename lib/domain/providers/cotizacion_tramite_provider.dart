@@ -159,12 +159,13 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
   @override
   Future<String> createTramite({required String clave}) async {
     try {
-      await _apiService.postRequest(
+      final dynamic response = await _apiService.postRequest(
         "${ApiConstants.apiCrearBarraFija}/$clave",
         {},
         UtilitiesHeaders.getHeader(),
       );
-      return '';
+      var claveBarrafija = json.decode(response)["clave_barrafija"];
+      return claveBarrafija;
     } on ApiClientException catch (exc) {
       throw exc.message.toString();
     } catch (exc) {

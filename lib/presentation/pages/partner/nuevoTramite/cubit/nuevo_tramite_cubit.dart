@@ -22,6 +22,7 @@ import 'package:sigev/domain/models/tipo_vehiculos.dart';
 import 'package:sigev/domain/models/vehiculo.dart';
 import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_state.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_loader_creando_tramite.dart';
 import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 
 class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
@@ -86,7 +87,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final notasController = TextEditingController();
   //Documentos
   List<Documentacion> documentaciones = [];
-
+  //Resultado
+  String claveTramite = '';
   NuevoTramiteCubit({required BuildContext context})
     : _context = context,
       super(NuevoTramiteInitial()) {
@@ -449,10 +451,49 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       extrasImporte: extras.map((e) => (e.monto ?? 0).toString()).toList(),
     );
     try {
-      emit(NuevoTramiteLoading(catalogos: state.catalogos));
+      emit(
+        NuevoTramiteLoadingCreate(
+          catalogos: state.catalogos,
+          status: StatusCreandoTramite.creandoCotizacion,
+        ),
+      );
       var clave = await provider.createCotizacion(cotizacion: cotizacion);
-      await provider.createTramite(clave: clave);
-      emit(NuevoTramiteData(catalogos: state.catalogos));
+      await Future.delayed(const Duration(seconds: 5), () {});
+      emit(
+        NuevoTramiteLoadingCreate(
+          catalogos: state.catalogos,
+          status: StatusCreandoTramite.creandoTramite,
+        ),
+      );
+      claveTramite = await provider.createTramite(clave: clave);
+      await Future.delayed(const Duration(seconds: 4), () {});
+      emit(
+        NuevoTramiteLoadingCreate(
+          catalogos: state.catalogos,
+          status: StatusCreandoTramite.esperando,
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 4), () {});
+      emit(
+        NuevoTramiteLoadingCreate(
+          catalogos: state.catalogos,
+          status: StatusCreandoTramite.esperando,
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 1), () {});
+      emit(
+        NuevoTramiteLoadingCreate(
+          catalogos: state.catalogos,
+          status: StatusCreandoTramite.finalizado,
+        ),
+      );
+      await Future.delayed(const Duration(seconds: 1), () {});
+      emit(
+        NuevoTramiteLoadingSucess(
+          catalogos: state.catalogos,
+          status: StatusCreandoTramite.inicio,
+        ),
+      );
     } on ServerErrorException {
       showToastNotification(
         context: _context,
