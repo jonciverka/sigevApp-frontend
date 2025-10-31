@@ -11,4 +11,6 @@ abstract class CotizacionTramiteRepository {
   Future<List<Catalogo>> apiGetCatalogo();
   Future<List<Tramite>> apiBuscarTramitePor(String week);
   Future<List<Status>> apiGetCatalogoEstatusTramite();
+  Future<String> createCotizacion({required Cotizacion cotizacion});
+  Future<String> createTramite({required String clave});
 }

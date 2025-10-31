@@ -138,4 +138,37 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<String> createCotizacion({required Cotizacion cotizacion}) async {
+    try {
+      final dynamic response = await _apiService.postRequest(
+        ApiConstants.apiCreateCotizacion,
+        cotizacion.toJson(),
+        UtilitiesHeaders.getHeader(),
+      );
+      var clave = json.decode(response)["clave"];
+      return clave;
+    } on ApiClientException catch (exc) {
+      throw exc.message.toString();
+    } catch (exc) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> createTramite({required String clave}) async {
+    try {
+      await _apiService.postRequest(
+        "${ApiConstants.apiCrearBarraFija}/$clave",
+        {},
+        UtilitiesHeaders.getHeader(),
+      );
+      return '';
+    } on ApiClientException catch (exc) {
+      throw exc.message.toString();
+    } catch (exc) {
+      rethrow;
+    }
+  }
 }

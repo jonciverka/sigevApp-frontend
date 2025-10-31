@@ -59,6 +59,8 @@ class Cotizacion {
     this.fechaCreacion,
     this.estatus,
     this.idUsuario,
+    this.extrasConcepto,
+    this.extrasImporte,
   });
 
   int? id;
@@ -114,6 +116,8 @@ class Cotizacion {
   String? fechaCreacion;
   int? estatus;
   int? idUsuario;
+  List<String>? extrasConcepto;
+  List<String>? extrasImporte;
 
   factory Cotizacion.fromJson(Map<String, dynamic> json) => Cotizacion(
     id: json["id"],
@@ -170,4 +174,51 @@ class Cotizacion {
     estatus: json["estatus"],
     idUsuario: json["idusuario"],
   );
+
+  Map<String, dynamic> toJson() => {
+    "sucursal": sucursal, //"1-A",
+    "telefono": telefono, //"555555",
+    "nombre": nombre, //"12312312",
+    "apellidos": apellidos, //"3123123",
+    "telefono_alterno": telefonoAlterno, // "(12) 31-23-12-31",
+    "email": correo, //"quantity",
+    "cliente": "mismo_contribuyente",
+    "tipo_tramite": tipoTramite, //"3-VOE",
+    "tipo_vehiculo": tipoVehiculo, //"1-AUTO",
+    "entidad": entidad, //"9-CDMX",
+    "tipo_servicio": tipoServicio, //"3-CL",
+    "marca": marca, //"1-ACASA",
+    "submarca": submarca, //"submarca",
+    "modelo": modelo, //"81-2029",
+    "color": idColor, //"1",
+    "check_plactualnp": placasNa, // No aplica 1 aplica null
+    "placa_actual":
+        placaActual, // "asd" || null, //es String Si check_plactualnp es null
+    "entidad_placa":
+        entidadPlaca, //"9-CDMX" || null, //es String Si check_plactualnp es null
+    "check_desechonp": desechoNa, // No aplica 1 aplica null,
+    "desecho": desechoTipo, //es String Si check_desechonp es null
+    "desecho_entregado": desechoPlacaEntregado,
+    //     "1" ||
+    //     "0" ||
+    //     null, //es 1 o 0 Si check_desechonp es null es 1 si es entregado 0 si es pendiente
+    "check_desechotcnp": desechoTarjetaNa, // No aplica 1 aplica null,
+    "desecho_tarjetac": desechoTarjetaEntregado,
+    //     "1" ||
+    //     "0" ||
+    //     null, //es 1 o 0 Si check_desechotcnp es null es 1 si es entregado 0 si es pendiente
+    "check_placasnp": terminacionPnNa, // null || 1, // No aplica 1 aplica null,
+    "terminacion_placa_1": termPlaca1,
+    //     "5 y 6" || null, //es string Si check_placasnp es null
+    "terminacion_placa_2": termPlaca2,
+    //     "5 y 6" || null, //es string Si check_placasnp es null
+    "subtotal": subtotal,
+    "complemento_name": extrasConcepto, //["PERMIPL"],
+    "complemento": extrasImporte, //["100"],
+    "descuento": descuento, //num || null,
+    "total": total, //  "10000000000",
+    "acuenta": acuenta, //"10000000000",
+    "saldo": saldo, // "10000000000" || null,
+    "nota": nota, //String || null,
+  };
 }

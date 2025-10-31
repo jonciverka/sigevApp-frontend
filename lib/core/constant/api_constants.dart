@@ -19,4 +19,6 @@ class ApiConstants {
   static const String apiBuscarTramitePor = 'apiBuscarTramitePor';
   static const String apiGetCatalogoEstatusTramiteEndpoint =
       'apiGetCatalogoEstatusTramite';
+  static const String apiCreateCotizacion = 'apiCreateCotizacion';
+  static const String apiCrearBarraFija = 'apiCrearBarraFija';
 }

@@ -8,6 +8,7 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/domain/models/color.dart';
+import 'package:sigev/domain/models/cotizacion.dart';
 import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/domain/models/entidad.dart';
 import 'package:sigev/domain/models/extra.dart';
@@ -397,5 +398,94 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   void removeDocumentacion({required Documentacion documentacion}) {
     documentaciones.remove(documentacion);
     emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  Future<void> generarTramite() async {
+    Cotizacion cotizacion = Cotizacion(
+      sucursal: "${sucursal?.id}-${sucursal?.alias}",
+      telefono: telefonoController.text,
+      nombre: nombreController.text,
+      apellidos: apellidoController.text,
+      telefonoAlterno: telefonoAlternoController.text == ''
+          ? null
+          : telefonoAlternoController.text,
+      correo: correoElectronicoController.text,
+      tipoTramite: "${tipoTramite?.id}-${tipoTramite?.alias}",
+      tipoVehiculo: "${tipoVehiculo?.id}-${tipoVehiculo?.nombre}",
+      entidad: "${entidad?.id}-${entidad?.entidadNombre}",
+      tipoServicio: "${tipoServicio?.id}-${tipoServicio?.nombre}",
+      marca: "${vehiculo?.id}-${vehiculo?.marca}",
+      submarca: subMarcaController.text,
+      modelo: "${tipoModelo?.id}-${tipoModelo?.anio}",
+      idColor: color?.id,
+      placasNa: groupRadioButtonPlacaActual == '1' ? null : 1,
+      placaActual: placaActualController.text,
+      entidadPlaca: entidadPlacaActual == null
+          ? null
+          : "${entidadPlacaActual?.id}-${entidadPlacaActual?.entidadAbreviatura}",
+      desechoNa: groupRadioButtonDesechoPlaca == '1' ? null : 1,
+      desechoTipo: tipoDesechoPlacaEntregado?.nombre,
+      desechoPlacaEntregado: groupRadioButtonDesechoPlacaEntregado == '1'
+          ? 1
+          : groupRadioButtonDesechoPlacaEntregado == ''
+          ? null
+          : 0,
+      desechoTarjetaNa: groupRadioButtonDesechoTarjeta == '1' ? null : 1,
+      desechoTarjetaEntregado: groupRadioButtonDesechoTarjetaEntregado == '1'
+          ? "1"
+          : groupRadioButtonDesechoTarjetaEntregado == ''
+          ? null
+          : "0",
+      terminacionPnNa: groupRadioButtonTerminacionPlacaNueva == '1' ? null : 1,
+      termPlaca1: terminacionPlacaEntregadoOpcionUno?.valor,
+      termPlaca2: terminacionPlacaEntregadoOpcionDos?.valor,
+      subtotal: double.tryParse(subtotalController.text) ?? 0,
+      descuento: double.tryParse(descuentoController.text),
+      total: double.tryParse(totalController.text) ?? 0,
+      acuenta: double.tryParse(aCuentaController.text) ?? 0,
+      saldo: double.tryParse(saldoController.text),
+      nota: notasController.text == '' ? null : notasController.text,
+      extrasConcepto: extras.map((e) => e.alias ?? '').toList(),
+      extrasImporte: extras.map((e) => (e.monto ?? 0).toString()).toList(),
+    );
+    try {
+      emit(NuevoTramiteLoading(catalogos: state.catalogos));
+      var clave = await provider.createCotizacion(cotizacion: cotizacion);
+      await provider.createTramite(clave: clave);
+      emit(NuevoTramiteData(catalogos: state.catalogos));
+    } on ServerErrorException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(NuevoTramiteData(catalogos: state.catalogos));
+      return;
+    } on NetworkException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.avisoSinInternet.getString(_context),
+        type: ToastType.error,
+      );
+      emit(NuevoTramiteData(catalogos: state.catalogos));
+      return;
+    } on ApiClientException catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.message,
+        type: ToastType.error,
+      );
+      emit(NuevoTramiteData(catalogos: state.catalogos));
+      return;
+    } catch (e) {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(NuevoTramiteData(catalogos: state.catalogos));
+      return;
+    }
+    // print(cotizacion.toJson());
   }
 }

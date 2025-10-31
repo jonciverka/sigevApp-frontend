@@ -17,6 +17,7 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehi
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_placas_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_progress_bar.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
+import 'package:sigev/presentation/widgets/app_bottom_sheet_pregunta.dart';
 import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
@@ -38,6 +39,8 @@ class NuevoTramite extends StatelessWidget {
                   case NuevoTramiteError():
                     return Container();
                   case NuevoTramiteLoading():
+                    return const AppLoader();
+                  case NuevoTramiteLoadingCreate():
                     return const AppLoader();
                   case NuevoTramiteData():
                     return NuevoTramiteBody();
@@ -145,7 +148,15 @@ class NuevoTramiteBody extends StatelessWidget {
                   ),
                 ),
                 DatosDocumentos(
-                  onButtonGenerateCodePressed: () {},
+                  onButtonGenerateCodePressed: () => showAppBottomSheetPregunta(
+                    context: context,
+                    title: AppLocale.textTituloGenerarCodigo.getString(context),
+                    question: AppLocale.descripcionGenerarCodigo.getString(
+                      context,
+                    ),
+                    yes: AppLocale.botonGenerarCodigo.getString(context),
+                    onYes: () => nuevoTramiteCubit.generarTramite(),
+                  ),
                   onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
                     NuevoTramiteState.detallePagoSaldo,
                     isBack: true,

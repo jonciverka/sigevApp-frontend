@@ -25,16 +25,21 @@ class NuevoTramiteInitial extends NuevoTramiteState {
 }
 
 class NuevoTramiteLoading extends NuevoTramiteState {
-  NuevoTramiteLoading({
-    CatalogoCotizacion? catalogos,
-    List<Catalogo>? catalogoPrecios,
-  }) : super(catalogos: catalogos ?? CatalogoCotizacion());
+  NuevoTramiteLoading({CatalogoCotizacion? catalogos})
+    : super(catalogos: catalogos ?? CatalogoCotizacion());
 
   @override
-  NuevoTramiteState copyWith({
-    CatalogoCotizacion? catalogos,
-    List<Catalogo>? catalogoPrecios,
-  }) => NuevoTramiteLoading(catalogos: catalogos ?? this.catalogos);
+  NuevoTramiteState copyWith({CatalogoCotizacion? catalogos}) =>
+      NuevoTramiteLoading(catalogos: catalogos ?? this.catalogos);
+}
+
+class NuevoTramiteLoadingCreate extends NuevoTramiteState {
+  NuevoTramiteLoadingCreate({CatalogoCotizacion? catalogos})
+    : super(catalogos: catalogos ?? CatalogoCotizacion());
+
+  @override
+  NuevoTramiteState copyWith({CatalogoCotizacion? catalogos}) =>
+      NuevoTramiteLoading(catalogos: catalogos ?? this.catalogos);
 }
 
 class NuevoTramiteData extends NuevoTramiteState {
@@ -49,8 +54,6 @@ class NuevoTramiteError extends NuevoTramiteState {
   NuevoTramiteError() : super(catalogos: CatalogoCotizacion());
 
   @override
-  NuevoTramiteState copyWith({
-    CatalogoCotizacion? catalogos,
-    List<Catalogo>? catalogoPrecios,
-  }) => NuevoTramiteError();
+  NuevoTramiteState copyWith({CatalogoCotizacion? catalogos}) =>
+      NuevoTramiteError();
 }

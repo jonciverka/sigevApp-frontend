@@ -145,6 +145,10 @@ mixin AppLocale {
   static const String lavelSaldoNuevoTramite = 'lavelSaldoNuevoTramite';
   static const String lavelNotasNuevoTramite = 'lavelNotasNuevoTramite';
   static const String textoInstruccionDocumentos = 'textoInstruccionDocumentos';
+  static const String textTituloGenerarCodigo = 'textTituloGenerarCodigo';
+  static const String descripcionGenerarCodigo = 'descripcionGenerarCodigo';
+  static const String botonGenerarCodigo = 'botonGenerarCodigo';
+
   //Catalogo precios
   static const String textTituloCatalogoPrecios = 'textTituloCatalogoPrecios';
   static const String textValorEntidadCatalogoPrecios =
@@ -277,5 +281,9 @@ mixin AppLocale {
         "No cumple con el monto mínimo a cuenta",
     textoInstruccionDocumentos:
         "Seleccione los documentos que el usuario deberá subir para completar el trámite.",
+    textTituloGenerarCodigo: "¿Desea continuar con la generación de código?",
+    descripcionGenerarCodigo:
+        "Una vez generado, podrás continuar con el trámite en la sección de “Trámites”.",
+    botonGenerarCodigo: "Generar",
   };
 }
