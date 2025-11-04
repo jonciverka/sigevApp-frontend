@@ -7,7 +7,7 @@ import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
-import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_state.dart';
+import 'package:sigev/presentation/pages/partner/tramites/cubit/tramites_state.dart';
 import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 
 class TramitesCubit extends Cubit<TramitesState> {
@@ -16,12 +16,14 @@ class TramitesCubit extends Cubit<TramitesState> {
   TramitesCubit({required BuildContext context})
     : _context = context,
       super(TramitesInitial()) {
-    apiGetTramitesCliente();
+    getTramites();
   }
-  Future<void> apiGetTramitesCliente() async {
+  Future<void> getTramites() async {
     try {
       emit(TramitesLoading());
-      final List<Tramite> tramites = await provider.apiGetTramitesCliente();
+      final List<Tramite> tramites = await provider.apiBuscarTramitePor(
+        '2025-W38',
+      );
       emit(TramitesData(tramites: tramites, tramitesBuscados: tramites));
     } on ServerErrorException {
       showToastNotification(

@@ -3,7 +3,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/tramite.dart';
-import 'package:sigev/presentation/widgets/app_tramite_card.dart';
+import 'package:sigev/presentation/pages/client/tramites/widgets/app_tramite_card.dart';
 
 class AppTramites extends StatelessWidget {
   const AppTramites({super.key, required this.tramites});

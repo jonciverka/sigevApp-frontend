@@ -59,7 +59,6 @@ class Tramite {
     this.estatus,
     this.idUsuario,
     this.terminosCondiciones,
-    // this.statusTramites,
   });
 
   int? id;
@@ -166,11 +165,13 @@ class Tramite {
     saldo: double.tryParse(json["saldo"].toString()),
     idNota: json["idnota"],
     nota: json["nota"],
+    idUsuario: json["idusuario"],
     usuario: json["usuario"],
     fechaCreacion: json["fecha_creacion"],
-    idUsuario: json["idusuario"],
     terminosCondiciones: json["terminos_condiciones"],
-    estatus: statusTramiteFromJsonList(json["estatus"]),
+    estatus: statusTramiteFromJsonList(
+      json["estatus"] is! List ? json["ultimo_status"] : json["estatus"],
+    ),
   );
   StatusTramite get ultimoStatus =>
       estatus?.reduce((a, b) => (a.id ?? 0) > (b.id ?? 0) ? a : b) ??
