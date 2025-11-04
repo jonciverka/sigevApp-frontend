@@ -11,7 +11,6 @@ import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/catalogo_precios_page.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
-import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 

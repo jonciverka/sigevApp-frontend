@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/strings.dart';
+import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
 import 'package:sigev/presentation/pages/partner/tramites/cubit/tramites_state.dart';
@@ -13,17 +14,18 @@ import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 class TramitesCubit extends Cubit<TramitesState> {
   final provider = CotizacionTramiteProvider();
   final BuildContext _context;
+  String _semana = Utilities().getYearWeek();
   TramitesCubit({required BuildContext context})
     : _context = context,
       super(TramitesInitial()) {
-    getTramites();
+    getTramites(semana: _semana);
   }
-  Future<void> getTramites() async {
+  get semana => _semana;
+  Future<void> getTramites({required String semana}) async {
     try {
       emit(TramitesLoading());
-      final List<Tramite> tramites = await provider.apiBuscarTramitePor(
-        '2025-W38',
-      );
+      _semana = semana;
+      final List<Tramite> tramites = await provider.apiBuscarTramitePor(semana);
       emit(TramitesData(tramites: tramites, tramitesBuscados: tramites));
     } on ServerErrorException {
       showToastNotification(
@@ -61,8 +63,6 @@ class TramitesCubit extends Cubit<TramitesState> {
   }
 
   void getTramitesBuscados({required List<Tramite> busqueda}) {
-    emit(
-      TramitesData(tramites: state.tramites, tramitesBuscados: state.tramites),
-    );
+    emit(TramitesData(tramites: state.tramites, tramitesBuscados: busqueda));
   }
 }

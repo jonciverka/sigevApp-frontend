@@ -18,6 +18,22 @@ class Utilities {
     );
     return emailRegex.hasMatch(email);
   }
+
+  String getYearWeek() {
+    final now = DateTime.now();
+    // Ajuste según ISO 8601 (las semanas comienzan en lunes)
+    final dayOfYear =
+        int.parse(
+          DateTime(
+            now.year,
+            now.month,
+            now.day,
+          ).difference(DateTime(now.year, 1, 1)).inDays.toString(),
+        ) +
+        1;
+    final weekNumber = ((dayOfYear - now.weekday + 10) / 7).floor();
+    return '${now.year}-W${weekNumber.toString().padLeft(2, '0')}';
+  }
 }
 
 extension StringExtension on String? {

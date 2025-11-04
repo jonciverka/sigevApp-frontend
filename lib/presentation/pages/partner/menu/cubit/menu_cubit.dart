@@ -6,6 +6,7 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/catalogo.dart';
+import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_state.dart';
 import 'package:sigev/presentation/widgets/app_toast_notification.dart';
@@ -15,7 +16,13 @@ class MenuCubit extends Cubit<MenuState> {
   final provider = CotizacionTramiteProvider();
   List<Catalogo> catalogos = [];
   MenuCubit({required this.context})
-    : super(MenuData(index: MenuState.homePageIndex, catalogoPrecios: [])) {
+    : super(
+        MenuData(
+          index: MenuState.homePageIndex,
+          catalogoPrecios: [],
+          catalogoEstatusTramite: [],
+        ),
+      ) {
     obtenerCatalogos();
   }
 
@@ -23,7 +30,15 @@ class MenuCubit extends Cubit<MenuState> {
     try {
       emit(MenuLoading());
       catalogos = await provider.apiGetCatalogo();
-      emit(MenuData(catalogoPrecios: catalogos, index: state.index));
+      final List<Status> estatusMenu = await provider
+          .apiGetCatalogoEstatusTramite();
+      emit(
+        MenuData(
+          catalogoPrecios: catalogos,
+          index: state.index,
+          catalogoEstatusTramite: estatusMenu,
+        ),
+      );
     } on ServerErrorException {
       if (context.mounted) {
         showToastNotification(
@@ -68,10 +83,22 @@ class MenuCubit extends Cubit<MenuState> {
   }
 
   void changeIndex({required int index}) {
-    emit(MenuData(index: index, catalogoPrecios: state.catalogoPrecios));
+    emit(
+      MenuData(
+        index: index,
+        catalogoPrecios: state.catalogoPrecios,
+        catalogoEstatusTramite: state.catalogoEstatusTramite,
+      ),
+    );
   }
 
   void searchCatalogoPrecio({required List<Catalogo> busqueda}) {
-    emit(MenuData(index: state.index, catalogoPrecios: busqueda));
+    emit(
+      MenuData(
+        index: state.index,
+        catalogoPrecios: busqueda,
+        catalogoEstatusTramite: state.catalogoEstatusTramite,
+      ),
+    );
   }
 }

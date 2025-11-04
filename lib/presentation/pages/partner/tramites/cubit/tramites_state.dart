@@ -41,6 +41,7 @@ class TramitesData extends TramitesState {
   TramitesState copyWith({
     List<Tramite>? tramites,
     List<Tramite>? tramitesBuscados,
+    List<Status>? catalogoEstatusTramite,
   }) => TramitesData(
     tramites: tramites ?? this.tramites,
     tramitesBuscados: tramitesBuscados ?? this.tramitesBuscados,
@@ -55,5 +56,6 @@ class TramitesError extends TramitesState {
     List<Tramite>? tramites,
     List<Tramite>? tramitesBuscados,
     List<Status>? catalogoEstatusTramite,
+    String? semana,
   }) => TramitesError();
 }

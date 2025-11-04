@@ -22,6 +22,9 @@ mixin AppLocale {
       'errorNoCumpleConElMontoMinimoAnticipo';
   //Tramites
   static const String inputSearch = 'inputSearch';
+  static const String inputSearchTramite = 'inputSearchTramite';
+  static const String errorFormaBusquedaString = 'errorFormaBusquedaString';
+
   //Perfil
   static const String textTituloPerfil = 'textTituloPerfil';
   static const String inputNombreCompletoPerfil = 'inputNombreCompletoPerfil';
@@ -188,6 +191,9 @@ mixin AppLocale {
     textTituloHomeCliente: "Mis Trámites",
     textButtonVerMasTramites: "Ver Mas",
     inputSearch: "Buscar...",
+    inputSearchTramite: "Ex. 2025-W45",
+    errorFormaBusquedaString:
+        "Formato de busqueda incorrecto. Inténtalo de nuevo. Ex. 2025-W45",
     textTituloPerfil: "Mi perfíl",
     inputNombreCompletoPerfil: "Nombre Completo",
     inputCorreoElectronicoPerfil: "Correo electrónico",

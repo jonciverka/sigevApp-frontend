@@ -35,6 +35,8 @@ class AppIcons {
   static const IconData chevronRight = Icons.chevron_right_rounded;
   static const IconData keyBoardArrowUp = Icons.keyboard_arrow_up_rounded;
   //Others
+  static const IconData calendar = Icons.calendar_month;
+  static const IconData refresh = Icons.refresh;
 
   // Icons
   static Icon smallIcon(IconData icon, {Color? color}) =>

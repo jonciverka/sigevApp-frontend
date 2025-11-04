@@ -7,15 +7,17 @@ Future<T?> showAppBottomSheet<T extends Object?>({
   required BuildContext context,
   required Widget child,
   required String title,
+  bool useRootNavigator = true,
+  double heightFactor = .9,
 }) => showModalBottomSheet(
   context: context,
   isScrollControlled: true,
   useSafeArea: true,
   isDismissible: true,
-  useRootNavigator: true,
+  useRootNavigator: useRootNavigator,
   builder: (context) {
     return FractionallySizedBox(
-      heightFactor: .9,
+      heightFactor: heightFactor,
       child: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(
