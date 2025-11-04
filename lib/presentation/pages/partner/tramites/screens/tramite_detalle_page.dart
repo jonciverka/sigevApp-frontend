@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/domain/models/tramite.dart';
-import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 
 class TramiteDetallePage extends StatelessWidget {
