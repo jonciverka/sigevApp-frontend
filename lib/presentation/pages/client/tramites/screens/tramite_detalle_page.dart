@@ -75,7 +75,7 @@ class AppTab extends StatelessWidget {
                 isExpanded: true,
                 children: [
                   AppTramitesDetalleBody(tramite: tramite),
-                  Container(),
+                  AppTramitesDocumentos(tramite: tramite),
                 ],
               ),
             ),
@@ -136,6 +136,60 @@ class AppTramitesDetalleBody extends StatelessWidget {
               ),
             )
             .toList(),
+      ),
+    );
+  }
+}
+
+class AppTramitesDocumentos extends StatelessWidget {
+  const AppTramitesDocumentos({super.key, required this.tramite});
+  final Tramite tramite;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: context.spacing56),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children:
+            tramite.documentaciones
+                ?.map(
+                  (estado) => SizedBox(
+                    height: context.spacing72,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: context.spacing4,
+                          color: AppTheme.neutralColorGrey400,
+                        ),
+                        SizedBox(width: context.spacing16),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                estado.nombre ?? '',
+                                textAlign: TextAlign.left,
+                                style: context.bodyBoldTextStyle,
+                              ),
+                              Text(
+                                (estado.nombre ?? '').split('-')[0],
+                                textAlign: TextAlign.left,
+                                style: context.captionBoldTextStyle,
+                                overflow: TextOverflow.clip,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+                .toList() ??
+            [],
       ),
     );
   }
