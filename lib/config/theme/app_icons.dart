@@ -37,6 +37,7 @@ class AppIcons {
   //Others
   static const IconData calendar = Icons.calendar_month;
   static const IconData refresh = Icons.refresh;
+  static const IconData upload = Icons.upload_rounded;
 
   // Icons
   static Icon smallIcon(IconData icon, {Color? color}) =>

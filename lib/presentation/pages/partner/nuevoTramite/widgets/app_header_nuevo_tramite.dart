@@ -5,8 +5,8 @@ import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 
-class AppHeader extends StatelessWidget {
-  const AppHeader({super.key});
+class AppHeaderNuevoTramite extends StatelessWidget {
+  const AppHeaderNuevoTramite({super.key});
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();

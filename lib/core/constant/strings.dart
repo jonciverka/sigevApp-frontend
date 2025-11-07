@@ -24,6 +24,8 @@ mixin AppLocale {
   static const String inputSearch = 'inputSearch';
   static const String inputSearchTramite = 'inputSearchTramite';
   static const String errorFormaBusquedaString = 'errorFormaBusquedaString';
+  static const String tabEstadosTramites = 'tabEstadosTramites';
+  static const String tabDocumentosTramites = 'tabDocumentosTramites';
 
   //Perfil
   static const String textTituloPerfil = 'textTituloPerfil';
@@ -300,5 +302,7 @@ mixin AppLocale {
     textSolicitandoDocumentos: "Solicitando documentos de forma segura...",
     textCargando: "Ya casi, por favor espera un momento...",
     textCodigoGenerado: "Código Generado",
+    tabEstadosTramites: "Estados",
+    tabDocumentosTramites: "Documentos",
   };
 }

@@ -20,7 +20,7 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_progre
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_success.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet_pregunta.dart';
-import 'package:sigev/presentation/widgets/app_header.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_header_nuevo_tramite.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
 class NuevoTramite extends StatelessWidget {
@@ -74,7 +74,7 @@ class NuevoTramiteBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AppHeader(),
+            AppHeaderNuevoTramite(),
             AppProgressBar(),
             SizedBox(height: context.spacing12),
             Expanded(

@@ -12,7 +12,6 @@ import 'package:sigev/presentation/pages/client/home/widgets/app_tramites_activo
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_state.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
-import 'package:sigev/presentation/widgets/app_header.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
 class HomePage extends StatelessWidget {
@@ -62,9 +61,10 @@ class HomePageBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          AppHeader(),
           SizedBox(height: context.spacing16),
-          AppTramitesActivos(total: homeCubit.state.tramites.length),
+          AppCardTituloTramitesActivosTotales(
+            total: homeCubit.state.tramites.length,
+          ),
           SizedBox(height: context.spacing16),
           AppTramites(
             tramites: homeCubit.state.tramites.sublist(

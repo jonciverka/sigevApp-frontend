@@ -4,8 +4,8 @@ import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/widgets/app_card.dart';
 
-class AppTramitesActivos extends StatelessWidget {
-  const AppTramitesActivos({super.key, required this.total});
+class AppCardTituloTramitesActivosTotales extends StatelessWidget {
+  const AppCardTituloTramitesActivosTotales({super.key, required this.total});
   final int total;
   @override
   Widget build(BuildContext context) {

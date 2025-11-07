@@ -5,11 +5,14 @@ List<Documentacion> documentacionsFromJsonList(List<dynamic> jsonList) =>
     jsonList.map((json) => Documentacion.fromJson(json)).toList();
 
 class Documentacion {
-  Documentacion({this.nombre, this.valor});
-
+  Documentacion({this.id, this.nombre, this.valor});
+  int? id;
   String? nombre;
   String? valor;
 
-  factory Documentacion.fromJson(Map<String, dynamic> json) =>
-      Documentacion(nombre: json["nombre"], valor: json["valor"]);
+  factory Documentacion.fromJson(Map<String, dynamic> json) => Documentacion(
+    id: json["id"],
+    nombre: json["nombre"],
+    valor: json["valor"],
+  );
 }

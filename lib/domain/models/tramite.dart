@@ -1,4 +1,6 @@
 // ignore: file_names
+import 'package:sigev/domain/models/documentacion.dart';
+
 Tramite tramiteFromJsonMap(Map<String, dynamic> json) => Tramite.fromJson(json);
 List<Tramite> tramitesFromJsonList(List<dynamic> jsonList) =>
     jsonList.map((json) => Tramite.fromJson(json)).toList();
@@ -59,6 +61,7 @@ class Tramite {
     this.estatus,
     this.idUsuario,
     this.terminosCondiciones,
+    this.documentaciones,
   });
 
   int? id;
@@ -114,6 +117,7 @@ class Tramite {
   String? usuario;
   String? fechaCreacion;
   List<StatusTramite>? estatus;
+  List<Documentacion>? documentaciones;
   int? terminosCondiciones;
 
   factory Tramite.fromJson(Map<String, dynamic> json) => Tramite(
@@ -172,6 +176,7 @@ class Tramite {
     estatus: statusTramiteFromJsonList(
       json["estatus"] is! List ? json["ultimo_status"] : json["estatus"],
     ),
+    documentaciones: documentacionsFromJsonList(json["documentaciones"]),
   );
   StatusTramite get ultimoStatus =>
       estatus?.reduce((a, b) => (a.id ?? 0) > (b.id ?? 0) ? a : b) ??

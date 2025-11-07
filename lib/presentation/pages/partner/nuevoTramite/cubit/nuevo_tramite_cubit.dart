@@ -449,6 +449,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       nota: notasController.text == '' ? null : notasController.text,
       extrasConcepto: extras.map((e) => e.alias ?? '').toList(),
       extrasImporte: extras.map((e) => (e.monto ?? 0).toString()).toList(),
+      documentacion: documentaciones,
     );
     try {
       emit(

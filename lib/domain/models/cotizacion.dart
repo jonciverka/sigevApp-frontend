@@ -1,4 +1,6 @@
 // ignore: file_names
+import 'package:sigev/domain/models/documentacion.dart';
+
 Cotizacion cotizacionFromJsonMap(Map<String, dynamic> json) =>
     Cotizacion.fromJson(json);
 List<Cotizacion> cotizacionsFromJsonList(List<dynamic> jsonList) =>
@@ -61,6 +63,7 @@ class Cotizacion {
     this.idUsuario,
     this.extrasConcepto,
     this.extrasImporte,
+    this.documentacion,
   });
 
   int? id;
@@ -118,6 +121,7 @@ class Cotizacion {
   int? idUsuario;
   List<String>? extrasConcepto;
   List<String>? extrasImporte;
+  List<Documentacion>? documentacion;
 
   factory Cotizacion.fromJson(Map<String, dynamic> json) => Cotizacion(
     id: json["id"],
@@ -220,5 +224,6 @@ class Cotizacion {
     "acuenta": acuenta, //"10000000000",
     "saldo": saldo, // "10000000000" || null,
     "nota": nota, //String || null,
+    "documentos": documentacion?.map((e) => e.id).toList(),
   };
 }
