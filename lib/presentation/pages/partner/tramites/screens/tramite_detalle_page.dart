@@ -155,7 +155,7 @@ class AppTramitesDocumentos extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${documentacion.nombre ?? ''} *",
+                      "${documentacion.apellido ?? ''} *",
                       style: context.bodyBoldTextStyle,
                     ),
                     SizedBox(height: context.spacing8),

@@ -96,7 +96,7 @@ class AppCardDocumentacion extends StatelessWidget {
             }
           },
         ),
-        Text(documentacion.nombre ?? '', style: context.bodyRegularTextStyle),
+        Text(documentacion.apellido ?? '', style: context.bodyRegularTextStyle),
       ],
     );
   }

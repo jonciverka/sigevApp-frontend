@@ -55,7 +55,7 @@ class _AppTramitesDocumentosState extends State<AppTramitesDocumentos> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "${documentacion.nombre ?? ''} *",
+                          "${documentacion.apellido ?? ''} *",
                           style: context.bodyBoldTextStyle,
                         ),
                         SizedBox(height: context.spacing8),

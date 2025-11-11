@@ -14,11 +14,13 @@ class Documentacion {
     this.urlRecurso,
     this.file,
     this.formato,
+    this.apellido,
     this.path,
   });
 
   int? id;
   String? nombre;
+  String? apellido;
   String? urlRecurso;
   File? file;
   String? formato;
@@ -26,7 +28,8 @@ class Documentacion {
 
   factory Documentacion.fromJson(Map<String, dynamic> json) => Documentacion(
     id: json["id"],
-    nombre: json["documento"]["nombre"] ?? json["nombre"],
+    nombre: json["nombre"] ?? json["documento"]["nombre"],
+    apellido: json["apellidos"] ?? json["documento"]["apellidos"],
     path: json["url_recurso"],
     urlRecurso:
         "http://${ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/${json["url_recurso"]}",
@@ -35,6 +38,7 @@ class Documentacion {
   Documentacion copyWith({
     int? id,
     String? nombre,
+    String? apellido,
     String? urlRecurso,
     File? file,
     String? formato,
@@ -43,6 +47,7 @@ class Documentacion {
     return Documentacion(
       id: id ?? this.id,
       nombre: nombre ?? this.nombre,
+      apellido: apellido ?? this.apellido,
       urlRecurso: urlRecurso ?? this.urlRecurso,
       file: file ?? this.file,
       formato: formato ?? this.formato,
