@@ -64,7 +64,7 @@ class AppTramitePartnerCard extends StatelessWidget {
                   Text(tramite.nombre ?? '', style: context.bodyBoldTextStyle),
                   SizedBox(height: context.spacing8),
                   Text(
-                    "${tramite.tipoTramite} - ${tramite.tipoServicio} - ${tramite.tipoVehiculo} - ${tramite.entidad}",
+                    tramite.tituloCarta,
                     style: context.bodyRegularTextStyle,
                   ),
                 ],

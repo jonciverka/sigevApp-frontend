@@ -16,9 +16,9 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit({required BuildContext context})
     : _context = context,
       super(HomeInitial()) {
-    obtenerBarraFija();
+    getTramiteCliente();
   }
-  Future<void> obtenerBarraFija() async {
+  Future<void> getTramiteCliente() async {
     try {
       emit(HomeLoading());
       final List<Tramite> tramites = await provider.apiGetTramitesCliente();

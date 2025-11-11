@@ -26,6 +26,12 @@ mixin AppLocale {
   static const String errorFormaBusquedaString = 'errorFormaBusquedaString';
   static const String tabEstadosTramites = 'tabEstadosTramites';
   static const String tabDocumentosTramites = 'tabDocumentosTramites';
+  static const String textTituloSubirDocumento = 'textTituloSubirDocumento';
+  static const String buttonSubirDocumentoTramites =
+      'buttonSubirDocumentoTramites';
+  static const String buttonTomarFotoTramites = 'buttonTomarFotoTramites';
+  static const String buttonEnviarDocumentos = 'buttonEnviarDocumentos';
+  static const String textoErrorNoHayDocumentos = 'textoErrorNoHayDocumentos';
 
   //Perfil
   static const String textTituloPerfil = 'textTituloPerfil';
@@ -304,5 +310,10 @@ mixin AppLocale {
     textCodigoGenerado: "Código Generado",
     tabEstadosTramites: "Estados",
     tabDocumentosTramites: "Documentos",
+    textTituloSubirDocumento: "Agrega tu documento",
+    buttonSubirDocumentoTramites: "Subir Documento",
+    buttonTomarFotoTramites: "Tomar Foto",
+    buttonEnviarDocumentos: "Enviar Documentos",
+    textoErrorNoHayDocumentos: "El cliente todavía no ha subido el documento.",
   };
 }

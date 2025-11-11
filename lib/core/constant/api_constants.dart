@@ -21,4 +21,7 @@ class ApiConstants {
       'apiGetCatalogoEstatusTramite';
   static const String apiCreateCotizacion = 'apiCreateCotizacion';
   static const String apiCrearBarraFija = 'apiCrearBarraFija';
+  static const String apiUploadDocumentsTramiteCliente =
+      'apiUploadDocumentsTramiteCliente';
+  static const String apiGetImages = 'mostrarArchivo';
 }

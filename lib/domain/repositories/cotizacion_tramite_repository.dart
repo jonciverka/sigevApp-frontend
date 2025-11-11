@@ -1,6 +1,7 @@
 import 'package:sigev/domain/models/catalogo.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/domain/models/cotizacion.dart';
+import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/domain/models/tramite.dart';
 
 abstract class CotizacionTramiteRepository {
@@ -13,4 +14,8 @@ abstract class CotizacionTramiteRepository {
   Future<List<Status>> apiGetCatalogoEstatusTramite();
   Future<String> createCotizacion({required Cotizacion cotizacion});
   Future<String> createTramite({required String clave});
+  Future<void> uploadImage({
+    required List<Documentacion> documentacionesAMandar,
+    required List<Documentacion> documentaciones,
+  });
 }

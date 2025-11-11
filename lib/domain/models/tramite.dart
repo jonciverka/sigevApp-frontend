@@ -184,6 +184,8 @@ class Tramite {
   bool yaPaso(int idEstatus) =>
       ultimoStatus.idestatus == idEstatus ||
       ultimoStatus.idestatus! > idEstatus;
+  String get tituloCarta =>
+      '$tipoTramite - $placaActual - $entidad - $tipoServicio';
 }
 
 List<StatusTramite> statusTramiteFromJsonList(List<dynamic> jsonList) =>

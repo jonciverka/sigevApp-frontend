@@ -6,7 +6,11 @@ import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
+import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_detalle_cubit.dart';
+import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_detalle_state.dart';
+import 'package:sigev/presentation/pages/client/tramites/widgets/app_tramites_documentos.dart';
 import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
+import 'package:sigev/presentation/widgets/app_loader.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 
 class TramiteDetallePage extends StatelessWidget {
@@ -15,6 +19,32 @@ class TramiteDetallePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          TramiteDetalleCubit(context: context, tramite: tramite),
+      child: BlocBuilder<TramiteDetalleCubit, TramiteDetalleState>(
+        builder: (context, state) {
+          switch (state) {
+            case TramiteDetalleError():
+              return Container();
+            case TramiteDetalleLoading():
+              return const AppLoader();
+            case TramiteDetalleData():
+              return TramiteDetalleDataBody();
+            default:
+              return const AppLoader();
+          }
+        },
+      ),
+    );
+  }
+}
+
+class TramiteDetalleDataBody extends StatelessWidget {
+  const TramiteDetalleDataBody({super.key});
+  @override
+  Widget build(BuildContext context) {
+    var tramiteDetalleCubit = context.read<TramiteDetalleCubit>();
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
@@ -32,7 +62,7 @@ class TramiteDetallePage extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
             ),
           ),
-          AppTab(tramite: tramite),
+          AppTab(tramite: tramiteDetalleCubit.state.tramite),
         ],
       ),
     );
@@ -59,10 +89,7 @@ class AppTab extends StatelessWidget {
           children: [
             Text(tramite.clave ?? '', style: context.headingLargeTextStyle),
             SizedBox(height: context.spacing24),
-            Text(
-              "${tramite.tipoTramite} - ${tramite.tipoServicio} - ${tramite.tipoVehiculo} - ${tramite.entidad}",
-              style: context.headingMediumTextStyle,
-            ),
+            Text(tramite.tituloCarta, style: context.headingMediumTextStyle),
             SizedBox(height: context.spacing24),
             Expanded(
               child: AppTabView(
@@ -122,6 +149,7 @@ class AppTramitesDetalleBody extends StatelessWidget {
                             textAlign: TextAlign.left,
                             style: context.bodyBoldTextStyle,
                           ),
+
                           Text(
                             (estado.nombrePortada ?? '').split('-')[0],
                             textAlign: TextAlign.left,
@@ -136,60 +164,6 @@ class AppTramitesDetalleBody extends StatelessWidget {
               ),
             )
             .toList(),
-      ),
-    );
-  }
-}
-
-class AppTramitesDocumentos extends StatelessWidget {
-  const AppTramitesDocumentos({super.key, required this.tramite});
-  final Tramite tramite;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: context.spacing56),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children:
-            tramite.documentaciones
-                ?.map(
-                  (estado) => SizedBox(
-                    height: context.spacing72,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: context.spacing4,
-                          color: AppTheme.neutralColorGrey400,
-                        ),
-                        SizedBox(width: context.spacing16),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                estado.nombre ?? '',
-                                textAlign: TextAlign.left,
-                                style: context.bodyBoldTextStyle,
-                              ),
-                              Text(
-                                (estado.nombre ?? '').split('-')[0],
-                                textAlign: TextAlign.left,
-                                style: context.captionBoldTextStyle,
-                                overflow: TextOverflow.clip,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-                .toList() ??
-            [],
       ),
     );
   }

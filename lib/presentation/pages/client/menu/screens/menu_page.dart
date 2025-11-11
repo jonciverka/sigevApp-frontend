@@ -45,11 +45,6 @@ class MenuPageBody extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        floatingActionButton: AppIconButtonWhatsapp(
-          icon: Icons.add,
-          iconSize: IconSize.large,
-          onPressed: () {},
-        ),
         backgroundColor: AppTheme.neutralColorWhite,
         body: Navigator(
           onGenerateRoute: (RouteSettings settings) {

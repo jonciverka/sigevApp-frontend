@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sigev/config/globals.dart' as globals;
@@ -33,6 +37,14 @@ class Utilities {
         1;
     final weekNumber = ((dayOfYear - now.weekday + 10) / 7).floor();
     return '${now.year}-W${weekNumber.toString().padLeft(2, '0')}';
+  }
+
+  Future<File> uint8ListToFile(Uint8List data, String filename) async {
+    final tempDir =
+        await getTemporaryDirectory(); // 📁 /data/user/0/tu.app/cache/
+    final file = File('${tempDir.path}/$filename');
+    await file.writeAsBytes(data);
+    return file;
   }
 }
 

@@ -16,9 +16,9 @@ class TramitesCubit extends Cubit<TramitesState> {
   TramitesCubit({required BuildContext context})
     : _context = context,
       super(TramitesInitial()) {
-    apiGetTramitesCliente();
+    getTramiteCliente();
   }
-  Future<void> apiGetTramitesCliente() async {
+  Future<void> getTramiteCliente() async {
     try {
       emit(TramitesLoading());
       final List<Tramite> tramites = await provider.apiGetTramitesCliente();
