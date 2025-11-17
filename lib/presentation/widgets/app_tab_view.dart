@@ -86,7 +86,7 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
                 padding: EdgeInsets.zero,
                 indicatorColor: AppTheme.primaryColor,
                 indicatorSize: TabBarIndicatorSize.tab,
-                dividerColor: AppTheme.neutralColorGrey400,
+                dividerColor: AppTheme.neutralColorLightGrey,
                 dividerHeight: 2,
                 controller: _tabController,
                 onTap: onTabTap,

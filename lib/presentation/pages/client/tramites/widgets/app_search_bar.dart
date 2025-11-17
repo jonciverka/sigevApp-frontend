@@ -34,7 +34,7 @@ class _AppSearchBarState<T> extends State<AppSearchBar<T>> {
       onChanged: (_) => _search(),
       onSubmitted: (_) => _search(),
       suffixIcon: _textController.text.isNotEmpty
-          ? AppIcons.clean
+          ? AppIcons.close
           : AppIcons.search,
       onIconButtonPressed: _textController.text.isNotEmpty
           ? _clearSearch

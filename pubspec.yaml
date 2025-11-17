@@ -40,3 +40,28 @@ flutter:
   uses-material-design: true
   assets:
     - images/
+  fonts:
+    - family: chivo
+      fonts:
+        - asset: fonts/Chivo-Black.ttf
+        - asset: fonts/Chivo-Bold.ttf
+        - asset: fonts/Chivo-ExtraBold.ttf
+        - asset: fonts/Chivo-ExtraLight.ttf
+        - asset: fonts/Chivo-Light.ttf
+        - asset: fonts/Chivo-LightItalic.ttf
+        - asset: fonts/Chivo-Medium.ttf
+        - asset: fonts/Chivo-MediumItalic.ttf
+        - asset: fonts/Chivo-Regular.ttf
+        - asset: fonts/Chivo-Thin.ttf
+    - family: manrope
+      fonts:
+        - asset: fonts/Manrope-Bold.ttf
+        - asset: fonts/Manrope-ExtraBold.ttf
+        - asset: fonts/Manrope-ExtraLight.ttf
+        - asset: fonts/Manrope-Light.ttf
+        - asset: fonts/Manrope-Medium.ttf
+        - asset: fonts/Manrope-Regular.ttf
+        - asset: fonts/Manrope-SemiBold.ttf
+    - family: IconsOwn 
+      fonts:
+        - asset: fonts/IconsOwn.ttf

@@ -59,9 +59,9 @@ class _AppRadioButtonState<T> extends State<AppRadioButton<T>> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _state.isFocused
-                          ? AppTheme.neutralColorGrey400
+                          ? AppTheme.neutralColorLightGrey
                           : _state.isHovered
-                          ? AppTheme.neutralColorGrey100
+                          ? AppTheme.neutralColorBg
                           : null, // Colors.transparent
                     ),
                   ),
@@ -90,7 +90,7 @@ class _AppRadioButtonState<T> extends State<AppRadioButton<T>> {
                         ? Icons.radio_button_on
                         : Icons.radio_button_off,
                     color: widget.onChanged == null
-                        ? AppTheme.neutralColorGrey400
+                        ? AppTheme.neutralColorLightGrey
                         : (widget.value == widget.groupValue)
                         ? AppTheme.primaryColor
                         : Colors.black,
@@ -115,7 +115,7 @@ class _AppRadioButtonState<T> extends State<AppRadioButton<T>> {
             widget.label,
             style: context.bodyRegularTextStyle.copyWith(
               color: widget.onChanged == null
-                  ? AppTheme.neutralColorGrey400
+                  ? AppTheme.neutralColorLightGrey
                   : null,
             ),
           ),

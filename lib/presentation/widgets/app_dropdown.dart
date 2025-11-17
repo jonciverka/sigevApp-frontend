@@ -37,7 +37,7 @@ class AppDropDown<T> extends StatelessWidget {
       validator: (value) => validator(value),
       controller: _textController,
       onChanged: (_) {},
-      suffixIcon: AppIcons.keyBoardArrowDown,
+      suffixIcon: AppIcons.arrowDown,
       readOnly: true,
       onTap: () => showAppBottomSheet(
         context: context,
@@ -106,7 +106,7 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
             child: Text(
               "Total de elementos (${widget.items.length})",
               style: context.bodyBoldTextStyle.copyWith(
-                color: AppTheme.neutralColorGrey700,
+                color: AppTheme.neutralColorDarkGrey,
               ),
             ),
           ),
@@ -127,7 +127,7 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
                         child: Text(
                           widget.labelBuilder(e),
                           style: context.bodyRegularTextStyle.copyWith(
-                            color: AppTheme.neutralColorGrey700,
+                            color: AppTheme.neutralColorDarkGrey,
                           ),
                         ),
                       ),
@@ -188,11 +188,11 @@ class _CustomPopupMenuItemState<T>
   Color _getBackGroundColor() {
     final CustomPopupMenuItem<T> menuItem = widget as CustomPopupMenuItem<T>;
     if (menuItem.isSelected) {
-      return AppTheme.neutralColorGrey400;
+      return AppTheme.neutralColorLightGrey;
     }
 
     if (_state.isHovered) {
-      return AppTheme.neutralColorGrey100;
+      return AppTheme.neutralColorBg;
     }
 
     return AppTheme.neutralColorWhite;

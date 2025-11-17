@@ -32,7 +32,7 @@ class AppHeaderNuevoTramite extends StatelessWidget {
           Text(
             nombreCompleto,
             style: context.bodyBoldTextStyle.copyWith(
-              color: AppTheme.neutralColorGrey700,
+              color: AppTheme.neutralColorDarkGrey,
             ),
           ),
         if (hasTipoTramite || hasEntidad) SizedBox(height: context.spacing4),
@@ -43,14 +43,14 @@ class AppHeaderNuevoTramite extends StatelessWidget {
               Text(
                 tipoTramite,
                 style: context.bodyBoldTextStyle.copyWith(
-                  color: AppTheme.neutralColorGrey700,
+                  color: AppTheme.neutralColorDarkGrey,
                 ),
               ),
             if (hasEntidad)
               Text(
                 entidad,
                 style: context.bodyBoldTextStyle.copyWith(
-                  color: AppTheme.neutralColorGrey700,
+                  color: AppTheme.neutralColorDarkGrey,
                 ),
               ),
           ],

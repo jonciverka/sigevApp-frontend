@@ -28,12 +28,12 @@ class AppCheckBoxRichText extends StatelessWidget {
           height: context.spacing32,
           child: Checkbox(
             side: const BorderSide(
-              color: AppTheme.neutralColorGrey700,
+              color: AppTheme.neutralColorDarkGrey,
               width: 2,
             ),
             activeColor: AppTheme.primaryColor,
             checkColor: Colors.white,
-            focusColor: AppTheme.neutralColorGrey400,
+            focusColor: AppTheme.neutralColorLightGrey,
             splashRadius: context.spacing16,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),

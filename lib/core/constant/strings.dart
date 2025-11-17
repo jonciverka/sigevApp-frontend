@@ -11,6 +11,7 @@ mixin AppLocale {
       'textTramitesActivosTotalHomeCliente';
   static const String textTituloHomeCliente = 'textTituloHomeCliente';
   static const String textButtonVerMasTramites = 'textButtonVerMasTramites';
+  static const String textBienvenido = 'textBienvenido';
   //Mensajes
   static const String avisoSinInternet = 'avisoSinInternet';
   static const String error = 'error';
@@ -194,7 +195,7 @@ mixin AppLocale {
     inputLoginPasswordLogin: 'Contraseña',
     botonIniciarSesionLogin: 'Iniciar Sesión',
     textoInstruccionLogin:
-        "*Si eres cliente, tu contraseña es tu número de trámite",
+        "Si eres cliente, tu contraseña es tu número de trámite",
     textTramitesActivosTotalHomeCliente: 'Trámites Activos',
     textTituloHomeCliente: "Mis Trámites",
     textButtonVerMasTramites: "Ver Mas",
@@ -315,5 +316,6 @@ mixin AppLocale {
     buttonTomarFotoTramites: "Tomar Foto",
     buttonEnviarDocumentos: "Enviar Documentos",
     textoErrorNoHayDocumentos: "El cliente todavía no ha subido el documento.",
+    textBienvenido: "¡Bienvenido!",
   };
 }

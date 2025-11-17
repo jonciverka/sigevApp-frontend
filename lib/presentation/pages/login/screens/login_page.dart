@@ -49,17 +49,23 @@ Widget cuerpoWgt(BuildContext context) {
   return Form(
     key: loginCubit.fomularioState,
     child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.spacing16),
+      padding: EdgeInsets.symmetric(horizontal: context.spacing40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(AssetsConstants.sigevLogo, height: 150),
-          SizedBox(height: context.spacing16),
+          Image.asset(AssetsConstants.sigevLogo, width: 313),
+          SizedBox(height: context.spacing24),
+          Text(
+            AppLocale.textBienvenido.getString(context),
+            style: context.headingLargeTextStyle,
+          ),
+          SizedBox(height: context.spacing24),
           AppTextFormField(
             keyboardType: TextInputType.emailAddress,
             controller: loginCubit.usuarioController,
-            hintText: AppLocale.inputLoginUsuarioLogin.getString(context),
+            labelText: AppLocale.inputLoginUsuarioLogin.getString(context),
+            prefixIcon: AppIcons.addCircle,
             validator: (value) {
               if (value!.isEmpty) {
                 return AppLocale.campoObligatorio.getString(context);
@@ -68,13 +74,13 @@ Widget cuerpoWgt(BuildContext context) {
             },
             onChanged: (_) {},
           ),
-          SizedBox(height: context.spacing16),
+          SizedBox(height: context.spacing24),
           AppTextFormField(
             controller: loginCubit.passcontroller,
-            hintText: AppLocale.inputLoginPasswordLogin.getString(context),
-            suffixIcon: context.watch<LoginCubit>().passwordVisible
-                ? AppIcons.visibility
-                : AppIcons.visibilityOff,
+            labelText: AppLocale.inputLoginPasswordLogin.getString(context),
+            prefixIcon: context.watch<LoginCubit>().passwordVisible
+                ? AppIcons.password
+                : AppIcons.password,
             onIconButtonPressed: () => loginCubit.changePasswordVisibility(),
             obscureText: context.watch<LoginCubit>().passwordVisible,
             validator: (value) {
@@ -89,7 +95,9 @@ Widget cuerpoWgt(BuildContext context) {
           SizedBox(height: context.spacing8),
           Text(
             AppLocale.textoInstruccionLogin.getString(context),
-            style: context.bodyRegularTextStyle,
+            style: context.captionRegularTextStyle.copyWith(
+              color: AppTheme.neutralColorDarkGrey,
+            ),
           ),
           SizedBox(height: context.spacing24),
           AppPrimaryButton(

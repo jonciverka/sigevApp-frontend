@@ -74,7 +74,7 @@ class AppTramiteCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(AppIcons.chevronRight),
+              Icon(AppIcons.arrowForward),
             ],
           ),
         ),

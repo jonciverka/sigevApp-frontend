@@ -18,8 +18,8 @@ class AppChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         border: Border.all(
           color: onDeletePressed == null
-              ? AppTheme.neutralColorGrey400
-              : AppTheme.neutralColorGrey950,
+              ? AppTheme.neutralColorLightGrey
+              : AppTheme.neutralColorBlack,
           width: 2,
         ),
       ),
@@ -32,8 +32,8 @@ class AppChip extends StatelessWidget {
               label,
               style: context.captionBoldTextStyle.copyWith(
                 color: onDeletePressed == null
-                    ? AppTheme.neutralColorGrey400
-                    : AppTheme.neutralColorGrey950,
+                    ? AppTheme.neutralColorLightGrey
+                    : AppTheme.neutralColorBlack,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -46,8 +46,8 @@ class AppChip extends StatelessWidget {
             child: AppSecondaryIconButton(
               icon: AppIcons.close,
               color: onDeletePressed == null
-                  ? AppTheme.neutralColorGrey400
-                  : AppTheme.neutralColorGrey950,
+                  ? AppTheme.neutralColorLightGrey
+                  : AppTheme.neutralColorBlack,
               iconSize: IconSize.small,
               onPressed: onDeletePressed,
             ),

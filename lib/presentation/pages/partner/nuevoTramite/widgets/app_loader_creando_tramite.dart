@@ -101,8 +101,8 @@ class _StaticText extends StatelessWidget {
       text,
       style: context.headingLargeTextStyle.copyWith(
         color: isActive
-            ? AppTheme.neutralColorGrey950
-            : AppTheme.neutralColorGrey400,
+            ? AppTheme.neutralColorBlack
+            : AppTheme.neutralColorLightGrey,
       ),
     );
   }
@@ -163,8 +163,8 @@ class _AnimatedAppearTextState extends State<_AnimatedAppearText>
           widget.text,
           style: context.headingLargeTextStyle.copyWith(
             color: widget.isActive
-                ? AppTheme.neutralColorGrey950
-                : AppTheme.neutralColorGrey400,
+                ? AppTheme.neutralColorBlack
+                : AppTheme.neutralColorLightGrey,
           ),
         ),
       ),

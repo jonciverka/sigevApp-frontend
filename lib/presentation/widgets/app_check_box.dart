@@ -61,9 +61,9 @@ class _AppCheckBoxState extends State<AppCheckBox> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _state.isFocused
-                          ? AppTheme.neutralColorGrey400
+                          ? AppTheme.neutralColorLightGrey
                           : _state.isHovered
-                          ? AppTheme.neutralColorGrey100
+                          ? AppTheme.neutralColorBg
                           : null, // Colors.transparent
                     ),
                   ),
@@ -93,7 +93,7 @@ class _AppCheckBoxState extends State<AppCheckBox> {
                         ? Icons.check_box_rounded
                         : Icons.check_box_outline_blank_rounded,
                     color: widget.onChanged == null
-                        ? AppTheme.neutralColorGrey400
+                        ? AppTheme.neutralColorLightGrey
                         : (widget.value ?? false)
                         ? AppTheme.primaryColor
                         : Colors.black,
@@ -108,7 +108,7 @@ class _AppCheckBoxState extends State<AppCheckBox> {
             widget.label,
             style: context.bodyRegularTextStyle.copyWith(
               color: widget.onChanged == null
-                  ? AppTheme.neutralColorGrey400
+                  ? AppTheme.neutralColorLightGrey
                   : null,
             ),
           ),

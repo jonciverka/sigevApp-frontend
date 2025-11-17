@@ -58,7 +58,10 @@ class MenuPageBody extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               border: Border(
-                top: BorderSide(color: AppTheme.neutralColorGrey400, width: 1),
+                top: BorderSide(
+                  color: AppTheme.neutralColorLightGrey,
+                  width: 1,
+                ),
               ),
             ),
             child: Row(

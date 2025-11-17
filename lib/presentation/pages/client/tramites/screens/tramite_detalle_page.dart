@@ -136,7 +136,7 @@ class AppTramitesDetalleBody extends StatelessWidget {
                       width: context.spacing4,
                       color: tramite.yaPaso(estado.id ?? 0)
                           ? AppTheme.primaryColor
-                          : AppTheme.neutralColorGrey400,
+                          : AppTheme.neutralColorLightGrey,
                     ),
                     SizedBox(width: context.spacing16),
                     Expanded(

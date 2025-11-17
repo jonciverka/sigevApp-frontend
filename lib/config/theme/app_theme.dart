@@ -1,25 +1,24 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 
 class AppTheme {
   // Primary Color
-  static const Color primaryColor = Color(0xff04569a);
-  static const Color primaryColorHover = Color.fromARGB(255, 4, 74, 132);
-  static const Color primaryColorDisabled = Color.fromARGB(255, 13, 141, 245);
+  static const Color primaryColor = Color(0xff033a68);
+  static const Color primaryColorHover = Color(0xff021e36);
+  static const Color primaryColorDisabled = Color(0xffa0d3fd);
 
   //Neutrals Colors
-  static const Color neutralColorGrey950 = Color(0xFF101223);
-  static const Color neutralColorGrey700 = Color(0xFF818181);
-  static const Color neutralColorGrey400 = Color(0xFFBDBDBD);
-  static const Color neutralColorGrey100 = Color(0xFFEFEFEF);
+  static const Color neutralColorBlack = Color(0xFF1c1c1e);
+  static const Color neutralColorDarkGrey = Color(0xFF7f7f85);
+  static const Color neutralColorLightGrey = Color(0xFFc7c7cc);
+  static const Color neutralColorBg = Color(0xFFf2f2f7);
   static const Color neutralColorWhite = Color(0xFFFFFFFF);
 
   // Semantics Colors
-  static const Color semanticColorError = Color(0xFFF73B3B);
-  static const Color semanticColorSuccess = Color(0xFF46B477);
-  static const Color semanticColorWarning = Color(0xFFFFBC00);
-  static const Color semanticColorInfo = Color(0xFF006FF0);
+  static const Color semanticColorError = Color(0xFFfa6374);
+  static const Color semanticColorSuccess = Color(0xFF46b477);
+  static const Color semanticColorWarning = Color(0xFFFC931D);
+  static const Color semanticColorInfo = Color(0xFF4bafe1);
 
   // Fonts Family
   static const String headLineFontFamily = 'RedHatDisplay_bold';
@@ -33,7 +32,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 28),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -42,7 +41,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 22),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -51,7 +50,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 20),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -61,7 +60,7 @@ class AppTheme {
     fontWeight: FontWeight.w400,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 16),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -70,16 +69,16 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 16),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
   // inputs text style
   static TextStyle inputRegular(BuildContext context) => TextStyle(
     fontFamily: bodyFontFamily,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 16),
-    color: neutralColorGrey700,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -109,7 +108,7 @@ class AppTheme {
     fontWeight: FontWeight.w400,
     fontSize: convertPixelsToLogicalPixels(context, 12),
     height: convertPixelsToLogicalPixels(context, 1.1),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -117,7 +116,7 @@ class AppTheme {
     fontFamily: captionFontFamily,
     fontWeight: FontWeight.w700,
     fontSize: convertPixelsToLogicalPixels(context, 12),
-    color: neutralColorGrey950,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -257,7 +256,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
@@ -269,7 +268,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey700;
+            return neutralColorDarkGrey;
           }
           return neutralColorWhite;
         }),
@@ -322,7 +321,7 @@ class AppTheme {
           }
           if (states.contains(WidgetState.disabled)) {
             return BorderSide(
-              color: neutralColorGrey400,
+              color: neutralColorLightGrey,
               width: convertPixelsToLogicalPixels(context, 2).toDouble(),
             );
           }
@@ -360,7 +359,7 @@ class AppTheme {
             return neutralColorWhite;
           }
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           if (states.contains(WidgetState.focused)) {
             return neutralColorWhite;
@@ -432,7 +431,7 @@ class AppTheme {
         return primaryColor;
       }
       if (states.contains(WidgetState.disabled)) {
-        return neutralColorGrey400;
+        return neutralColorLightGrey;
       }
       return isSelected ? primaryColor : Colors.black;
     }),
@@ -460,7 +459,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
@@ -472,7 +471,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey700;
+            return neutralColorDarkGrey;
           }
           return neutralColorWhite;
         }),
@@ -508,7 +507,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
@@ -520,7 +519,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey700;
+            return neutralColorDarkGrey;
           }
           return neutralColorWhite;
         }),
@@ -576,7 +575,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
@@ -588,7 +587,7 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey700;
+            return neutralColorDarkGrey;
           }
           return neutralColorWhite;
         }),
@@ -630,7 +629,7 @@ class AppTheme {
         ) {
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           return null;
         }),
@@ -638,16 +637,16 @@ class AppTheme {
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
-          return neutralColorGrey950;
+          return neutralColorBlack;
         }),
         overlayColor: WidgetStateProperty.resolveWith<Color?>((
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           return null;
         }),
@@ -676,15 +675,15 @@ class AppTheme {
         ) {
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
-          return neutralColorGrey400;
+          return neutralColorLightGrey;
         }),
         foregroundColor: WidgetStateProperty.resolveWith<Color?>((
           Set<WidgetState> states,
         ) {
           if (states.contains(WidgetState.disabled)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           return Colors.black;
         }),
@@ -693,7 +692,7 @@ class AppTheme {
         ) {
           if (states.contains(WidgetState.pressed) ||
               states.contains(WidgetState.hovered)) {
-            return neutralColorGrey400;
+            return neutralColorLightGrey;
           }
           return null;
         }),
@@ -725,7 +724,7 @@ class AppTheme {
       Set<WidgetState> states,
     ) {
       if (states.contains(WidgetState.disabled)) {
-        return neutralColorGrey400;
+        return neutralColorLightGrey;
       }
       if (states.contains(WidgetState.pressed) ||
           states.contains(WidgetState.hovered)) {
@@ -737,7 +736,7 @@ class AppTheme {
       Set<WidgetState> states,
     ) {
       if (states.contains(WidgetState.disabled)) {
-        return neutralColorGrey700;
+        return neutralColorDarkGrey;
       }
       return neutralColorWhite;
     }),
@@ -766,37 +765,32 @@ class AppTheme {
     VoidCallback? onIconButtonPressed,
     bool showFocusedBorder = true,
     bool showBorder = true,
-    required hintText, // <-- nuevo parámetro
+    required hintText,
   }) {
-    final double inputBorderRadius = smallBorderRadius ? 8 : 12;
+    final double inputBorderRadius = 12;
     return InputDecoration(
       labelText: labelText,
-      alignLabelWithHint: true,
+      alignLabelWithHint: false,
       errorMaxLines: 3,
-      floatingLabelStyle: context.captionRegularTextStyle.copyWith(
-        color: neutralColorGrey700,
-      ),
       labelStyle: context.bodyRegularTextStyle.copyWith(
-        color: neutralColorGrey700,
+        color: !isEnabled
+            ? AppTheme.neutralColorDarkGrey
+            : AppTheme.neutralColorBlack,
       ),
       hintText: hintText,
-      hintStyle: context.bodyRegularTextStyle.copyWith(
-        color: neutralColorGrey700,
-      ),
+      hintStyle: context.captionRegularTextStyle,
       errorText: errorText,
-      errorStyle: context.captionRegularTextStyle.copyWith(
+      errorStyle: context.errorTextstStyle.copyWith(
         color: semanticColorError,
+        fontSize: 0,
       ),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
-      isDense: true,
-      contentPadding: EdgeInsets.all(
-        kIsWeb ? context.spacing16 : context.spacing12,
-      ),
+      border: InputBorder.none,
       prefixIcon: prefixIcon == null
           ? null
           : AppIcons.mediumIcon(
               prefixIcon,
-              color: isEnabled ? neutralColorGrey700 : neutralColorGrey400,
+              color: isEnabled ? neutralColorDarkGrey : neutralColorLightGrey,
             ),
       suffixIconConstraints: BoxConstraints(
         maxHeight: context.spacing32,
@@ -811,15 +805,15 @@ class AppTheme {
                 margin: const EdgeInsets.only(right: 20),
                 child: InkWell(
                   onTap: onIconButtonPressed,
-                  focusColor: AppTheme.neutralColorGrey400,
+                  focusColor: AppTheme.neutralColorLightGrey,
                   borderRadius: BorderRadius.circular(10000),
                   child: Container(
                     alignment: Alignment.center, // Asegura el centrado
                     child: AppIcons.mediumIcon(
                       suffixIcon,
                       color: isEnabled
-                          ? neutralColorGrey700
-                          : neutralColorGrey400,
+                          ? neutralColorDarkGrey
+                          : neutralColorLightGrey,
                     ),
                   ),
                 ),
@@ -829,24 +823,26 @@ class AppTheme {
               margin: const EdgeInsets.only(right: 10),
               child: AppIcons.mediumIcon(
                 suffixIcon,
-                color: isEnabled ? neutralColorGrey700 : neutralColorGrey400,
+                color: isEnabled ? neutralColorDarkGrey : neutralColorLightGrey,
               ),
             ),
       filled: true,
+      isDense: true,
+      isCollapsed: true,
       fillColor: showBorder ? neutralColorWhite : Colors.transparent,
       focusColor: showBorder ? neutralColorWhite : Colors.transparent,
-      hoverColor: showBorder ? neutralColorGrey100 : Colors.transparent,
+      hoverColor: showBorder ? neutralColorBg : Colors.transparent,
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBorderRadius),
         borderSide: BorderSide(
-          color: semanticColorError,
+          color: Colors.transparent,
           width: context.spacing2,
         ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBorderRadius),
         borderSide: BorderSide(
-          color: showBorder ? neutralColorGrey700 : Colors.transparent,
+          color: showBorder ? neutralColorDarkGrey : Colors.transparent,
           width: context.spacing2,
         ),
       ),
@@ -860,30 +856,21 @@ class AppTheme {
       disabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBorderRadius),
         borderSide: BorderSide(
-          color: showBorder ? neutralColorGrey400 : Colors.transparent,
+          color: showBorder ? neutralColorLightGrey : Colors.transparent,
           width: context.spacing2,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(inputBorderRadius),
         borderSide: BorderSide(
-          color: showBorder ? neutralColorGrey700 : Colors.transparent,
+          color: showBorder ? neutralColorDarkGrey : Colors.transparent,
           width: context.spacing2,
         ),
       ),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(inputBorderRadius),
-        borderSide: BorderSide(
-          color: showBorder ? neutralColorGrey700 : Colors.transparent,
-          width: context.spacing2,
-        ),
+      contentPadding: EdgeInsets.only(
+        top: context.spacing12,
+        // bottom: context.spacing4,
       ),
-      constraints: applyConstraints
-          ? BoxConstraints(
-              maxHeight: context.spacing40,
-              minHeight: context.spacing40,
-            )
-          : null,
     );
   }
 
@@ -895,11 +882,11 @@ class AppTheme {
         return primaryColorDisabled;
       }
       if (states.contains(WidgetState.hovered)) {
-        return neutralColorGrey100;
+        return neutralColorBg;
       }
 
       if (states.contains(WidgetState.focused)) {
-        return neutralColorGrey400;
+        return neutralColorLightGrey;
       }
       return null;
     }),
@@ -913,11 +900,11 @@ class AppTheme {
         primary: primaryColor,
         onPrimary: neutralColorWhite,
         secondary: neutralColorWhite,
-        onSecondary: neutralColorGrey950,
+        onSecondary: neutralColorBlack,
         error: semanticColorError,
         onError: neutralColorWhite,
         surface: neutralColorWhite,
-        onSurface: neutralColorGrey950,
+        onSurface: neutralColorBlack,
       ),
       appBarTheme: const AppBarTheme(
         backgroundColor: neutralColorWhite,

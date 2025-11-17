@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 
@@ -12,8 +13,8 @@ class AppTextField extends StatefulWidget {
   final bool obscureText;
   final String? labelText;
   final String? hintText;
-  final IconData? suffixIcon;
   final IconData? prefixIcon;
+  final IconData? suffixIcon;
   final int maxLines;
   final int minLines;
   final TextAlign textAlign;
@@ -22,6 +23,9 @@ class AppTextField extends StatefulWidget {
   final void Function(String) onChanged;
   final void Function(String)? onSubmitted;
   final VoidCallback? onIconButtonPressed;
+  final bool hasError;
+
+  final bool readOnly;
 
   const AppTextField({
     super.key,
@@ -32,15 +36,17 @@ class AppTextField extends StatefulWidget {
     this.keyboardType,
     this.labelText,
     this.hintText,
-    this.suffixIcon,
     this.onIconButtonPressed,
     this.prefixIcon,
+    this.suffixIcon,
     this.inputFormatters,
     this.obscureText = false,
     this.enabled = true,
     this.maxLines = 1,
     this.minLines = 1,
+    this.readOnly = false,
     this.textAlign = TextAlign.start,
+    this.hasError = false,
   });
 
   @override
@@ -48,78 +54,97 @@ class AppTextField extends StatefulWidget {
 }
 
 class _AppTextFieldState extends State<AppTextField> {
-  late final FocusNode _keyboardListenerFocusNode;
-  late final FocusNode _textFieldFocusNode;
-  late bool hasFocus;
-  late bool isFocusedWithKeyboard;
+  late FocusNode _focusNode;
+  late TextEditingController _controller;
 
   @override
   void initState() {
-    _keyboardListenerFocusNode = FocusNode();
-    _textFieldFocusNode = FocusNode();
-    _textFieldFocusNode.addListener(_onFocusChange);
-    _keyboardListenerFocusNode.addListener(_onFocusChange);
-    hasFocus = false;
-    isFocusedWithKeyboard = false;
     super.initState();
+    _focusNode = FocusNode();
+    _controller = widget.controller ?? TextEditingController();
+
+    _focusNode.addListener(() => setState(() {}));
+    _controller.addListener(() => setState(() {}));
   }
 
   @override
   void dispose() {
-    _keyboardListenerFocusNode.dispose();
-    _textFieldFocusNode.dispose();
+    _focusNode.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    final bool isFocused = _focusNode.hasFocus;
+    final bool hasText = _controller.text.isNotEmpty;
+    final bool hasError = widget.hasError;
+
+    // Color del borde según el estado
+    Color borderColor;
+    if (hasError) {
+      borderColor = Colors.red;
+    } else if (isFocused || hasText) {
+      borderColor = Colors.transparent;
+    } else {
+      borderColor = Colors.transparent;
+    }
+    return Container(
       width: widget.width ?? double.infinity,
-      child: KeyboardListener(
-        focusNode: _keyboardListenerFocusNode,
-        onKeyEvent: (KeyEvent event) {
-          if (event is KeyDownEvent &&
-              event.logicalKey == LogicalKeyboardKey.tab) {
-            isFocusedWithKeyboard = true;
-          }
-        },
-        child: TextField(
-          decoration: _buildDecoration(),
-          maxLines: widget.maxLines,
-          minLines: widget.minLines,
-          obscureText: widget.obscureText,
-          textAlign: widget.textAlign,
-          controller: widget.controller,
-          focusNode: _textFieldFocusNode,
-          keyboardType: widget.keyboardType,
-          inputFormatters: widget.inputFormatters,
-          enabled: widget.enabled,
-          style: context.bodyRegularTextStyle,
-          onChanged: widget.onChanged,
-          onSubmitted: widget.onSubmitted,
-        ),
+      padding: EdgeInsets.only(
+        left: context.spacing16,
+        right: context.spacing16,
+        top: isFocused || hasText ? context.spacing16 : context.spacing12,
+        bottom: isFocused || hasText ? context.spacing12 : context.spacing16,
+      ),
+      decoration: BoxDecoration(
+        color: AppTheme.neutralColorWhite,
+        border: Border.all(color: borderColor, width: 2),
+        borderRadius: BorderRadius.circular(context.spacing8),
+      ),
+      child: Row(
+        children: [
+          if (widget.prefixIcon != null)
+            Padding(
+              padding: EdgeInsets.only(right: context.spacing12),
+              child: Icon(widget.prefixIcon, color: Colors.red),
+            ),
+          Expanded(
+            child: TextField(
+              decoration: _buildDecoration(),
+              maxLines: widget.maxLines,
+              minLines: widget.minLines,
+              obscureText: widget.obscureText,
+              textAlign: widget.textAlign,
+              controller: widget.controller,
+              readOnly: widget.readOnly,
+              focusNode: _focusNode,
+              keyboardType: widget.keyboardType,
+              inputFormatters: widget.inputFormatters,
+              enabled: widget.enabled,
+              style: context.bodyRegularTextStyle,
+              onChanged: widget.onChanged,
+              onSubmitted: widget.onSubmitted,
+            ),
+          ),
+          if (widget.suffixIcon != null)
+            Padding(
+              padding: EdgeInsets.only(right: context.spacing12),
+              child: Icon(widget.suffixIcon, color: Colors.red),
+            ),
+        ],
       ),
     );
-  }
-
-  void _onFocusChange() {
-    setState(() {
-      hasFocus = _keyboardListenerFocusNode.hasFocus;
-      if (!_keyboardListenerFocusNode.hasFocus) {
-        isFocusedWithKeyboard = false;
-      }
-    });
   }
 
   InputDecoration _buildDecoration() => AppTheme.textFieldDecoration(
     context,
     labelText: widget.labelText,
-    showFocusedBorder: hasFocus && isFocusedWithKeyboard,
+    showFocusedBorder: true,
     onIconButtonPressed: widget.onIconButtonPressed,
     hintText: widget.hintText,
-    suffixIcon: widget.suffixIcon,
-    prefixIcon: widget.prefixIcon,
     isEnabled: widget.enabled,
+    showBorder: false,
     smallBorderRadius: widget.maxLines > 1,
   );
 }
@@ -134,9 +159,7 @@ class AppTextFormField extends StatefulWidget {
   final String? initialValue;
   final String? labelText;
   final String? hintText;
-  final String? errorText;
-  final IconData? suffixIcon;
-  final bool readOnly;
+
   final TextAlign textAlign;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
@@ -144,12 +167,17 @@ class AppTextFormField extends StatefulWidget {
   final int minLines;
   final int? maxLength;
   final int? maxLengthFormatter;
-  final VoidCallback? onTap;
+  final IconData? suffixIcon;
+
   final void Function(String) onChanged;
   final void Function(String?)? onSubmitted;
   final void Function(String?)? onSaved;
   final FormFieldValidator<String>? validator;
   final VoidCallback? onIconButtonPressed;
+
+  final IconData? prefixIcon;
+  final bool readOnly;
+  final VoidCallback? onTap;
 
   const AppTextFormField({
     super.key,
@@ -157,15 +185,16 @@ class AppTextFormField extends StatefulWidget {
     required this.validator,
     this.onSubmitted,
     this.onSaved,
+    this.suffixIcon,
     this.width,
     this.controller,
     this.inputFormatters,
     this.keyboardType,
     this.enabled = true,
+    this.readOnly = false,
     this.labelText,
     this.hintText,
-    this.errorText,
-    this.suffixIcon,
+    this.prefixIcon,
     this.initialValue,
     this.onIconButtonPressed,
     this.obscureText = false,
@@ -175,7 +204,6 @@ class AppTextFormField extends StatefulWidget {
     this.maxLengthFormatter,
     this.textAlign = TextAlign.start,
     this.onTap,
-    this.readOnly = false,
   });
 
   @override
@@ -183,192 +211,143 @@ class AppTextFormField extends StatefulWidget {
 }
 
 class _AppTextFormFieldState extends State<AppTextFormField> {
+  late FocusNode _focusNode;
+  late TextEditingController _controller;
+  bool hasError = false;
+  String errorMessage = '';
+
   @override
   void initState() {
     super.initState();
+    _focusNode = FocusNode();
+    _controller = widget.controller ?? TextEditingController();
+    _focusNode.addListener(() => setState(() {}));
+    _controller.addListener(() => setState(() {}));
   }
 
   @override
   void dispose() {
+    _focusNode.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width ?? double.infinity,
-      child: TextFormField(
-        initialValue: widget.initialValue,
-        textAlignVertical: TextAlignVertical.top,
-        decoration: _buildDecoration(),
-        obscureText: widget.obscureText,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(widget.maxLengthFormatter ?? 30),
-          ...?widget.inputFormatters,
-        ],
-        textInputAction: TextInputAction.next,
-        textAlign: widget.textAlign,
-        controller: widget.controller,
-        keyboardType: widget.keyboardType,
-        enabled: widget.enabled,
-        style: context.bodyRegularInputStyle,
-        maxLines: widget.maxLines,
-        minLines: widget.minLines,
-        maxLength: widget.maxLength,
-        onChanged: widget.onChanged,
-        onFieldSubmitted: widget.onSubmitted,
-        onSaved: widget.onSaved,
-        validator: widget.validator,
-        readOnly: widget.readOnly,
-        onTap: widget.onTap,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-      ),
-    );
-  }
+    final bool isFocused = _focusNode.hasFocus;
+    final bool hasText = _controller.text.isNotEmpty;
+    final bool active = isFocused || hasText;
+    final bool hasError = errorMessage.isNotEmpty;
 
-  InputDecoration _buildDecoration() => AppTheme.textFieldDecoration(
-    context,
-    labelText: widget.hintText,
-    hintText: widget.hintText,
-    suffixIcon: widget.suffixIcon,
-    errorText: widget.errorText,
-    isEnabled: widget.enabled,
-    onIconButtonPressed: widget.onIconButtonPressed,
-    smallBorderRadius: widget.maxLines > 1,
-  );
-}
+    // Color del borde según el estado
+    Color borderColor;
+    if (hasError) {
+      borderColor = Colors.red;
+    } else if (isFocused || hasText) {
+      borderColor = Colors.transparent;
+    } else {
+      borderColor = Colors.transparent;
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: widget.width ?? double.infinity,
+          padding: EdgeInsets.only(
+            left: context.spacing16,
+            right: context.spacing16,
+            top: active ? 14 : context.spacing12,
+            bottom: active ? context.spacing12 : 14,
+          ),
+          decoration: BoxDecoration(
+            boxShadow: AppTheme.smallElevationShadow,
+            color: !widget.enabled
+                ? AppTheme.neutralColorLightGrey
+                : AppTheme.neutralColorBg,
+            border: Border.all(color: borderColor, width: 2),
+            borderRadius: BorderRadius.circular(context.spacing12),
+          ),
+          child: Row(
+            children: [
+              if (widget.prefixIcon != null)
+                Padding(
+                  padding: EdgeInsets.only(right: 7),
+                  child: Icon(
+                    widget.prefixIcon,
+                    color: !widget.enabled
+                        ? AppTheme.neutralColorDarkGrey
+                        : AppTheme.neutralColorBlack,
+                  ),
+                ),
+              Expanded(
+                child: TextFormField(
+                  decoration: _buildDecoration(),
+                  initialValue: widget.initialValue,
+                  obscureText: widget.obscureText,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(widget.maxLengthFormatter),
+                    ...widget.inputFormatters ?? [],
+                  ],
+                  textInputAction: TextInputAction.next,
+                  readOnly: widget.readOnly,
+                  textAlign: widget.textAlign,
+                  controller: widget.controller,
+                  focusNode: _focusNode,
+                  keyboardType: widget.keyboardType,
+                  enabled: widget.enabled,
+                  style: context.bodyRegularInputStyle,
+                  maxLines: widget.maxLines,
+                  onTap: widget.onTap,
+                  minLines: widget.minLines,
+                  maxLength: widget.maxLength,
+                  onChanged: widget.onChanged,
+                  onFieldSubmitted: widget.onSubmitted,
+                  onSaved: widget.onSaved,
+                  validator: (value) {
+                    final result = widget.validator?.call(value);
+                    if (result == null || result.isEmpty) return null;
+                    setState(() {
+                      errorMessage = result;
+                    });
 
-/// [QUANTITY TEXTFIELD]
-
-class AppQuantityFormField extends StatefulWidget {
-  final double? width;
-  final TextEditingController? controller;
-  final FocusNode? focusNode;
-  final bool enabled;
-  final bool obscureText;
-  final String? initialValue;
-  final String? errorText;
-  final String? labelText;
-  final String? hintText;
-  final IconData? suffixIcon;
-
-  final TextAlign textAlign;
-  final TextInputType? keyboardType;
-  final List<TextInputFormatter>? inputFormatters;
-  final int maxLines;
-  final int minLines;
-
-  final void Function(String) onChanged;
-  final void Function(String?)? onSubmitted;
-  final void Function(String?)? onSaved;
-  final FormFieldValidator<String>? validator;
-  final VoidCallback? onIconButtonPressed;
-
-  const AppQuantityFormField({
-    super.key,
-    required this.onChanged,
-    required this.validator,
-    this.onSubmitted,
-    this.onSaved,
-    this.width,
-    this.controller,
-    this.inputFormatters,
-    this.focusNode,
-    this.keyboardType,
-    this.enabled = true,
-    this.labelText,
-    this.errorText,
-    this.hintText,
-    this.suffixIcon,
-    this.initialValue,
-    this.onIconButtonPressed,
-    this.obscureText = false,
-    this.maxLines = 1,
-    this.minLines = 1,
-    this.textAlign = TextAlign.start,
-  });
-
-  @override
-  State<AppQuantityFormField> createState() => _AppQuantityFormFieldState();
-}
-
-class _AppQuantityFormFieldState extends State<AppQuantityFormField> {
-  late final FocusNode _keyboardListenerFocusNode;
-  late final FocusNode _textFieldFocusNode;
-  late bool hasFocus;
-  late bool isFocusedWithKeyboard;
-
-  @override
-  void initState() {
-    _keyboardListenerFocusNode = FocusNode();
-    _textFieldFocusNode = FocusNode();
-    _textFieldFocusNode.addListener(_onFocusChange);
-    _keyboardListenerFocusNode.addListener(_onFocusChange);
-    hasFocus = false;
-    isFocusedWithKeyboard = false;
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _textFieldFocusNode.removeListener(_onFocusChange);
-    // _keyboardListenerFocusNode.removeListener(_onFocusChange);
-    _keyboardListenerFocusNode.dispose();
-    _textFieldFocusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: widget.width ?? double.infinity,
-      child: KeyboardListener(
-        focusNode: _keyboardListenerFocusNode,
-        onKeyEvent: (KeyEvent event) {
-          if (event is KeyDownEvent &&
-              event.logicalKey == LogicalKeyboardKey.tab) {
-            isFocusedWithKeyboard = true;
-          }
-        },
-        child: TextFormField(
-          initialValue: widget.initialValue,
-          decoration: _buildDecoration(),
-          inputFormatters: widget.inputFormatters,
-          textAlign: widget.textAlign,
-          controller: widget.controller,
-          focusNode: widget.focusNode,
-          keyboardType: widget.keyboardType,
-          enabled: widget.enabled,
-          style: context.bodyRegularTextStyle,
-          maxLines: widget.maxLines,
-          minLines: widget.minLines,
-          onChanged: widget.onChanged,
-          onFieldSubmitted: widget.onSubmitted,
-          onSaved: widget.onSaved,
-          validator: widget.validator,
+                    return errorMessage;
+                  },
+                ),
+              ),
+              if (widget.suffixIcon != null)
+                Padding(
+                  padding: EdgeInsets.only(right: context.spacing12),
+                  child: Icon(widget.suffixIcon, color: Colors.red),
+                ),
+            ],
+          ),
         ),
-      ),
+        if (hasError)
+          Padding(
+            padding: EdgeInsets.only(
+              left: context.spacing8,
+              top: context.spacing4,
+            ),
+            child: Text(
+              errorMessage,
+              style: context.errorTextstStyle,
+              textAlign: TextAlign.start,
+            ),
+          ),
+      ],
     );
-  }
-
-  void _onFocusChange() {
-    setState(() {
-      hasFocus = _keyboardListenerFocusNode.hasFocus;
-      if (!_keyboardListenerFocusNode.hasFocus) {
-        isFocusedWithKeyboard = false;
-      }
-    });
   }
 
   InputDecoration _buildDecoration() => AppTheme.textFieldDecoration(
     context,
-    showFocusedBorder: hasFocus && isFocusedWithKeyboard,
-    labelText: widget.hintText,
-    hintText: widget.hintText,
-    suffixIcon: widget.suffixIcon,
-    errorText: widget.errorText,
-    isEnabled: widget.enabled,
+    labelText: widget.labelText,
+    showFocusedBorder: true,
     onIconButtonPressed: widget.onIconButtonPressed,
+    hintText: widget.hintText,
+    isEnabled: widget.enabled,
+    showBorder: false,
     smallBorderRadius: widget.maxLines > 1,
   );
 }

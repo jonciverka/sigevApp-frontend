@@ -157,7 +157,7 @@ class AppToastNotification extends StatelessWidget {
                 ToastType.success => AppIcons.checkCircle,
                 ToastType.error => AppIcons.error,
                 ToastType.warning => AppIcons.warning,
-                ToastType.info => AppIcons.info,
+                ToastType.info => AppIcons.warning,
               }, color: AppTheme.neutralColorWhite),
               SizedBox(width: context.spacing12),
               Expanded(

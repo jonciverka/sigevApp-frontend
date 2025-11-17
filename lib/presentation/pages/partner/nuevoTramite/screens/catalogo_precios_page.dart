@@ -111,7 +111,7 @@ class RowCatalogo extends StatelessWidget {
           width: context.spacing120,
           padding: EdgeInsets.all(context.spacing8),
           decoration: BoxDecoration(
-            border: Border.all(color: AppTheme.neutralColorGrey400, width: 1),
+            border: Border.all(color: AppTheme.neutralColorLightGrey, width: 1),
           ),
           child: Text(title, style: context.bodyRegularTextStyle),
         ),
@@ -119,7 +119,10 @@ class RowCatalogo extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(context.spacing8),
             decoration: BoxDecoration(
-              border: Border.all(color: AppTheme.neutralColorGrey400, width: 1),
+              border: Border.all(
+                color: AppTheme.neutralColorLightGrey,
+                width: 1,
+              ),
             ),
             child: Text(valor, style: context.bodyBoldTextStyle),
           ),
@@ -150,7 +153,7 @@ class RowCatalogoTipos extends StatelessWidget {
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppTheme.neutralColorGrey400,
+                    color: AppTheme.neutralColorLightGrey,
                     width: 1,
                   ),
                 ),
@@ -165,7 +168,7 @@ class RowCatalogoTipos extends StatelessWidget {
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppTheme.neutralColorGrey400,
+                    color: AppTheme.neutralColorLightGrey,
                     width: 1,
                   ),
                 ),
@@ -180,7 +183,7 @@ class RowCatalogoTipos extends StatelessWidget {
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppTheme.neutralColorGrey400,
+                    color: AppTheme.neutralColorLightGrey,
                     width: 1,
                   ),
                 ),
@@ -199,7 +202,7 @@ class RowCatalogoTipos extends StatelessWidget {
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppTheme.neutralColorGrey400,
+                    color: AppTheme.neutralColorLightGrey,
                     width: 1,
                   ),
                 ),
@@ -211,7 +214,7 @@ class RowCatalogoTipos extends StatelessWidget {
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppTheme.neutralColorGrey400,
+                    color: AppTheme.neutralColorLightGrey,
                     width: 1,
                   ),
                 ),
@@ -223,7 +226,7 @@ class RowCatalogoTipos extends StatelessWidget {
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppTheme.neutralColorGrey400,
+                    color: AppTheme.neutralColorLightGrey,
                     width: 1,
                   ),
                 ),

@@ -98,9 +98,7 @@ class _AppTramitesDocumentosState extends State<AppTramitesDocumentos> {
                                     padding: EdgeInsets.symmetric(
                                       horizontal: context.spacing16,
                                     ),
-                                    child: Center(
-                                      child: Icon(AppIcons.addIcon),
-                                    ),
+                                    child: Center(child: Icon(AppIcons.add)),
                                   ),
                           ),
                         ),

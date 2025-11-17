@@ -54,7 +54,7 @@ class _AppTabState extends State<AppTab> {
               ? Border.all(color: AppTheme.semanticColorInfo, width: 2)
               : null,
           color: _state.isPressed
-              ? AppTheme.neutralColorGrey400
+              ? AppTheme.neutralColorLightGrey
               : _state.isHovered
               ? AppTheme.neutralColorWhite
               : _state.isFocused

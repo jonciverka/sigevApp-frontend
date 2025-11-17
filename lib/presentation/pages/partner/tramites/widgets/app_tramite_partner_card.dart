@@ -36,7 +36,7 @@ class AppTramitePartnerCard extends StatelessWidget {
         padding: EdgeInsets.all(context.spacing16),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: AppTheme.neutralColorGrey400),
+            bottom: BorderSide(color: AppTheme.neutralColorLightGrey),
           ),
         ),
         child: Row(
@@ -70,7 +70,7 @@ class AppTramitePartnerCard extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(AppIcons.chevronRight),
+            Icon(AppIcons.arrowForward),
           ],
         ),
       ),

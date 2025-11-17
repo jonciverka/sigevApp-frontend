@@ -34,7 +34,7 @@ class AppFooter extends StatelessWidget {
           children: [
             if (onButtonBackPressed != null)
               AppIconButton(
-                icon: AppIcons.chevronLeft,
+                icon: AppIcons.arrowBack,
                 onPressed: () => onButtonBackPressed?.call(),
               ),
             if (onButtonCatalogPressed != null)

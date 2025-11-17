@@ -50,7 +50,7 @@ class _AppSwitchState extends State<AppSwitch>
             value: widget.isSelected,
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             activeColor: AppTheme.neutralColorWhite,
-            inactiveTrackColor: AppTheme.neutralColorGrey700,
+            inactiveTrackColor: AppTheme.neutralColorDarkGrey,
             activeTrackColor: AppTheme.semanticColorSuccess,
             inactiveThumbColor: AppTheme.neutralColorWhite,
             trackOutlineColor: WidgetStateProperty.resolveWith<Color?>((
@@ -59,7 +59,7 @@ class _AppSwitchState extends State<AppSwitch>
               if (states.contains(WidgetState.selected)) {
                 return Colors.transparent;
               }
-              return AppTheme.neutralColorGrey700;
+              return AppTheme.neutralColorDarkGrey;
             }),
             onChanged: (value) => widget.onChanged(value),
           ),
