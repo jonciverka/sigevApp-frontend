@@ -137,7 +137,6 @@ class AppMenuIconButton extends StatelessWidget {
     this.badgeCount = 0,
     this.active = false,
     this.color,
-    required this.title,
   });
 
   final IconData icon;
@@ -146,30 +145,20 @@ class AppMenuIconButton extends StatelessWidget {
   final int badgeCount;
   final Color? color;
   final bool active;
-  final String title;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onPressed?.call(),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(icon, color: active ? AppTheme.primaryColor : null),
-            Text(
-              title,
-              style: active
-                  ? context.captionBoldTextStyle.copyWith(
-                      color: active ? AppTheme.primaryColor : null,
-                    )
-                  : context.captionRegularTextStyle.copyWith(
-                      color: active ? AppTheme.primaryColor : null,
-                    ),
-            ),
-          ],
+      child: Container(
+        height: double.infinity,
+
+        decoration: BoxDecoration(
+          color: active ? AppTheme.neutralColorWhite : Colors.transparent,
+          borderRadius: BorderRadius.circular(56),
+        ),
+        child: Icon(
+          icon,
+          color: active ? AppTheme.primaryColor : AppTheme.neutralColorWhite,
         ),
       ),
     );

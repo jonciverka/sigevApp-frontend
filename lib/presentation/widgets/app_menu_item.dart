@@ -6,14 +6,12 @@ class AppMenuItem extends StatelessWidget {
   final Function() onTap;
   final int index;
   final bool active;
-  final String title;
   const AppMenuItem({
     super.key,
     required this.icon,
     required this.onTap,
     required this.index,
     required this.active,
-    required this.title,
   });
 
   @override
@@ -23,7 +21,6 @@ class AppMenuItem extends StatelessWidget {
         icon: icon,
         onPressed: () => onTap(),
         active: active,
-        title: title,
       ),
     );
   }

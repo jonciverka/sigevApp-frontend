@@ -75,7 +75,6 @@ class MenuPageBody extends StatelessWidget {
                       menuCubit.changeIndex(index: MenuState.homePageIndex),
                   index: MenuState.homePageIndex,
                   active: menuCubit.state.index == MenuState.homePageIndex,
-                  title: AppLocale.textButtonInicioMenu.getString(context),
                 ),
                 AppMenuItem(
                   icon: Icons.home_outlined,
@@ -83,7 +82,6 @@ class MenuPageBody extends StatelessWidget {
                       menuCubit.changeIndex(index: MenuState.homeMisTramites),
                   index: MenuState.homeMisTramites,
                   active: menuCubit.state.index == MenuState.homeMisTramites,
-                  title: AppLocale.textButtonMisTramitesMenu.getString(context),
                 ),
                 AppMenuItem(
                   icon: Icons.home_outlined,
@@ -92,7 +90,6 @@ class MenuPageBody extends StatelessWidget {
                   ),
                   index: MenuState.profileMisTramites,
                   active: menuCubit.state.index == MenuState.profileMisTramites,
-                  title: AppLocale.textButtonPerfilMenu.getString(context),
                 ),
               ],
             ),
