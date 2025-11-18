@@ -32,7 +32,12 @@ Future<T?> showAppBottomSheet<T extends Object?>({
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title, style: context.headingLargeTextStyle),
+                Text(
+                  title,
+                  style: context.headingLargeTextStyle.copyWith(
+                    color: AppTheme.neutralColorBlack,
+                  ),
+                ),
                 AppSecondaryIconButton(
                   icon: AppIcons.close,
                   onPressed: () => Navigator.pop(context),

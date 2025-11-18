@@ -19,12 +19,14 @@ class AppTheme {
   static const Color semanticColorSuccess = Color(0xFF46b477);
   static const Color semanticColorWarning = Color(0xFFFC931D);
   static const Color semanticColorInfo = Color(0xFF4bafe1);
-
+  static const Color semanticColorSuccessLight = Color(0xFFcce7e1);
+  static const Color semanticColorWarningLight = Color(0xFFfee4c6);
+  static const Color semanticColorInfoLight = Color(0xFFd2ebf7);
   // Fonts Family
-  static const String headLineFontFamily = 'RedHatDisplay_bold';
-  static const String bodyFontFamily = "Montserrat";
-  static const String buttonFontFamily = 'RedHatDisplay_bold';
-  static const String captionFontFamily = 'Montserrat';
+  static const String headLineFontFamily = 'chivo';
+  static const String bodyFontFamily = "manrope";
+  static const String buttonFontFamily = 'manrope';
+  static const String captionFontFamily = 'manrope';
 
   // Headings Mobile text styles
   static TextStyle headingLarge(BuildContext context) => TextStyle(
@@ -32,7 +34,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 28),
-    color: neutralColorBlack,
+    color: primaryColor,
     letterSpacing: 0.0,
   );
 
@@ -41,7 +43,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 22),
-    color: neutralColorBlack,
+    color: primaryColor,
     letterSpacing: 0.0,
   );
 
@@ -50,7 +52,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 20),
-    color: neutralColorBlack,
+    color: primaryColor,
     letterSpacing: 0.0,
   );
 
@@ -167,24 +169,9 @@ class AppTheme {
   // Elevation shadows
   static const List<BoxShadow> smallElevationShadow = [
     BoxShadow(
-      color: Color(0x1A101223), // 10% opacity
-      offset: Offset(2, 2),
-      blurRadius: 6,
-    ),
-    BoxShadow(
-      color: Color(0x17101223), // 9% opacity
-      offset: Offset(8, 7),
-      blurRadius: 11,
-    ),
-    BoxShadow(
-      color: Color(0x0D101223), // 5% opacity
-      offset: Offset(17, 16),
-      blurRadius: 14,
-    ),
-    BoxShadow(
-      color: Color(0x03101223), // 1% opacity
-      offset: Offset(31, 29),
-      blurRadius: 17,
+      color: Color.fromARGB(77, 16, 18, 35), // 10% opacity
+      offset: Offset(2, 4),
+      blurRadius: 4,
     ),
   ];
 

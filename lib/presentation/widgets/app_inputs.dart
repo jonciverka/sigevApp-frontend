@@ -317,9 +317,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                 ),
               ),
               if (widget.suffixIcon != null)
-                Padding(
-                  padding: EdgeInsets.only(right: context.spacing12),
-                  child: Icon(widget.suffixIcon, color: Colors.red),
+                Icon(
+                  widget.suffixIcon,
+                  color: !widget.enabled
+                      ? AppTheme.neutralColorDarkGrey
+                      : AppTheme.neutralColorBlack,
                 ),
             ],
           ),

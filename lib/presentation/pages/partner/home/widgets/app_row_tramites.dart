@@ -10,20 +10,22 @@ class AppRowTramites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppCard(
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Expanded(
-            child: Center(
-              child: Text("$numero", style: context.headingMediumTextStyle),
+          Center(
+            child: Text(
+              "$numero",
+              style: context.headingMediumTextStyle.copyWith(
+                color: AppTheme.neutralColorBlack,
+              ),
             ),
           ),
-          Expanded(
-            child: Text(
-              textAlign: TextAlign.center,
-              nombre,
-              style: context.headingMediumTextStyle,
-            ),
+          SizedBox(height: context.spacing4),
+          Text(
+            textAlign: TextAlign.center,
+            nombre,
+            style: context.bodyRegularTextStyle,
           ),
         ],
       ),

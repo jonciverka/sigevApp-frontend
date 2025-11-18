@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
+import 'package:sigev/core/constant/assets_constants.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/catalogo.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_search_bar.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
+import 'package:sigev/presentation/widgets/app_card.dart';
 
 class CatalogoPreciosPage extends StatelessWidget {
   const CatalogoPreciosPage({super.key});
@@ -35,12 +37,20 @@ class CatalogoPreciosPage extends StatelessWidget {
           ),
           SizedBox(height: context.spacing24),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: menuCubit.state.catalogoPrecios
-                    .map((e) => AppCardCatalogo(catalogo: e))
-                    .toList(),
-              ),
+            child: Stack(
+              children: [
+                Image.asset(AssetsConstants.flechaLoco),
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: context.spacing2),
+                    child: Column(
+                      children: menuCubit.state.catalogoPrecios
+                          .map((e) => AppCardCatalogo(catalogo: e))
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -57,52 +67,66 @@ class AppCardCatalogo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: context.spacing16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            "${AppLocale.textoUltimaActualizacion.getString(context)} : ${catalogo.actualizacion ?? ''}",
-            style: context.bodyBoldTextStyle,
-          ),
-          SizedBox(height: context.spacing8),
-          RowCatalogo(
-            title: AppLocale.textValorEntidadCatalogoPrecios.getString(context),
-            valor: catalogo.entidad ?? '',
-          ),
-          RowCatalogo(
-            title: AppLocale.textValorTramitePrecios.getString(context),
-            valor: catalogo.tramiteAlias ?? '',
-          ),
-          RowCatalogo(
-            title: AppLocale.textValorVehiculoPrecios.getString(context),
-            valor: catalogo.tipoVehiculo ?? '',
-          ),
-          RowCatalogo(
-            title: AppLocale.textValorEntregaPrecios.getString(context),
-            valor: catalogo.tiempoEntrega ?? '',
-          ),
-          RowCatalogo(
-            title: AppLocale.textValorNotasPrecios.getString(context),
-            valor: catalogo.notas ?? '',
-          ),
-          SizedBox(height: context.spacing8),
-          RowCatalogoTipos(
-            cl: catalogo.cl ?? '',
-            vip: catalogo.vip ?? '',
-            xp: catalogo.xp ?? '',
-          ),
-        ],
+      child: AppCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              "${AppLocale.textoUltimaActualizacion.getString(context)} : ${catalogo.actualizacion ?? ''}",
+              style: context.bodyBoldTextStyle,
+            ),
+            SizedBox(height: context.spacing8),
+            RowCatalogo(
+              title: AppLocale.textValorEntidadCatalogoPrecios.getString(
+                context,
+              ),
+              valor: catalogo.entidad ?? '',
+              isFirst: true,
+            ),
+            RowCatalogo(
+              title: AppLocale.textValorTramitePrecios.getString(context),
+              valor: catalogo.tramiteAlias ?? '',
+            ),
+            RowCatalogo(
+              title: AppLocale.textValorVehiculoPrecios.getString(context),
+              valor: catalogo.tipoVehiculo ?? '',
+            ),
+            RowCatalogo(
+              title: AppLocale.textValorEntregaPrecios.getString(context),
+              valor: catalogo.tiempoEntrega ?? '',
+            ),
+            RowCatalogo(
+              title: AppLocale.textValorNotasPrecios.getString(context),
+              valor: catalogo.notas ?? '',
+              isLast: true,
+            ),
+            SizedBox(height: context.spacing8),
+            RowCatalogoTipos(
+              cl: catalogo.cl ?? '',
+              vip: catalogo.vip ?? '',
+              xp: catalogo.xp ?? '',
+            ),
+          ],
+        ),
       ),
     );
   }
 }
 
 class RowCatalogo extends StatelessWidget {
-  const RowCatalogo({super.key, required this.title, required this.valor});
+  const RowCatalogo({
+    super.key,
+    required this.title,
+    required this.valor,
+    this.isFirst = false,
+    this.isLast = false,
+  });
   final String title;
   final String valor;
+  final bool isFirst;
+  final bool isLast;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -111,6 +135,13 @@ class RowCatalogo extends StatelessWidget {
           width: context.spacing120,
           padding: EdgeInsets.all(context.spacing8),
           decoration: BoxDecoration(
+            borderRadius: isFirst
+                ? BorderRadius.only(topLeft: Radius.circular(context.spacing8))
+                : isLast
+                ? BorderRadius.only(
+                    bottomLeft: Radius.circular(context.spacing8),
+                  )
+                : null,
             border: Border.all(color: AppTheme.neutralColorLightGrey, width: 1),
           ),
           child: Text(title, style: context.bodyRegularTextStyle),
@@ -119,6 +150,15 @@ class RowCatalogo extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.all(context.spacing8),
             decoration: BoxDecoration(
+              borderRadius: isFirst
+                  ? BorderRadius.only(
+                      topRight: Radius.circular(context.spacing8),
+                    )
+                  : isLast
+                  ? BorderRadius.only(
+                      bottomRight: Radius.circular(context.spacing8),
+                    )
+                  : null,
               border: Border.all(
                 color: AppTheme.neutralColorLightGrey,
                 width: 1,
@@ -152,6 +192,9 @@ class RowCatalogoTipos extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(context.spacing8),
+                  ),
                   border: Border.all(
                     color: AppTheme.neutralColorLightGrey,
                     width: 1,
@@ -182,6 +225,9 @@ class RowCatalogoTipos extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(context.spacing8),
+                  ),
                   border: Border.all(
                     color: AppTheme.neutralColorLightGrey,
                     width: 1,
@@ -201,6 +247,9 @@ class RowCatalogoTipos extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(context.spacing8),
+                  ),
                   border: Border.all(
                     color: AppTheme.neutralColorLightGrey,
                     width: 1,
@@ -225,6 +274,9 @@ class RowCatalogoTipos extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(context.spacing8),
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(context.spacing8),
+                  ),
                   border: Border.all(
                     color: AppTheme.neutralColorLightGrey,
                     width: 1,

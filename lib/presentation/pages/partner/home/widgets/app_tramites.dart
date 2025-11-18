@@ -12,48 +12,55 @@ class AppTramites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var homeCubit = context.watch<HomeCubit>();
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.spacing16),
-      child: Column(
-        children: [
-          SizedBox(height: context.spacing16),
-          AppRowTramites(
-            nombre: AppLocale.textSubtituloTramitesIngresadosHomeSocio
-                .getString(context),
-            numero:
-                int.tryParse(homeCubit.state.barraFija.ingresos?.dia ?? '0') ??
-                0,
+    return Column(
+      children: [
+        SizedBox(height: context.spacing16),
+        AppRowTramites(
+          nombre: AppLocale.textSubtituloTramitesIngresadosHomeSocio.getString(
+            context,
           ),
-          SizedBox(height: context.spacing16),
-          AppRowTramites(
-            nombre: AppLocale.textSubtituloTramitesIngresadosSemanaHomeSocio
-                .getString(context),
-            numero:
-                int.tryParse(
-                  homeCubit.state.barraFija.ingresosSemana?.dia ?? '0',
-                ) ??
-                0,
-          ),
-          SizedBox(height: context.spacing16),
-          AppRowTramites(
-            nombre: AppLocale.textSubtituloTramitesEgresadosSemanaHomeSocio
-                .getString(context),
-            numero:
-                int.tryParse(homeCubit.state.barraFija.entregas?.dia ?? '0') ??
-                0,
-          ),
-          SizedBox(height: context.spacing16),
-          AppRowTramites(
-            nombre: AppLocale.textSubtituloTramitesCanceladosSemanaHomeSocio
-                .getString(context),
-            numero:
-                int.tryParse(
-                  homeCubit.state.barraFija.cancelados?.dia ?? '0',
-                ) ??
-                0,
-          ),
-        ],
-      ),
+          numero:
+              int.tryParse(homeCubit.state.barraFija.ingresos?.dia ?? '0') ?? 0,
+        ),
+        SizedBox(height: context.spacing16),
+        AppRowTramites(
+          nombre: AppLocale.textSubtituloTramitesIngresadosSemanaHomeSocio
+              .getString(context),
+          numero:
+              int.tryParse(
+                homeCubit.state.barraFija.ingresosSemana?.dia ?? '0',
+              ) ??
+              0,
+        ),
+        SizedBox(height: context.spacing16),
+        Row(
+          children: [
+            Expanded(
+              child: AppRowTramites(
+                nombre: AppLocale.textSubtituloTramitesEgresadosSemanaHomeSocio
+                    .getString(context),
+                numero:
+                    int.tryParse(
+                      homeCubit.state.barraFija.entregas?.dia ?? '0',
+                    ) ??
+                    0,
+              ),
+            ),
+            SizedBox(width: context.spacing16),
+            Expanded(
+              child: AppRowTramites(
+                nombre: AppLocale.textSubtituloTramitesCanceladosSemanaHomeSocio
+                    .getString(context),
+                numero:
+                    int.tryParse(
+                      homeCubit.state.barraFija.cancelados?.dia ?? '0',
+                    ) ??
+                    0,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

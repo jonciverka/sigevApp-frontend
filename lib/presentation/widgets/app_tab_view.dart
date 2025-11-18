@@ -73,51 +73,67 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TabBar(
-                labelPadding: EdgeInsets.zero,
-                isScrollable: widget.isBarScrollable,
-                overlayColor: WidgetStateColor.resolveWith(
-                  (states) => Colors.transparent,
-                ),
-                splashFactory: NoSplash.splashFactory,
-                padding: EdgeInsets.zero,
-                indicatorColor: AppTheme.primaryColor,
-                indicatorSize: TabBarIndicatorSize.tab,
-                dividerColor: AppTheme.neutralColorLightGrey,
-                dividerHeight: 2,
-                controller: _tabController,
-                onTap: onTabTap,
-                automaticIndicatorColorAdjustment: true,
-                tabAlignment: widget.isBarScrollable
-                    ? TabAlignment.start
-                    : null,
-                tabs: List.generate(
-                  widget.tabsNames.length,
-                  (int index) => Padding(
-                    padding: EdgeInsets.only(
-                      bottom: 2.0,
-                      left: widget.showPadding ? 16.0 : 0,
-                      right: widget.showPadding ? 16.0 : 0,
+        Container(
+          color: AppTheme.neutralColorWhite,
+          padding: EdgeInsets.symmetric(horizontal: context.spacing16),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: context.spacing2,
+                    vertical: context.spacing2,
+                  ),
+                  height: context.spacing40,
+
+                  decoration: BoxDecoration(
+                    color: AppTheme.neutralColorBg,
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+                  child: TabBar(
+                    labelPadding: EdgeInsets.zero,
+                    isScrollable: widget.isBarScrollable,
+                    overlayColor: WidgetStateColor.resolveWith(
+                      (states) => Colors.transparent,
                     ),
-                    child: AppTab(
-                      isSelected: index == _tabController.index,
-                      title: widget.tabsNames[index],
-                      onTap: () => changeTab(index),
+                    splashFactory: NoSplash.splashFactory,
+                    padding: EdgeInsets.zero,
+                    indicatorWeight: .1,
+                    indicatorColor: Colors.black,
+                    indicator: const BoxDecoration(), // elimina el indicador
+                    indicatorSize: TabBarIndicatorSize
+                        .label, // elimina el espacio del indicador
+                    dividerColor: Colors.transparent,
+                    dividerHeight: 2,
+                    controller: _tabController,
+                    onTap: onTabTap,
+                    automaticIndicatorColorAdjustment: true,
+                    tabAlignment: widget.isBarScrollable
+                        ? TabAlignment.start
+                        : null,
+                    tabs: List.generate(
+                      widget.tabsNames.length,
+                      (int index) => AppTab(
+                        isSelected: index == _tabController.index,
+                        title: widget.tabsNames[index],
+                        onTap: () => changeTab(index),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         ...widget.widgetsBetweenTabBarAndBody,
         if (widget.isExpanded)
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(top: context.spacing8),
+              padding: EdgeInsets.only(
+                top: context.spacing8,
+                right: context.spacing16,
+                left: context.spacing16,
+              ),
               child: TabBarView(
                 physics: widget.isBodyScrollable
                     ? null

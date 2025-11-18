@@ -46,8 +46,8 @@ class _AppTabState extends State<AppTab> {
       onFocusChange: (value) =>
           setState(() => _state = _state.copyWith(isFocused: value)),
       child: AnimatedContainer(
+        height: double.infinity,
         duration: const Duration(milliseconds: 300),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           border: _state.isFocused
@@ -59,19 +59,21 @@ class _AppTabState extends State<AppTab> {
               ? AppTheme.neutralColorWhite
               : _state.isFocused
               ? AppTheme.primaryColorDisabled
+              : widget.isSelected
+              ? AppTheme.primaryColor
               : null,
         ),
         child: Center(
           child: Text(
             widget.title,
             textAlign: TextAlign.center,
-            style: kIsWeb
-                ? (widget.isSelected
-                      ? context.bodyBoldTextStyle
-                      : context.bodyRegularTextStyle)
-                : widget.isSelected
-                ? context.captionBoldTextStyle
-                : context.captionRegularTextStyle,
+            style: widget.isSelected
+                ? context.bodyBoldTextStyle.copyWith(
+                    color: AppTheme.neutralColorWhite,
+                  )
+                : context.bodyBoldTextStyle.copyWith(
+                    color: AppTheme.primaryColorHover,
+                  ),
           ),
         ),
       ),

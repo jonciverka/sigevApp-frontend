@@ -85,6 +85,9 @@ mixin AppLocale {
       'textSubtituloTramitesCanceladosSemanaHomeSocio';
   static const String botonVerCatalogoHomeSocio = 'botonVerCatalogoHomeSocio';
   static const String botonIrASitioWebHomeSocio = 'botonIrASitioWebHomeSocio';
+  static const String textSaludoHomeSocio = 'textSaludoHomeSocio';
+  static const String textSaludo2HomeSocio = 'textSaludo2HomeSocio';
+
   //Nuevo tramite
   static const String textTituloNuevoTramiteNuevoTramite =
       'textTituloNuevoTramiteNuevoTramite';
@@ -227,15 +230,15 @@ mixin AppLocale {
     textSubtituloFacturacionAnioHomeSocio: "Facturación del año",
     textSubtituloFacturacionMesHomeSocio: "Facturación del mes",
     textSubtituloFacturacionSemanaHomeSocio: "Facturación de la semana",
-    textSubtituloTramitesIngresadosHomeSocio: "Trámites Ingresados",
+    textSubtituloTramitesIngresadosHomeSocio: "Trámites Ingresados totales",
     textSubtituloTramitesIngresadosSemanaHomeSocio:
         "Trámites Ingresados de la semana",
     textSubtituloTramitesEgresadosSemanaHomeSocio:
         "Tramites Egresados de la semana",
     textSubtituloTramitesCanceladosSemanaHomeSocio:
         "Trámites Cancelados de la semana",
-    botonVerCatalogoHomeSocio: "Ver Catalogo",
-    botonIrASitioWebHomeSocio: "Ir a sitio web",
+    botonVerCatalogoHomeSocio: "Ver Catálogo",
+    botonIrASitioWebHomeSocio: "Ir a SIGHEV",
     textTituloNuevoTramiteNuevoTramite: "Nuevo Trámite",
     lavelSucursalNuevoTramite: "Surcursal *",
     lavelCorreoElectronicoNuevoTramite: "Correo Electronico *",
@@ -317,5 +320,7 @@ mixin AppLocale {
     buttonEnviarDocumentos: "Enviar Documentos",
     textoErrorNoHayDocumentos: "El cliente todavía no ha subido el documento.",
     textBienvenido: "¡Bienvenido!",
+    textSaludoHomeSocio: "¡Hola, %Usuario%!",
+    textSaludo2HomeSocio: "Nos alegra que estés aquí",
   };
 }

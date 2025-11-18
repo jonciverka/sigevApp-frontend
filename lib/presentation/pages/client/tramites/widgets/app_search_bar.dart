@@ -27,7 +27,7 @@ class _AppSearchBarState<T> extends State<AppSearchBar<T>> {
   Widget build(BuildContext context) {
     return AppTextFormField(
       controller: _textController,
-      hintText: AppLocale.inputSearch.getString(context),
+      labelText: AppLocale.inputSearch.getString(context),
       validator: (value) {
         return null;
       },

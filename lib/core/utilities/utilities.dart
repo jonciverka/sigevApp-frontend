@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,6 +46,11 @@ class Utilities {
     final file = File('${tempDir.path}/$filename');
     await file.writeAsBytes(data);
     return file;
+  }
+
+  String formatMoney(num value) {
+    final formatter = NumberFormat('#,##0', 'en_US');
+    return formatter.format(value);
   }
 }
 
