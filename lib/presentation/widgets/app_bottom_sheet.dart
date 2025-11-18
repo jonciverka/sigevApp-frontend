@@ -16,37 +16,40 @@ Future<T?> showAppBottomSheet<T extends Object?>({
   isDismissible: true,
   useRootNavigator: useRootNavigator,
   builder: (context) {
-    return FractionallySizedBox(
-      heightFactor: heightFactor,
-      child: Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(
-          horizontal: context.spacing16,
-          vertical: context.spacing20,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    style: context.headingLargeTextStyle,
-                    overflow: TextOverflow.ellipsis,
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: FractionallySizedBox(
+        heightFactor: heightFactor,
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: context.spacing16,
+            vertical: context.spacing20,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: context.headingLargeTextStyle,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                AppSecondaryIconButton(
-                  icon: AppIcons.close,
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            ),
-            child,
-          ],
+                  AppSecondaryIconButton(
+                    icon: AppIcons.close,
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
+              child,
+            ],
+          ),
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/partner/tramites/screens/tramite_detalle_page.dart';
+import 'package:sigev/presentation/widgets/app_card.dart';
 
 class AppTramitePartnerCard extends StatelessWidget {
   const AppTramitePartnerCard({super.key, required this.tramite});
@@ -32,12 +33,16 @@ class AppTramitePartnerCard extends StatelessWidget {
       onTap: () => showTramiteModalDialog(context: context),
       child: Container(
         width: double.infinity,
-        // margin: EdgeInsets.only(bottom: context.spacing16),
-        padding: EdgeInsets.all(context.spacing16),
+        padding: EdgeInsets.only(
+          top: context.spacing12,
+          bottom: context.spacing12,
+          left: context.spacing16,
+          right: context.spacing2,
+        ),
         decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: AppTheme.neutralColorLightGrey),
-          ),
+          boxShadow: AppTheme.smallElevationShadow,
+          color: AppTheme.neutralColorWhite,
+          borderRadius: BorderRadius.circular(context.spacing12),
         ),
         child: Row(
           children: [
@@ -47,7 +52,7 @@ class AppTramitePartnerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(tramite.clave ?? '', style: context.bodyBoldTextStyle),
-                  SizedBox(height: context.spacing8),
+                  SizedBox(height: context.spacing12),
                   Text(
                     tramite.fechaCreacion ?? '',
                     style: context.bodyRegularTextStyle,
@@ -62,7 +67,7 @@ class AppTramitePartnerCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(tramite.nombre ?? '', style: context.bodyBoldTextStyle),
-                  SizedBox(height: context.spacing8),
+                  SizedBox(height: context.spacing12),
                   Text(
                     tramite.tituloCarta,
                     style: context.bodyRegularTextStyle,

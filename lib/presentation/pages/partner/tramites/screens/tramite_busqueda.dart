@@ -40,7 +40,7 @@ class _TramiteBusquedaState extends State<TramiteBusqueda> {
                   suffixIcon: AppIcons.refresh,
                   onIconButtonPressed: () =>
                       busquedaController.text = Utilities().getYearWeek(),
-                  hintText: AppLocale.inputSearchTramite.getString(context),
+                  labelText: AppLocale.inputSearchTramite.getString(context),
                   validator: (value) {
                     final regex = RegExp(
                       r'^\d{4}-W(0[1-9]|[1-4][0-9]|5[0-3])$',

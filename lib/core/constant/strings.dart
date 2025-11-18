@@ -180,6 +180,7 @@ mixin AppLocale {
   static const String textSolicitandoDocumentos = 'textSolicitandoDocumentos';
   static const String textCargando = 'textCargando';
   static const String textCodigoGenerado = 'textCodigoGenerado';
+  static const String textAvisoCometario = 'textAvisoCometario';
 
   //Extras
   static const String inputExtras = 'inputExtras';
@@ -322,5 +323,7 @@ mixin AppLocale {
     textBienvenido: "¡Bienvenido!",
     textSaludoHomeSocio: "¡Hola, %Usuario%!",
     textSaludo2HomeSocio: "Nos alegra que estés aquí",
+    textAvisoCometario:
+        "*Cualquier duda o comentario, por favor manda mensaje a tu grupo correspondiente del trámite.",
   };
 }

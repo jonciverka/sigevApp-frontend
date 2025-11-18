@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
+import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 
 /// [FORM TEXTFIELD]
 
@@ -201,12 +203,17 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
                   ),
                 ),
                 if (widget.suffixIcon != null)
-                  Icon(
-                    widget.suffixIcon,
-                    color: !widget.enabled
-                        ? AppTheme.neutralColorDarkGrey
-                        : AppTheme.neutralColorBlack,
-                  ),
+                  widget.onIconButtonPressed != null
+                      ? AppSecondaryIconButton(
+                          icon: widget.suffixIcon ?? Icons.search,
+                          onPressed: widget.onIconButtonPressed,
+                        )
+                      : Icon(
+                          widget.suffixIcon,
+                          color: !widget.enabled
+                              ? AppTheme.neutralColorDarkGrey
+                              : AppTheme.neutralColorBlack,
+                        ),
               ],
             ),
           ),
