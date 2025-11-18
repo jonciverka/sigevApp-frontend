@@ -23,7 +23,7 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+    var nuevoTramiteCubit = context.watch<NuevoTramiteCubit>();
     return Form(
       key: nuevoTramiteCubit.formularioStateContribuyente,
       child: Column(
@@ -34,17 +34,18 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
             ),
             style: context.headingMediumTextStyle,
           ),
-          SizedBox(height: context.spacing20),
+          SizedBox(height: context.spacing16),
           AppDropDown<Sucursal>(
             initialValue: nuevoTramiteCubit.sucursal,
             hint: AppLocale.lavelSucursalNuevoTramite.getString(context),
             items: nuevoTramiteCubit.state.catalogos.sucursal?.toList() ?? [],
-            onSelectItem: (value) =>
-                nuevoTramiteCubit.sucursal = nuevoTramiteCubit
-                    .state
-                    .catalogos
-                    .sucursal
-                    ?.firstWhere((e) => e == value),
+            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+              nuevoTramiteCubit.sucursal = nuevoTramiteCubit
+                  .state
+                  .catalogos
+                  .sucursal
+                  ?.firstWhere((e) => e == value);
+            }),
             labelBuilder: (item) => "${item.alias ?? ''} - ${item.nombre}",
             validator: (p0) {
               if (p0?.isEmpty ?? true) {
@@ -53,6 +54,7 @@ class DatosContribuyenteSucursalPage extends StatelessWidget {
               return null;
             },
           ),
+
           Spacer(),
           AppFooter(
             onButtonBackPressed: onButtonBackPressed,

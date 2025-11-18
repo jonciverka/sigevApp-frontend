@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 
@@ -8,22 +9,80 @@ class AppProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.watch<NuevoTramiteCubit>();
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: context.spacing12),
-      child: TweenAnimationBuilder<double>(
-        tween: Tween<double>(begin: 0, end: (nuevoTramiteCubit.page) / 8),
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        builder: (context, value, child) {
-          return LinearProgressIndicator(
-            value: value,
-            backgroundColor: Colors.grey,
-            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primaryColor),
-            minHeight: 10,
-            borderRadius: BorderRadius.circular(context.spacing16),
-          );
-        },
-      ),
+
+    Color getColor(ProgressBarStatus status) {
+      if (status.value == nuevoTramiteCubit.getStatusPage().value) {
+        return AppTheme.semanticColorSuccess;
+      } else if (status.value < nuevoTramiteCubit.getStatusPage().value) {
+        return AppTheme.semanticColorSuccess;
+      }
+      return AppTheme.neutralColorDarkGrey;
+    }
+
+    return Stack(
+      children: [
+        SizedBox(
+          width: 288,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CircleAvatar(
+                radius: 15,
+                backgroundColor: getColor(ProgressBarStatus.contribuyente),
+                child: Icon(AppIcons.person, size: AppIcons.iconSmallSize),
+              ),
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: 100,
+                  backgroundColor: AppTheme.neutralColorDarkGrey,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    getColor(ProgressBarStatus.tramite),
+                  ),
+                  minHeight: context.spacing4,
+                ),
+              ),
+              CircleAvatar(
+                radius: 15,
+                backgroundColor: getColor(ProgressBarStatus.tramite),
+                child: Icon(AppIcons.list, size: AppIcons.iconSmallSize),
+              ),
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: 100,
+                  backgroundColor: AppTheme.neutralColorDarkGrey,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    getColor(ProgressBarStatus.vehiculo),
+                  ),
+                  minHeight: context.spacing4,
+                ),
+              ),
+              CircleAvatar(
+                radius: 15,
+                backgroundColor: getColor(ProgressBarStatus.vehiculo),
+                child: Icon(
+                  AppIcons.directionCar,
+                  size: AppIcons.iconSmallSize,
+                ),
+              ),
+              Expanded(
+                child: LinearProgressIndicator(
+                  value: 100,
+                  backgroundColor: AppTheme.neutralColorDarkGrey,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    getColor(ProgressBarStatus.pago),
+                  ),
+                  minHeight: context.spacing4,
+                ),
+              ),
+              CircleAvatar(
+                radius: 15,
+                backgroundColor: getColor(ProgressBarStatus.pago),
+                child: Icon(AppIcons.dollar, size: AppIcons.iconSmallSize),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

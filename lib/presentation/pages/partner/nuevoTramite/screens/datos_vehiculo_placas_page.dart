@@ -36,7 +36,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
         AppTextFormField(
           keyboardType: TextInputType.text,
           controller: nuevoTramiteCubit.placaActualController,
-          hintText: AppLocale.lavelPlacaActualNuevoTramite.getString(context),
+          labelText: AppLocale.lavelPlacaActualNuevoTramite.getString(context),
           validator: (value) {
             if (value!.isEmpty) {
               return AppLocale.campoObligatorio.getString(context);
@@ -45,15 +45,17 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           },
           onChanged: (_) {},
         ),
-        SizedBox(height: context.spacing12),
+        SizedBox(height: context.spacing16),
         AppDropDown<Entidad>(
           initialValue: nuevoTramiteCubit.entidadPlacaActual,
           hint: AppLocale.lavelEntidadDeLaPlacaActualNuevoTramite.getString(
             context,
           ),
           items: catalogos.entidad?.toList() ?? [],
-          onSelectItem: (value) => nuevoTramiteCubit.entidadPlacaActual =
-              catalogos.entidad?.firstWhere((e) => e == value),
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.entidadPlacaActual = catalogos.entidad
+                ?.firstWhere((e) => e == value);
+          }),
           labelBuilder: (item) => item.entidadAbreviatura ?? '',
           validator: (p0) {
             if (p0?.isEmpty ?? true) {
@@ -81,8 +83,10 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
             context,
           ),
           items: catalogos.tipoDesecho?.toList() ?? [],
-          onSelectItem: (value) => nuevoTramiteCubit.tipoDesechoPlacaEntregado =
-              catalogos.tipoDesecho?.firstWhere((e) => e == value),
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.tipoDesechoPlacaEntregado = catalogos.tipoDesecho
+                ?.firstWhere((e) => e == value);
+          }),
           labelBuilder: (item) => item.nombre ?? '',
           validator: (p0) {
             if (p0?.isEmpty ?? true) {
@@ -175,10 +179,11 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           items:
               catalogos.terminacionPlaca?.map((e) => e.nombre ?? '').toList() ??
               [],
-          onSelectItem: (value) =>
-              nuevoTramiteCubit.terminacionPlacaEntregadoOpcionUno = catalogos
-                  .terminacionPlaca
-                  ?.firstWhere((e) => e.nombre == value),
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.terminacionPlacaEntregadoOpcionUno = catalogos
+                .terminacionPlaca
+                ?.firstWhere((e) => e.nombre == value);
+          }),
           labelBuilder: (item) => item,
           validator: (p0) {
             if (p0?.isEmpty ?? true) {
@@ -195,10 +200,12 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
           items:
               catalogos.terminacionPlaca?.map((e) => e.nombre ?? '').toList() ??
               [],
-          onSelectItem: (value) =>
-              nuevoTramiteCubit.terminacionPlacaEntregadoOpcionDos = catalogos
-                  .terminacionPlaca
-                  ?.firstWhere((e) => e.nombre == value),
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(
+            () =>
+                nuevoTramiteCubit.terminacionPlacaEntregadoOpcionDos = catalogos
+                    .terminacionPlaca
+                    ?.firstWhere((e) => e.nombre == value),
+          ),
           labelBuilder: (item) => item,
           validator: (p0) {
             if (p0?.isEmpty ?? true) {
@@ -216,6 +223,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
     var catalogos = nuevoTramiteCubit.state.catalogos;
+    var spacer = SizedBox(height: context.spacing12);
     return Form(
       key: nuevoTramiteCubit.formularioStateVehiculoPlaca,
       child: Column(
@@ -224,7 +232,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
             AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
             style: context.headingMediumTextStyle,
           ),
-          SizedBox(height: context.spacing20),
+          spacer,
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -244,7 +252,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
                       "groupRadioButtonPlacaActual",
                     ),
                   ),
-                  SizedBox(height: context.spacing12),
+                  spacer,
                   AppRowOpcionsRadioButton(
                     groupValue: nuevoTramiteCubit.groupRadioButtonDesechoPlaca,
                     label: AppLocale.lavelDesechoDePlacaNuevoTramite.getString(
@@ -260,7 +268,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
                       "groupRadioButtonDesechoPlaca",
                     ),
                   ),
-                  SizedBox(height: context.spacing12),
+                  spacer,
                   AppRowOpcionsRadioButton(
                     groupValue:
                         nuevoTramiteCubit.groupRadioButtonDesechoTarjeta,
@@ -277,7 +285,7 @@ class DatosVehiculoPlacasPage extends StatelessWidget {
                       "groupRadioButtonDesechoTarjeta",
                     ),
                   ),
-                  SizedBox(height: context.spacing12),
+                  spacer,
                   AppRowOpcionsRadioButton(
                     groupValue:
                         nuevoTramiteCubit.groupRadioButtonTerminacionPlacaNueva,

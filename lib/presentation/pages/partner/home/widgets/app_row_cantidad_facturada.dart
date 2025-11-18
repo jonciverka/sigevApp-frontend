@@ -34,9 +34,7 @@ class AppRowCantidadFacturada extends StatelessWidget {
                 children: [
                   Text(
                     "\$${Utilities().formatMoney(numero)}",
-                    style: context.headingMediumTextStyle.copyWith(
-                      color: AppTheme.neutralColorBlack,
-                    ),
+                    style: context.headingMediumTextStyle,
                   ),
                   SizedBox(height: context.spacing4),
                   Text(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
-import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/widgets/app_menu_item.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_state.dart';

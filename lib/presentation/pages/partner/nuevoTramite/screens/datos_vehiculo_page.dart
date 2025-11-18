@@ -25,6 +25,7 @@ class DatosVehiculoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
     var catalogos = nuevoTramiteCubit.state.catalogos;
+    var spacer = SizedBox(height: context.spacing16);
     return Form(
       key: nuevoTramiteCubit.formularioStateVehiculo,
       child: Column(
@@ -33,15 +34,17 @@ class DatosVehiculoPage extends StatelessWidget {
             AppLocale.subtituloDatosDelVehiculoNuevoTramite.getString(context),
             style: context.headingMediumTextStyle,
           ),
-          SizedBox(height: context.spacing20),
+          spacer,
           AppDropDown<String>(
             initialValue: nuevoTramiteCubit.vehiculo?.marca,
             hint: AppLocale.lavelMarcaNuevoTramite.getString(context),
             items:
                 catalogos.vehiculos?.map((e) => e.marca ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.vehiculo = catalogos
-                .vehiculos
-                ?.firstWhere((e) => e.marca == value),
+            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+              nuevoTramiteCubit.vehiculo = catalogos.vehiculos?.firstWhere(
+                (e) => e.marca == value,
+              );
+            }),
             labelBuilder: (item) {
               return item;
             },
@@ -52,11 +55,11 @@ class DatosVehiculoPage extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(height: context.spacing20),
+          spacer,
           AppTextFormField(
             keyboardType: TextInputType.text,
             controller: nuevoTramiteCubit.subMarcaController,
-            hintText: AppLocale.lavelSubmarcaNuevoTramite.getString(context),
+            labelText: AppLocale.lavelSubmarcaNuevoTramite.getString(context),
             validator: (value) {
               if (value!.isEmpty) {
                 return AppLocale.campoObligatorio.getString(context);
@@ -65,15 +68,17 @@ class DatosVehiculoPage extends StatelessWidget {
             },
             onChanged: (_) {},
           ),
-          SizedBox(height: context.spacing20),
+          spacer,
           AppDropDown<String>(
             initialValue: nuevoTramiteCubit.tipoModelo?.anio,
             hint: AppLocale.lavelModeloNuevoTramite.getString(context),
             items:
                 catalogos.tipoModelo?.map((e) => e.anio ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.tipoModelo = catalogos
-                .tipoModelo
-                ?.firstWhere((e) => e.anio == value),
+            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+              nuevoTramiteCubit.tipoModelo = catalogos.tipoModelo?.firstWhere(
+                (e) => e.anio == value,
+              );
+            }),
             labelBuilder: (item) {
               return item;
             },
@@ -84,13 +89,16 @@ class DatosVehiculoPage extends StatelessWidget {
               return null;
             },
           ),
-          SizedBox(height: context.spacing20),
+          spacer,
           AppDropDown<String>(
             initialValue: nuevoTramiteCubit.color?.color,
             hint: AppLocale.lavelColorNuevoTramite.getString(context),
             items: catalogos.colores?.map((e) => e.color ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.color = catalogos.colores
-                ?.firstWhere((e) => e.color == value),
+            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+              nuevoTramiteCubit.color = catalogos.colores?.firstWhere(
+                (e) => e.color == value,
+              );
+            }),
             labelBuilder: (item) {
               return item;
             },

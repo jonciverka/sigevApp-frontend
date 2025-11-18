@@ -33,7 +33,7 @@ class AppDropDown<T> extends StatelessWidget {
       _textController.text = labelBuilder(initialValue as T);
     }
     return AppTextFormField(
-      hintText: hint,
+      labelText: hint,
       validator: (value) => validator(value),
       controller: _textController,
       onChanged: (_) {},
@@ -87,6 +87,7 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
     return Expanded(
       child: Column(
         children: [
+          SizedBox(height: context.spacing8),
           AppSearchBar(
             items: widget.items,
             onSearch: (results) {
@@ -105,11 +106,12 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
             alignment: Alignment.centerRight,
             child: Text(
               "Total de elementos (${widget.items.length})",
-              style: context.bodyBoldTextStyle.copyWith(
+              style: context.captionBoldTextStyle.copyWith(
                 color: AppTheme.neutralColorDarkGrey,
               ),
             ),
           ),
+          SizedBox(height: context.spacing8),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -126,9 +128,9 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
                         },
                         child: Text(
                           widget.labelBuilder(e),
-                          style: context.bodyRegularTextStyle.copyWith(
-                            color: AppTheme.neutralColorDarkGrey,
-                          ),
+                          style: e == selectedItem
+                              ? context.bodyBoldTextStyle
+                              : context.bodyRegularTextStyle,
                         ),
                       ),
                     )
@@ -202,13 +204,13 @@ class _CustomPopupMenuItemState<T>
     final CustomPopupMenuItem<T> menuItem = widget as CustomPopupMenuItem<T>;
     if (menuItem.isFirst && menuItem.isLast) {
       return BorderRadius.vertical(
-        bottom: Radius.circular(0),
-        top: Radius.circular(0),
+        bottom: Radius.circular(context.spacing8),
+        top: Radius.circular(context.spacing8),
       );
     } else if (menuItem.isLast && !menuItem.isFirst) {
-      return BorderRadius.vertical(bottom: Radius.circular(0));
+      return BorderRadius.vertical(bottom: Radius.circular(context.spacing8));
     } else if (menuItem.isFirst && !menuItem.isLast) {
-      return BorderRadius.vertical(top: Radius.circular(0));
+      return BorderRadius.vertical(top: Radius.circular(context.spacing8));
     } else {
       return BorderRadius.zero;
     }

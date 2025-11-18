@@ -87,8 +87,15 @@ class AppTramiteDetalleBody extends StatelessWidget {
                     children: [
                       ...nuevoTramiteCubit.extras.map((e) {
                         return Container(
-                          margin: EdgeInsets.only(bottom: context.spacing12),
+                          margin: EdgeInsets.only(
+                            bottom: context.spacing12,
+                            left: context.spacing12,
+                            right: context.spacing12,
+                          ),
                           child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Expanded(flex: 2, child: Text(e.alias ?? '')),
                               Expanded(
@@ -96,7 +103,7 @@ class AppTramiteDetalleBody extends StatelessWidget {
                                 child: AppTextFormField(
                                   initialValue: e.monto?.toString(),
                                   keyboardType: TextInputType.number,
-                                  hintText: AppLocale.inputExtras.getString(
+                                  labelText: AppLocale.inputExtras.getString(
                                     context,
                                   ),
                                   validator: (value) {

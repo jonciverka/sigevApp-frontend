@@ -22,8 +22,8 @@ class AppRowOpcionsRadioButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(label, style: context.bodyRegularTextStyle),
-        SizedBox(height: context.spacing12),
+        Text(label, style: context.bodyBoldTextStyle),
+        SizedBox(height: context.spacing16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

@@ -16,39 +16,38 @@ class AppSucess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var menuCubit = context.read<MenuCubit>();
-    return Container(
-      color: AppTheme.semanticColorSuccess,
-      width: double.infinity,
-      height: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: context.spacing32),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            AppIcons.checkCircle,
-            color: AppTheme.neutralColorWhite,
-            size: context.spacing120,
-          ),
-          Text(
-            AppLocale.textCodigoGenerado.getString(context),
-            style: context.headingLargeTextStyle.copyWith(
-              color: AppTheme.neutralColorWhite,
+    return SafeArea(
+      child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: EdgeInsets.symmetric(
+          horizontal: context.spacing32,
+          vertical: context.spacing32,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: context.spacing64),
+            Icon(
+              AppIcons.checkCircle,
+              color: AppTheme.semanticColorSuccess,
+              size: context.spacing120,
             ),
-          ),
-          SizedBox(height: context.spacing16),
-          Text(
-            code,
-            style: context.headingMediumTextStyle.copyWith(
-              color: AppTheme.neutralColorWhite,
+            SizedBox(height: context.spacing24),
+            Text(
+              AppLocale.textCodigoGenerado.getString(context),
+              style: context.headingLargeTextStyle,
             ),
-          ),
-          SizedBox(height: context.spacing24),
-          AppPrimaryButton(
-            label: AppLocale.textButtonMisTramitesMenu.getString(context),
-            onPressed: () =>
-                menuCubit.changeIndex(index: MenuState.homeMyProcess),
-          ),
-        ],
+            SizedBox(height: context.spacing12),
+            Text(code, style: context.headingMediumTextStyle),
+            Spacer(),
+            AppPrimaryButton(
+              label: AppLocale.textButtonMisTramitesMenu.getString(context),
+              onPressed: () =>
+                  menuCubit.changeIndex(index: MenuState.homeMyProcess),
+            ),
+          ],
+        ),
       ),
     );
   }

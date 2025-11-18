@@ -47,6 +47,7 @@ class DatosDetallePago extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+    var spacer = SizedBox(height: context.spacing16);
     return Form(
       key: nuevoTramiteCubit.formularioStateDetalleDePago,
       child: Column(
@@ -55,7 +56,7 @@ class DatosDetallePago extends StatelessWidget {
             AppLocale.subtituloDetalleDePagoNuevoTramite.getString(context),
             style: context.headingMediumTextStyle,
           ),
-          SizedBox(height: context.spacing20),
+          spacer,
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -63,7 +64,7 @@ class DatosDetallePago extends StatelessWidget {
                   AppTextFormField(
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.subtotalController,
-                    hintText: AppLocale.lavelSubtotalNuevoTramite.getString(
+                    labelText: AppLocale.lavelSubtotalNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -74,11 +75,11 @@ class DatosDetallePago extends StatelessWidget {
                     },
                     onChanged: (p0) => nuevoTramiteCubit.setTotal(),
                   ),
-                  SizedBox(height: context.spacing20),
+                  spacer,
                   AppTextFormField(
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.extrasController,
-                    hintText: AppLocale.lavelExtrasNuevoTramite.getString(
+                    labelText: AppLocale.lavelExtrasNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -88,11 +89,11 @@ class DatosDetallePago extends StatelessWidget {
                     onTap: () => showExtrasModalDialog(context: context),
                     onChanged: (p0) => nuevoTramiteCubit.setTotal(),
                   ),
-                  SizedBox(height: context.spacing20),
+                  spacer,
                   AppTextFormField(
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.descuentoController,
-                    hintText: AppLocale.lavelDescuentoNuevoTramite.getString(
+                    labelText: AppLocale.lavelDescuentoNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -101,12 +102,12 @@ class DatosDetallePago extends StatelessWidget {
                     onChanged: (p0) => nuevoTramiteCubit.setTotal(),
                   ),
 
-                  SizedBox(height: context.spacing20),
+                  spacer,
                   AppTextFormField(
                     enabled: false,
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.totalController,
-                    hintText: AppLocale.lavelTotalNuevoTramite.getString(
+                    labelText: AppLocale.lavelTotalNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {

@@ -25,6 +25,17 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramit
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_loader_creando_tramite.dart';
 import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 
+enum ProgressBarStatus {
+  contribuyente(1.0),
+  tramite(2.0),
+  vehiculo(3.0),
+  pago(5.0);
+
+  final double value;
+
+  const ProgressBarStatus(this.value);
+}
+
 class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final provider = CotizacionTramiteProvider();
   final BuildContext _context;
@@ -89,6 +100,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   List<Documentacion> documentaciones = [];
   //Resultado
   String claveTramite = '';
+
   NuevoTramiteCubit({required BuildContext context})
     : _context = context,
       super(NuevoTramiteInitial()) {
@@ -529,5 +541,29 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       return;
     }
     // print(cotizacion.toJson());
+  }
+
+  ProgressBarStatus getStatusPage() {
+    if (page == NuevoTramiteState.datosDelContribuyenteSucursal ||
+        page == NuevoTramiteState.datosDelContribuyente) {
+      return ProgressBarStatus.contribuyente;
+    } else if (page == NuevoTramiteState.datosDelTramite) {
+      return ProgressBarStatus.tramite;
+    } else if (page == NuevoTramiteState.datosDelVehiculo ||
+        page == NuevoTramiteState.datosDelVehiculoPlacas) {
+      return ProgressBarStatus.vehiculo;
+    } else if (page == NuevoTramiteState.detallePago ||
+        page == NuevoTramiteState.detallePagoSaldo ||
+        page == NuevoTramiteState.detallePago ||
+        page == NuevoTramiteState.detalleDocumentos) {
+      return ProgressBarStatus.pago;
+    } else {
+      return ProgressBarStatus.contribuyente;
+    }
+  }
+
+  onSelectItem(Function onSelectItem) {
+    emit(NuevoTramiteData(catalogos: state.catalogos));
+    onSelectItem();
   }
 }

@@ -54,6 +54,8 @@ class HomePageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var menuCubit = context.read<MenuCubit>();
     return AppFondoCurvo(
+      paddingBottom: context.spacing16,
+      paddingTop: context.spacing16,
       child: SafeArea(
         child: Stack(
           children: [
@@ -64,45 +66,43 @@ class HomePageBody extends StatelessWidget {
                 child: Image.asset(AssetsConstants.flechaLoco),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(context.spacing16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Bienvenida(),
-                  BodyHome(),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: AppPrimaryButton(
-                          label: AppLocale.botonVerCatalogoHomeSocio.getString(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Bienvenida(),
+                BodyHome(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppPrimaryButton(
+                        label: AppLocale.botonVerCatalogoHomeSocio.getString(
+                          context,
+                        ),
+                        onPressed: () => showAppBottomSheet(
+                          context: context,
+                          title: AppLocale.textTituloCatalogoPrecios.getString(
                             context,
                           ),
-                          onPressed: () => showAppBottomSheet(
-                            context: context,
-                            title: AppLocale.textTituloCatalogoPrecios
-                                .getString(context),
-                            child: BlocProvider.value(
-                              value: menuCubit,
-                              child: CatalogoPreciosPage(),
-                            ),
+                          child: BlocProvider.value(
+                            value: menuCubit,
+                            child: CatalogoPreciosPage(),
                           ),
                         ),
                       ),
-                      SizedBox(width: context.spacing12),
-                      Expanded(
-                        child: AppPrimaryButton(
-                          label: AppLocale.botonIrASitioWebHomeSocio.getString(
-                            context,
-                          ),
-                          onPressed: () {},
+                    ),
+                    SizedBox(width: context.spacing12),
+                    Expanded(
+                      child: AppPrimaryButton(
+                        label: AppLocale.botonIrASitioWebHomeSocio.getString(
+                          context,
                         ),
+                        onPressed: () {},
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -185,8 +185,6 @@ class BodyHome extends StatelessWidget {
         children: [
           Container(
             padding: EdgeInsets.only(
-              left: context.spacing16,
-              right: context.spacing16,
               top: context.spacing16,
               bottom: context.spacing24,
             ),
@@ -203,7 +201,9 @@ class BodyHome extends StatelessWidget {
                 context,
               ),
               textAlign: TextAlign.center,
-              style: context.headingMediumTextStyle,
+              style: context.headingMediumTextStyle.copyWith(
+                color: AppTheme.primaryColor,
+              ),
             ),
           ),
 

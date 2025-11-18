@@ -20,39 +20,27 @@ class AppHeaderNuevoTramite extends StatelessWidget {
     final hasTipoTramite = tipoTramite.isNotEmpty;
     final hasEntidad = entidad.isNotEmpty;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           textAlign: TextAlign.start,
           AppLocale.textTituloNuevoTramiteNuevoTramite.getString(context),
-          style: context.headingLargeTextStyle,
-        ),
-        if (hasNombreCompleto) SizedBox(height: context.spacing4),
-        if (hasNombreCompleto)
-          Text(
-            nombreCompleto,
-            style: context.bodyBoldTextStyle.copyWith(
-              color: AppTheme.neutralColorDarkGrey,
-            ),
+          style: context.headingLargeTextStyle.copyWith(
+            color: AppTheme.primaryColorHover,
           ),
-        if (hasTipoTramite || hasEntidad) SizedBox(height: context.spacing4),
+        ),
+        if (hasNombreCompleto) SizedBox(height: context.spacing8),
+        if (hasNombreCompleto)
+          Text(nombreCompleto, style: context.bodyRegularTextStyle),
+        if (hasTipoTramite || hasEntidad) SizedBox(height: context.spacing8),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             if (hasTipoTramite)
-              Text(
-                tipoTramite,
-                style: context.bodyBoldTextStyle.copyWith(
-                  color: AppTheme.neutralColorDarkGrey,
-                ),
-              ),
-            if (hasEntidad)
-              Text(
-                entidad,
-                style: context.bodyBoldTextStyle.copyWith(
-                  color: AppTheme.neutralColorDarkGrey,
-                ),
-              ),
+              Text(tipoTramite, style: context.bodyRegularTextStyle),
+            if (hasEntidad) Text(entidad, style: context.bodyRegularTextStyle),
           ],
         ),
       ],

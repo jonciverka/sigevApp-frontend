@@ -34,7 +34,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 28),
-    color: primaryColor,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -43,7 +43,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 22),
-    color: primaryColor,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 
@@ -52,7 +52,7 @@ class AppTheme {
     fontWeight: FontWeight.w700,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 20),
-    color: primaryColor,
+    color: neutralColorBlack,
     letterSpacing: 0.0,
   );
 

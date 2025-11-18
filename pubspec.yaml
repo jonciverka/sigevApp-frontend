@@ -65,3 +65,6 @@ flutter:
     - family: IconsOwn 
       fonts:
         - asset: fonts/IconsOwn.ttf
+    - family: IconsBarProgress 
+      fonts:
+        - asset: fonts/IconsBarProgress.ttf

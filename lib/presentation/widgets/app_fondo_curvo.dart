@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 
 class AppFondoCurvo extends StatelessWidget {
-  const AppFondoCurvo({super.key, this.showArrow = false, required this.child});
+  const AppFondoCurvo({
+    super.key,
+    this.showArrow = false,
+    required this.child,
+    required this.paddingTop,
+    required this.paddingBottom,
+  });
   final bool showArrow;
   final Widget child;
+  final double paddingTop;
+  final double paddingBottom;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -19,7 +27,15 @@ class AppFondoCurvo extends StatelessWidget {
             ),
           ),
         ),
-        child,
+        Padding(
+          padding: EdgeInsets.only(
+            left: context.spacing16,
+            right: context.spacing16,
+            top: paddingTop,
+            bottom: paddingBottom,
+          ),
+          child: child,
+        ),
       ],
     );
   }

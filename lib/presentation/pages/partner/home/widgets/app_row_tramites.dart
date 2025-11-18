@@ -13,14 +13,7 @@ class AppRowTramites extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Center(
-            child: Text(
-              "$numero",
-              style: context.headingMediumTextStyle.copyWith(
-                color: AppTheme.neutralColorBlack,
-              ),
-            ),
-          ),
+          Center(child: Text("$numero", style: context.headingMediumTextStyle)),
           SizedBox(height: context.spacing4),
           Text(
             textAlign: TextAlign.center,

@@ -23,6 +23,7 @@ class DatosDetalleSaldoPago extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+    var spacer = SizedBox(height: context.spacing16);
     return Form(
       key: nuevoTramiteCubit.formularioStateDetalleDePagoSaldo,
       child: Column(
@@ -31,7 +32,7 @@ class DatosDetalleSaldoPago extends StatelessWidget {
             AppLocale.subtituloDetalleDePagoNuevoTramite.getString(context),
             style: context.headingMediumTextStyle,
           ),
-          SizedBox(height: context.spacing16),
+          spacer,
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -39,7 +40,7 @@ class DatosDetalleSaldoPago extends StatelessWidget {
                   AppTextFormField(
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.aCuentaController,
-                    hintText: AppLocale.lavelACuentaNuevoTramite.getString(
+                    labelText: AppLocale.lavelACuentaNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -59,11 +60,11 @@ class DatosDetalleSaldoPago extends StatelessWidget {
                     },
                     onChanged: (p0) => nuevoTramiteCubit.setSaldo(),
                   ),
-                  SizedBox(height: context.spacing20),
+                  spacer,
                   AppTextFormField(
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.saldoController,
-                    hintText: AppLocale.lavelSaldoNuevoTramite.getString(
+                    labelText: AppLocale.lavelSaldoNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -74,14 +75,14 @@ class DatosDetalleSaldoPago extends StatelessWidget {
                     },
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: context.spacing20),
+                  spacer,
                   AppTextFormField(
                     maxLines: 8,
                     maxLengthFormatter: 1000,
                     minLines: 5,
                     keyboardType: TextInputType.multiline,
                     controller: nuevoTramiteCubit.notasController,
-                    hintText: AppLocale.lavelNotasNuevoTramite.getString(
+                    labelText: AppLocale.lavelNotasNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {

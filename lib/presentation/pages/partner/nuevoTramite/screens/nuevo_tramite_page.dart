@@ -21,6 +21,7 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_succes
 import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet_pregunta.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_header_nuevo_tramite.dart';
+import 'package:sigev/presentation/widgets/app_fondo_curvo.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
 class NuevoTramite extends StatelessWidget {
@@ -65,114 +66,131 @@ class NuevoTramiteBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: context.spacing16,
-          vertical: context.spacing12,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppHeaderNuevoTramite(),
-            AppProgressBar(),
-            SizedBox(height: context.spacing12),
-            Expanded(
-              child: PageView(
-                controller: nuevoTramiteCubit.pageController,
-                scrollDirection: Axis.horizontal,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  DatosContribuyenteSucursalPage(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelContribuyente,
-                    ),
-                  ),
-                  DatosContribuyentePage(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelTramite,
-                    ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelContribuyenteSucursal,
-                      isBack: true,
-                    ),
-                  ),
-                  DatosTramitePage(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelVehiculo,
-                    ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelContribuyente,
-                      isBack: true,
-                    ),
-                  ),
-                  DatosVehiculoPage(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelVehiculoPlacas,
-                    ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelTramite,
-                      isBack: true,
-                    ),
-                  ),
-                  DatosVehiculoPlacasPage(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.detallePago,
-                    ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelVehiculo,
-                      isBack: true,
-                    ),
-                  ),
-                  DatosDetallePago(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.detallePagoSaldo,
-                    ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.datosDelVehiculoPlacas,
-                      isBack: true,
-                    ),
-                    onButtonCatalogPressed: () => showAppBottomSheet(
-                      context: context,
-                      title: AppLocale.textTituloCatalogoPrecios.getString(
-                        context,
-                      ),
-                      child: BlocProvider.value(
-                        value: context.read<MenuCubit>(),
-                        child: CatalogoPreciosPage(),
-                      ),
-                    ),
-                  ),
-                  DatosDetalleSaldoPago(
-                    onButtonNextPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.detalleDocumentos,
-                    ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.detallePago,
-                      isBack: true,
-                    ),
-                  ),
-                  DatosDocumentos(
-                    onButtonGenerateCodePressed: () =>
-                        showAppBottomSheetPregunta(
-                          context: context,
-                          title: AppLocale.textTituloGenerarCodigo.getString(
-                            context,
-                          ),
-                          question: AppLocale.descripcionGenerarCodigo
-                              .getString(context),
-                          yes: AppLocale.botonGenerarCodigo.getString(context),
-                          onYes: () => nuevoTramiteCubit.generarTramite(),
-                        ),
-                    onButtonBackPressed: () => nuevoTramiteCubit.cambiarPagina(
-                      NuevoTramiteState.detallePagoSaldo,
-                      isBack: true,
-                    ),
-                  ),
-                ],
-              ),
+    return AppFondoCurvo(
+      paddingBottom: 0,
+      paddingTop: context.spacing16,
+      child: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            color: AppTheme.neutralColorWhite,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(context.spacing24),
+              topRight: Radius.circular(context.spacing24),
             ),
-          ],
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: context.spacing8,
+            vertical: context.spacing24,
+          ),
+          child: Column(
+            children: [
+              AppHeaderNuevoTramite(),
+              SizedBox(height: context.spacing16),
+              AppProgressBar(),
+              SizedBox(height: context.spacing16),
+              Expanded(
+                child: PageView(
+                  controller: nuevoTramiteCubit.pageController,
+                  scrollDirection: Axis.horizontal,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    DatosContribuyenteSucursalPage(
+                      onButtonNextPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelContribuyente,
+                          ),
+                    ),
+                    DatosContribuyentePage(
+                      onButtonNextPressed: () => nuevoTramiteCubit
+                          .cambiarPagina(NuevoTramiteState.datosDelTramite),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelContribuyenteSucursal,
+                            isBack: true,
+                          ),
+                    ),
+                    DatosTramitePage(
+                      onButtonNextPressed: () => nuevoTramiteCubit
+                          .cambiarPagina(NuevoTramiteState.datosDelVehiculo),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelContribuyente,
+                            isBack: true,
+                          ),
+                    ),
+                    DatosVehiculoPage(
+                      onButtonNextPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelVehiculoPlacas,
+                          ),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelTramite,
+                            isBack: true,
+                          ),
+                    ),
+                    DatosVehiculoPlacasPage(
+                      onButtonNextPressed: () => nuevoTramiteCubit
+                          .cambiarPagina(NuevoTramiteState.detallePago),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelVehiculo,
+                            isBack: true,
+                          ),
+                    ),
+                    DatosDetallePago(
+                      onButtonNextPressed: () => nuevoTramiteCubit
+                          .cambiarPagina(NuevoTramiteState.detallePagoSaldo),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelVehiculoPlacas,
+                            isBack: true,
+                          ),
+                      onButtonCatalogPressed: () => showAppBottomSheet(
+                        context: context,
+                        title: AppLocale.textTituloCatalogoPrecios.getString(
+                          context,
+                        ),
+                        child: BlocProvider.value(
+                          value: context.read<MenuCubit>(),
+                          child: CatalogoPreciosPage(),
+                        ),
+                      ),
+                    ),
+                    DatosDetalleSaldoPago(
+                      onButtonNextPressed: () => nuevoTramiteCubit
+                          .cambiarPagina(NuevoTramiteState.detalleDocumentos),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.detallePago,
+                            isBack: true,
+                          ),
+                    ),
+                    DatosDocumentos(
+                      onButtonGenerateCodePressed: () =>
+                          showAppBottomSheetPregunta(
+                            context: context,
+                            title: AppLocale.textTituloGenerarCodigo.getString(
+                              context,
+                            ),
+                            question: AppLocale.descripcionGenerarCodigo
+                                .getString(context),
+                            yes: AppLocale.botonGenerarCodigo.getString(
+                              context,
+                            ),
+                            onYes: () => nuevoTramiteCubit.generarTramite(),
+                          ),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.detallePagoSaldo,
+                            isBack: true,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

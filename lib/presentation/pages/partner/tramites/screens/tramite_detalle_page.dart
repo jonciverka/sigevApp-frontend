@@ -47,7 +47,6 @@ class AppTramiteDetalleBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var menuCubit = context.read<MenuCubit>();
     return Expanded(
       child: Container(
         width: double.infinity,

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
-import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_state.dart';
 import 'package:sigev/presentation/widgets/app_menu_item.dart';
-import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
 class MenuPage extends StatelessWidget {

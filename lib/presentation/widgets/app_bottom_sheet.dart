@@ -32,10 +32,11 @@ Future<T?> showAppBottomSheet<T extends Object?>({
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  title,
-                  style: context.headingLargeTextStyle.copyWith(
-                    color: AppTheme.neutralColorBlack,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: context.headingLargeTextStyle,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 AppSecondaryIconButton(

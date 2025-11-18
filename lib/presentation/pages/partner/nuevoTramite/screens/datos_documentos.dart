@@ -6,6 +6,7 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
+import 'package:sigev/presentation/widgets/app_buttons.dart';
 
 class DatosDocumentos extends StatelessWidget {
   const DatosDocumentos({
@@ -23,6 +24,7 @@ class DatosDocumentos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var nuevoTramiteCubit = context.read<NuevoTramiteCubit>();
+    var spacer = SizedBox(height: context.spacing16);
     return Column(
       children: [
         Text(
@@ -33,8 +35,9 @@ class DatosDocumentos extends StatelessWidget {
         Text(
           AppLocale.textoInstruccionDocumentos.getString(context),
           style: context.bodyBoldTextStyle,
+          textAlign: TextAlign.justify,
         ),
-        SizedBox(height: context.spacing12),
+        spacer,
         Expanded(
           child: SingleChildScrollView(
             child: Column(
@@ -84,20 +87,33 @@ class AppCardDocumentacion extends StatelessWidget {
   final Function() removeDocumentacion;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
-          value: isSelected,
-          onChanged: (value) {
-            if (!(value ?? false)) {
-              removeDocumentacion();
-            } else {
-              addDocumentacion();
-            }
-          },
-        ),
-        Text(documentacion.apellido ?? '', style: context.bodyRegularTextStyle),
-      ],
+    return InkWell(
+      splashColor: Colors.red,
+      onTap: () {
+        if (isSelected) {
+          removeDocumentacion();
+        } else {
+          addDocumentacion();
+        }
+      },
+      child: Row(
+        children: [
+          Checkbox(
+            value: isSelected,
+            onChanged: (value) {
+              if (!(value ?? false)) {
+                removeDocumentacion();
+              } else {
+                addDocumentacion();
+              }
+            },
+          ),
+          Text(
+            documentacion.apellido ?? '',
+            style: context.bodyRegularTextStyle,
+          ),
+        ],
+      ),
     );
   }
 }

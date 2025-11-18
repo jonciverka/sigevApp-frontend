@@ -62,6 +62,7 @@ Widget cuerpoWgt(BuildContext context) {
           ),
           SizedBox(height: context.spacing24),
           AppTextFormField(
+            key: UniqueKey(),
             keyboardType: TextInputType.emailAddress,
             controller: loginCubit.usuarioController,
             labelText: AppLocale.inputLoginUsuarioLogin.getString(context),

@@ -26,8 +26,8 @@ class DatosContribuyentePage extends StatelessWidget {
     return Form(
       key: nuevoTramiteCubit.formularioStateDatosContribuyente,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -36,7 +36,7 @@ class DatosContribuyentePage extends StatelessWidget {
             ),
             style: context.headingMediumTextStyle,
           ),
-          SizedBox(height: context.spacing20),
+          SizedBox(height: context.spacing16),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -44,7 +44,7 @@ class DatosContribuyentePage extends StatelessWidget {
                   AppTextFormField(
                     keyboardType: TextInputType.emailAddress,
                     controller: nuevoTramiteCubit.correoElectronicoController,
-                    hintText: AppLocale.lavelCorreoElectronicoNuevoTramite
+                    labelText: AppLocale.lavelCorreoElectronicoNuevoTramite
                         .getString(context),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -54,11 +54,11 @@ class DatosContribuyentePage extends StatelessWidget {
                     },
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: context.spacing20),
+                  SizedBox(height: context.spacing16),
                   AppTextFormField(
                     keyboardType: TextInputType.text,
                     controller: nuevoTramiteCubit.nombreController,
-                    hintText: AppLocale.lavelNombreNuevoTramite.getString(
+                    labelText: AppLocale.lavelNombreNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -69,11 +69,11 @@ class DatosContribuyentePage extends StatelessWidget {
                     },
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: context.spacing20),
+                  SizedBox(height: context.spacing16),
                   AppTextFormField(
                     keyboardType: TextInputType.text,
                     controller: nuevoTramiteCubit.apellidoController,
-                    hintText: AppLocale.lavelApellidosNuevoTramite.getString(
+                    labelText: AppLocale.lavelApellidosNuevoTramite.getString(
                       context,
                     ),
                     validator: (value) {
@@ -84,12 +84,12 @@ class DatosContribuyentePage extends StatelessWidget {
                     },
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: context.spacing20),
+                  SizedBox(height: context.spacing16),
                   AppTextFormField(
                     keyboardType: TextInputType.number,
                     maxLengthFormatter: 10,
                     controller: nuevoTramiteCubit.telefonoController,
-                    hintText: AppLocale.lavelTelefonoMovilNuevoTramite
+                    labelText: AppLocale.lavelTelefonoMovilNuevoTramite
                         .getString(context),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -99,12 +99,12 @@ class DatosContribuyentePage extends StatelessWidget {
                     },
                     onChanged: (_) {},
                   ),
-                  SizedBox(height: context.spacing20),
+                  SizedBox(height: context.spacing16),
                   AppTextFormField(
                     maxLengthFormatter: 10,
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.telefonoAlternoController,
-                    hintText: AppLocale.lavelTelefonoMovilAlternoNuevoTramite
+                    labelText: AppLocale.lavelTelefonoMovilAlternoNuevoTramite
                         .getString(context),
                     validator: (value) {
                       return null;

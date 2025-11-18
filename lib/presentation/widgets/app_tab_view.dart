@@ -75,7 +75,7 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
       children: [
         Container(
           color: AppTheme.neutralColorWhite,
-          padding: EdgeInsets.symmetric(horizontal: context.spacing16),
+          padding: EdgeInsets.symmetric(horizontal: context.spacing12),
           child: Row(
             children: [
               Expanded(
@@ -85,7 +85,6 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
                     vertical: context.spacing2,
                   ),
                   height: context.spacing40,
-
                   decoration: BoxDecoration(
                     color: AppTheme.neutralColorBg,
                     borderRadius: BorderRadius.circular(80),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sigev/config/theme/icons_bar_progress_icons.dart';
 import 'package:sigev/config/theme/icons_own_icons.dart';
 
 class AppIcons {
@@ -37,6 +38,9 @@ class AppIcons {
   static const IconData calendar = IconsOwn.calendar_empty;
   static const IconData arrowLogo = IconsOwn.arrow;
   static const IconData checkCircle = Icons.check_circle;
+  static const IconData directionCar = IconsBarProgress.directions_car;
+  static const IconData dollar = IconsBarProgress.dollar;
+  static const IconData list = IconsBarProgress.list;
   // Icons
   static Icon smallIcon(IconData icon, {Color? color}) =>
       Icon(icon, size: iconSmallSize, color: color);
