@@ -8,7 +8,7 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/core/utilities/utilities_headers.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
-import 'package:sigev/presentation/pages/partner/tramites/widgets/app_tramite_deatlle_card.dart';
+import 'package:sigev/presentation/widgets/app_tramite_deatlle_card.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 
 class TramiteDetallePage extends StatelessWidget {
