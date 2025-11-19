@@ -6,7 +6,6 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
-import 'package:sigev/presentation/widgets/app_buttons.dart';
 
 class DatosDocumentos extends StatelessWidget {
   const DatosDocumentos({

@@ -75,7 +75,6 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
       children: [
         Container(
           color: AppTheme.neutralColorWhite,
-          padding: EdgeInsets.symmetric(horizontal: context.spacing12),
           child: Row(
             children: [
               Expanded(
@@ -128,11 +127,7 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
         if (widget.isExpanded)
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(
-                top: context.spacing8,
-                right: context.spacing16,
-                left: context.spacing16,
-              ),
+              padding: EdgeInsets.only(top: context.spacing8),
               child: TabBarView(
                 physics: widget.isBodyScrollable
                     ? null

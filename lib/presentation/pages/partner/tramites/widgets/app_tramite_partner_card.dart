@@ -3,7 +3,6 @@ import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/partner/tramites/screens/tramite_detalle_page.dart';
-import 'package:sigev/presentation/widgets/app_card.dart';
 
 class AppTramitePartnerCard extends StatelessWidget {
   const AppTramitePartnerCard({super.key, required this.tramite});
