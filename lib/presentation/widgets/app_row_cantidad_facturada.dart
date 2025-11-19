@@ -12,7 +12,7 @@ class AppRowCantidadFacturada extends StatelessWidget {
     required this.icono,
   });
   final String nombre;
-  final int numero;
+  final String numero;
   final Color color;
   final IconData icono;
 
@@ -32,10 +32,7 @@ class AppRowCantidadFacturada extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text(
-                    "\$${Utilities().formatMoney(numero)}",
-                    style: context.headingMediumTextStyle,
-                  ),
+                  Text(numero, style: context.headingMediumTextStyle),
                   SizedBox(height: context.spacing4),
                   Text(
                     textAlign: TextAlign.center,

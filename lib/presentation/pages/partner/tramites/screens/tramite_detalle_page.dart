@@ -8,7 +8,7 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/core/utilities/utilities_headers.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
-import 'package:sigev/presentation/pages/partner/tramites/widgets/app_estatus_step_circle.dart';
+import 'package:sigev/presentation/pages/partner/tramites/widgets/app_tramite_deatlle_card.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 
 class TramiteDetallePage extends StatelessWidget {
@@ -82,44 +82,10 @@ class AppTramitesDetalleBody extends StatelessWidget {
         ...menuCubit.state.catalogoEstatusTramite.asMap().entries.map((entry) {
           final index = entry.key;
           final estado = entry.value;
-          return Container(
-            height: context.spacing80,
-            margin: EdgeInsets.only(bottom: context.spacing12),
-            decoration: BoxDecoration(
-              boxShadow: AppTheme.smallElevationShadow,
-              color: AppTheme.neutralColorWhite,
-              borderRadius: BorderRadius.circular(context.spacing12),
-            ),
-            child: Row(
-              children: [
-                SizedBox(width: context.spacing8),
-                AppStatusStopCircle(
-                  numer: index + 1,
-                  active: tramite.yaPaso(estado.id ?? 0),
-                ),
-                SizedBox(width: context.spacing8),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        estado.nombre ?? '',
-                        textAlign: TextAlign.left,
-                        style: context.bodyBoldTextStyle,
-                      ),
-                      if (estado.nombrePortada != '')
-                        Text(
-                          (estado.nombrePortada ?? '').split('-')[0],
-                          textAlign: TextAlign.left,
-                          style: context.bodyRegularTextStyle,
-                          overflow: TextOverflow.clip,
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          return AppTramiteDetalleCard(
+            active: tramite.yaPaso(estado.id ?? 0),
+            estado: estado,
+            number: index + 1,
           );
         }),
       ],

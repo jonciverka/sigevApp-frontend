@@ -5,7 +5,7 @@ import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/partner/home/cubit/home_cubit.dart';
-import 'package:sigev/presentation/pages/partner/home/widgets/app_row_cantidad_facturada.dart';
+import 'package:sigev/presentation/widgets/app_row_cantidad_facturada.dart';
 
 class AppFacturacion extends StatelessWidget {
   const AppFacturacion({super.key});
@@ -22,14 +22,14 @@ class AppFacturacion extends StatelessWidget {
           ),
           icono: AppIcons.train,
           color: AppTheme.semanticColorSuccessLight,
-          numero: homeCubit.state.barraFija.facturaAnual ?? 0,
+          numero: "\$${homeCubit.state.barraFija.facturaAnual ?? 0}",
         ),
         SizedBox(height: context.spacing16),
         AppRowCantidadFacturada(
           nombre: AppLocale.textSubtituloFacturacionMesHomeSocio.getString(
             context,
           ),
-          numero: homeCubit.state.barraFija.facturaMensual ?? 0,
+          numero: "\$${homeCubit.state.barraFija.facturaMensual ?? 0}",
           icono: AppIcons.bus,
           color: AppTheme.semanticColorWarningLight,
         ),
@@ -38,7 +38,7 @@ class AppFacturacion extends StatelessWidget {
           nombre: AppLocale.textSubtituloFacturacionSemanaHomeSocio.getString(
             context,
           ),
-          numero: homeCubit.state.barraFija.facturaSemanal ?? 0,
+          numero: "\$${homeCubit.state.barraFija.facturaSemanal ?? 0}",
           icono: AppIcons.car,
           color: AppTheme.semanticColorInfoLight,
         ),

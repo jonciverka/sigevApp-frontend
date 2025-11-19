@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_state.dart';
@@ -54,34 +55,33 @@ class MenuPageBody extends StatelessWidget {
         ),
         bottomNavigationBar: SafeArea(
           child: Container(
+            margin: EdgeInsets.symmetric(horizontal: context.spacing16),
+            padding: EdgeInsets.all(context.spacing4),
+            height: context.spacing64,
             decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: AppTheme.neutralColorLightGrey,
-                  width: 1,
-                ),
-              ),
+              color: AppTheme.primaryColor,
+              borderRadius: BorderRadius.circular(80),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AppMenuItem(
-                  icon: Icons.home_outlined,
+                  icon: AppIcons.home,
                   onTap: () =>
                       menuCubit.changeIndex(index: MenuState.homePageIndex),
                   index: MenuState.homePageIndex,
                   active: menuCubit.state.index == MenuState.homePageIndex,
                 ),
                 AppMenuItem(
-                  icon: Icons.home_outlined,
+                  icon: AppIcons.orderSave,
                   onTap: () =>
                       menuCubit.changeIndex(index: MenuState.homeMisTramites),
                   index: MenuState.homeMisTramites,
                   active: menuCubit.state.index == MenuState.homeMisTramites,
                 ),
                 AppMenuItem(
-                  icon: Icons.home_outlined,
+                  icon: AppIcons.person,
                   onTap: () => menuCubit.changeIndex(
                     index: MenuState.profileMisTramites,
                   ),

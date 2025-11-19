@@ -53,20 +53,20 @@ class HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var menuCubit = context.read<MenuCubit>();
-    return AppFondoCurvo(
-      paddingBottom: context.spacing16,
-      paddingTop: context.spacing16,
-      child: SafeArea(
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              child: Opacity(
-                opacity: .1,
-                child: Image.asset(AssetsConstants.flechaLoco),
-              ),
-            ),
-            Column(
+    return Stack(
+      children: [
+        Positioned(
+          bottom: 0,
+          child: Opacity(
+            opacity: .1,
+            child: Image.asset(AssetsConstants.flechaLoco),
+          ),
+        ),
+        AppFondoCurvo(
+          paddingBottom: context.spacing16,
+          paddingTop: context.spacing16,
+          child: SafeArea(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -104,9 +104,9 @@ class HomePageBody extends StatelessWidget {
                 ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
