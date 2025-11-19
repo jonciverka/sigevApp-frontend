@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 
@@ -141,7 +140,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             decoration: BoxDecoration(
               boxShadow: AppTheme.smallElevationShadow,
               color: !widget.enabled
-                  ? AppTheme.neutralColorLightGrey
+                  ? AppTheme.neutralColorBg
                   : AppTheme.neutralColorBg,
               border: Border.all(color: borderColor, width: 2),
               borderRadius: BorderRadius.circular(context.spacing12),

@@ -77,7 +77,7 @@ class AppTheme {
   // inputs text style
   static TextStyle inputRegular(BuildContext context) => TextStyle(
     fontFamily: bodyFontFamily,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w400,
     height: convertPixelsToLogicalPixels(context, 1.1),
     fontSize: convertPixelsToLogicalPixels(context, 16),
     color: neutralColorBlack,
