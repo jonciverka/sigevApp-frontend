@@ -9,7 +9,6 @@ import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_detalle_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_detalle_state.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_tramites_documentos.dart';
-import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 import 'package:sigev/presentation/widgets/app_tramite_deatlle_card.dart';
