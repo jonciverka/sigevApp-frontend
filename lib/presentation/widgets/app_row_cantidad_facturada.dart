@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sigev/config/theme/app_theme.dart';
-import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/presentation/widgets/app_card.dart';
 
 class AppRowCantidadFacturada extends StatelessWidget {

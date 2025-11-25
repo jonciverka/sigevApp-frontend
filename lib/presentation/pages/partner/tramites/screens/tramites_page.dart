@@ -8,7 +8,6 @@ import 'package:sigev/presentation/pages/client/tramites/widgets/app_search_bar.
 import 'package:sigev/presentation/pages/partner/tramites/cubit/tramites_cubit.dart';
 import 'package:sigev/presentation/pages/partner/tramites/cubit/tramites_state.dart';
 import 'package:sigev/presentation/pages/partner/tramites/screens/tramite_busqueda.dart';
-import 'package:sigev/presentation/pages/partner/tramites/widgets/app_aviso.dart';
 import 'package:sigev/presentation/pages/partner/tramites/widgets/app_tramites.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
