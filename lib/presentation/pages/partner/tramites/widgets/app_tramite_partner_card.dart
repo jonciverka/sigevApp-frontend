@@ -31,6 +31,7 @@ class AppTramitePartnerCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => showTramiteModalDialog(context: context),
       child: Container(
+        margin: EdgeInsets.only(bottom: context.spacing12),
         width: double.infinity,
         padding: EdgeInsets.only(
           top: context.spacing12,

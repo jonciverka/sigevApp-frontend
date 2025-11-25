@@ -7,6 +7,7 @@ import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_cubit.da
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_state.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_search_bar.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_tramites.dart';
+import 'package:sigev/presentation/pages/partner/tramites/widgets/app_aviso.dart';
 import 'package:sigev/presentation/widgets/app_fondo_curvo.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 
@@ -82,6 +83,9 @@ class TramitesPageBody extends StatelessWidget {
               ),
               SizedBox(height: context.spacing16),
               AppTramites(tramites: homeCubit.state.tramitesBuscados),
+              SizedBox(height: context.spacing8),
+              AppAviso(),
+              SizedBox(height: context.spacing16),
             ],
           ),
         ),

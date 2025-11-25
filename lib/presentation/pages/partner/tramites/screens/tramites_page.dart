@@ -105,7 +105,6 @@ class TramitesPageBody extends StatelessWidget {
               ),
               spacer,
               AppTramites(tramites: homeCubit.state.tramitesBuscados),
-              AppAviso(),
             ],
           ),
         ),
