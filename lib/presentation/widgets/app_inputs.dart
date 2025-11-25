@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
+import 'package:keyboard_actions/keyboard_actions_config.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 
@@ -122,113 +124,142 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     } else {
       borderColor = Colors.transparent;
     }
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.spacing4),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: widget.width ?? double.infinity,
-            padding: EdgeInsets.only(
-              left: context.spacing16,
-              right: context.spacing16,
-              top: active ? 14 : context.spacing12,
-              bottom: active ? context.spacing12 : 14,
-            ),
-            decoration: BoxDecoration(
-              boxShadow: AppTheme.smallElevationShadow,
-              color: !widget.enabled
-                  ? AppTheme.neutralColorBg
-                  : AppTheme.neutralColorBg,
-              border: Border.all(color: borderColor, width: 2),
-              borderRadius: BorderRadius.circular(context.spacing12),
-            ),
-            child: Row(
-              children: [
-                if (widget.prefixIcon != null)
-                  Padding(
-                    padding: EdgeInsets.only(right: 7),
-                    child: Icon(
-                      widget.prefixIcon,
-                      color: !widget.enabled
-                          ? AppTheme.neutralColorDarkGrey
-                          : AppTheme.neutralColorBlack,
+    return KeyboardActions(
+      barSize: 50,
+      disableScroll: true,
+      autoScroll: false,
+      enable: true,
+      isDialog: false,
+      config: KeyboardActionsConfig(
+        keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
+        keyboardBarColor: AppTheme.neutralColorBg,
+        nextFocus: true,
+        actions: [
+          KeyboardActionsItem(
+            toolbarButtons: [
+              (node) {
+                return Padding(
+                  padding: EdgeInsets.only(right: 4),
+                  child: AppSecondaryIconButton(
+                    icon: Icons.keyboard_hide_rounded,
+                    onPressed: () => node.unfocus(),
+                  ),
+                );
+              },
+            ],
+            focusNode: _focusNode,
+            displayArrows: false,
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.spacing4),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: widget.width ?? double.infinity,
+              padding: EdgeInsets.only(
+                left: context.spacing16,
+                right: context.spacing16,
+                top: active ? 14 : context.spacing12,
+                bottom: active ? context.spacing12 : 14,
+              ),
+              decoration: BoxDecoration(
+                boxShadow: AppTheme.smallElevationShadow,
+                color: !widget.enabled
+                    ? AppTheme.neutralColorBg
+                    : AppTheme.neutralColorBg,
+                border: Border.all(color: borderColor, width: 2),
+                borderRadius: BorderRadius.circular(context.spacing12),
+              ),
+              child: Row(
+                children: [
+                  if (widget.prefixIcon != null)
+                    Padding(
+                      padding: EdgeInsets.only(right: 7),
+                      child: Icon(
+                        widget.prefixIcon,
+                        color: !widget.enabled
+                            ? AppTheme.neutralColorDarkGrey
+                            : AppTheme.neutralColorBlack,
+                      ),
+                    ),
+                  Expanded(
+                    child: TextFormField(
+                      decoration: _buildDecoration(),
+                      initialValue: widget.initialValue,
+                      obscureText: widget.obscureText,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(
+                          widget.maxLengthFormatter,
+                        ),
+                        ...widget.inputFormatters ?? [],
+                      ],
+                      textInputAction: TextInputAction.next,
+                      readOnly: widget.readOnly,
+                      textAlign: widget.textAlign,
+                      controller: widget.controller,
+                      focusNode: _focusNode,
+                      keyboardType: widget.keyboardType,
+                      enabled: widget.enabled,
+                      style: context.bodyRegularInputStyle,
+                      maxLines: widget.maxLines,
+                      onTap: widget.onTap,
+                      minLines: widget.minLines,
+                      maxLength: widget.maxLength,
+                      onChanged: (value) {
+                        widget.onChanged(value);
+                        final result = widget.validator?.call(value);
+                        setState(() {
+                          errorMessage = result ?? '';
+                        });
+                        // return null;
+                      },
+                      onFieldSubmitted: widget.onSubmitted,
+                      onSaved: widget.onSaved,
+                      // autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        final result = widget.validator?.call(value);
+                        setState(() {
+                          errorMessage = result ?? '';
+                        });
+                        // return null;
+                        return result;
+                      },
                     ),
                   ),
-                Expanded(
-                  child: TextFormField(
-                    decoration: _buildDecoration(),
-                    initialValue: widget.initialValue,
-                    obscureText: widget.obscureText,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(
-                        widget.maxLengthFormatter,
-                      ),
-                      ...widget.inputFormatters ?? [],
-                    ],
-                    textInputAction: TextInputAction.next,
-                    readOnly: widget.readOnly,
-                    textAlign: widget.textAlign,
-                    controller: widget.controller,
-                    focusNode: _focusNode,
-                    keyboardType: widget.keyboardType,
-                    enabled: widget.enabled,
-                    style: context.bodyRegularInputStyle,
-                    maxLines: widget.maxLines,
-                    onTap: widget.onTap,
-                    minLines: widget.minLines,
-                    maxLength: widget.maxLength,
-                    onChanged: (value) {
-                      widget.onChanged(value);
-                      final result = widget.validator?.call(value);
-                      setState(() {
-                        errorMessage = result ?? '';
-                      });
-                      // return null;
-                    },
-                    onFieldSubmitted: widget.onSubmitted,
-                    onSaved: widget.onSaved,
-                    // autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      final result = widget.validator?.call(value);
-                      setState(() {
-                        errorMessage = result ?? '';
-                      });
-                      // return null;
-                      return result;
-                    },
-                  ),
+                  if (widget.suffixIcon != null)
+                    widget.onIconButtonPressed != null
+                        ? AppSecondaryIconButton(
+                            icon: widget.suffixIcon ?? Icons.search,
+                            onPressed: widget.onIconButtonPressed,
+                          )
+                        : Icon(
+                            widget.suffixIcon,
+                            color: !widget.enabled
+                                ? AppTheme.neutralColorDarkGrey
+                                : AppTheme.neutralColorBlack,
+                          ),
+                ],
+              ),
+            ),
+            if (hasError)
+              Padding(
+                padding: EdgeInsets.only(
+                  left: context.spacing8,
+                  top: context.spacing4,
                 ),
-                if (widget.suffixIcon != null)
-                  widget.onIconButtonPressed != null
-                      ? AppSecondaryIconButton(
-                          icon: widget.suffixIcon ?? Icons.search,
-                          onPressed: widget.onIconButtonPressed,
-                        )
-                      : Icon(
-                          widget.suffixIcon,
-                          color: !widget.enabled
-                              ? AppTheme.neutralColorDarkGrey
-                              : AppTheme.neutralColorBlack,
-                        ),
-              ],
-            ),
-          ),
-          if (hasError)
-            Padding(
-              padding: EdgeInsets.only(
-                left: context.spacing8,
-                top: context.spacing4,
+                child: Text(
+                  errorMessage,
+                  style: context.errorTextstStyle,
+                  textAlign: TextAlign.start,
+                ),
               ),
-              child: Text(
-                errorMessage,
-                style: context.errorTextstStyle,
-                textAlign: TextAlign.start,
-              ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }

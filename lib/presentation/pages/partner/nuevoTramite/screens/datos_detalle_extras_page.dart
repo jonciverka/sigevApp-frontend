@@ -100,43 +100,23 @@ class AppTramiteDetalleBody extends StatelessWidget {
                           Expanded(flex: 2, child: Text(e.alias ?? '')),
                           Expanded(
                             flex: 5,
-                            child: KeyboardActions(
-                              config: KeyboardActionsConfig(
-                                actions: [
-                                  KeyboardActionsItem(
-                                    focusNode: FocusNode(),
-                                    toolbarButtons: [
-                                      (node) {
-                                        return IconButton(
-                                          icon: const Icon(Icons.keyboard_hide),
-                                          onPressed: () => FocusManager
-                                              .instance
-                                              .primaryFocus
-                                              ?.unfocus(),
-                                        );
-                                      },
-                                    ],
-                                  ),
-                                ],
+                            child: AppTextFormField(
+                              initialValue: e.monto?.toString(),
+                              keyboardType: TextInputType.number,
+                              labelText: AppLocale.inputExtras.getString(
+                                context,
                               ),
-                              child: AppTextFormField(
-                                initialValue: e.monto?.toString(),
-                                keyboardType: TextInputType.number,
-                                labelText: AppLocale.inputExtras.getString(
-                                  context,
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return AppLocale.campoObligatorio.getString(
-                                      context,
-                                    );
-                                  }
-                                  return null;
-                                },
-                                onChanged: (value) {
-                                  e.monto = double.tryParse(value);
-                                },
-                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return AppLocale.campoObligatorio.getString(
+                                    context,
+                                  );
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                e.monto = double.tryParse(value);
+                              },
                             ),
                           ),
                           AppSecondaryIconButton(
