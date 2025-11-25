@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -133,14 +134,28 @@ class AppTramitesDocumentos extends StatelessWidget {
                           radius: Radius.circular(context.spacing24),
                         ),
                         child: documentacion.haveUrlRecurso
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                  context.spacing24,
-                                ),
-                                child: Image.network(
-                                  documentacion.urlRecurso ?? '',
-                                  headers: UtilitiesHeaders.getHeader(),
-                                  fit: BoxFit.cover,
+                            ? GestureDetector(
+                                onTap: () {
+                                  final imageProvider = Image.network(
+                                    documentacion.urlRecurso ?? '',
+                                    headers: UtilitiesHeaders.getHeader(),
+                                    fit: BoxFit.cover,
+                                  ).image;
+                                  showImageViewer(
+                                    context,
+                                    imageProvider,
+                                    onViewerDismissed: () {},
+                                  );
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    context.spacing24,
+                                  ),
+                                  child: Image.network(
+                                    documentacion.urlRecurso ?? '',
+                                    headers: UtilitiesHeaders.getHeader(),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               )
                             : Container(

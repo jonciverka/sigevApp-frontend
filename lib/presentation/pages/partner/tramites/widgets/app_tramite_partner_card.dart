@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/domain/models/tramite.dart';
+import 'package:sigev/presentation/pages/partner/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/partner/tramites/screens/tramite_detalle_page.dart';
 
 class AppTramitePartnerCard extends StatelessWidget {
@@ -10,16 +12,21 @@ class AppTramitePartnerCard extends StatelessWidget {
 
   Future<T?> showTramiteModalDialog<T extends Object?>({
     required BuildContext context,
+    required MenuCubit menuCubit,
   }) =>
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         useSafeArea: true,
         isDismissible: false,
+        useRootNavigator: true,
         builder: (context) {
-          return FractionallySizedBox(
-            heightFactor: 1,
-            child: TramiteDetallePage(tramite: tramite),
+          return BlocProvider.value(
+            value: menuCubit,
+            child: FractionallySizedBox(
+              heightFactor: 1,
+              child: TramiteDetallePage(tramite: tramite),
+            ),
           );
         },
       ).then((value) async {
@@ -28,8 +35,10 @@ class AppTramitePartnerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final menuCubit = context.read<MenuCubit>();
     return GestureDetector(
-      onTap: () => showTramiteModalDialog(context: context),
+      onTap: () =>
+          showTramiteModalDialog(context: context, menuCubit: menuCubit),
       child: Container(
         margin: EdgeInsets.only(bottom: context.spacing12),
         width: double.infinity,
