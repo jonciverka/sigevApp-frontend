@@ -74,7 +74,7 @@ class TramiteDetalleDataBody extends StatelessWidget {
                     AppLocale.tabEstadosTramites.getString(context),
                     AppLocale.tabDocumentosTramites.getString(context),
                   ],
-                  isBodyScrollable: false,
+                  isBodyScrollable: true,
                   isBarScrollable: false,
                   isExpanded: true,
                   children: [

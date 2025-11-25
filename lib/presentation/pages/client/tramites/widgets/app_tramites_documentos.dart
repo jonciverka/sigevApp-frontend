@@ -47,7 +47,7 @@ class _AppTramitesDocumentosState extends State<AppTramitesDocumentos> {
                       onYes: () =>
                           tramiteDetalleCubit.selectFile(documentacion),
                       no: AppLocale.buttonTomarFotoTramites.getString(context),
-                      onNo: () => {},
+                      onNo: () => tramiteDetalleCubit.takePhoto(documentacion),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,

@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,6 +73,46 @@ class TramiteDetalleCubit extends Cubit<TramiteDetalleState> {
     } else {
       // User canceled the picker
     }
+  }
+
+  Future<void> takePhoto(Documentacion documentacion) async {
+    final imagesPath = await CunningDocumentScanner.getPictures(
+      noOfPages: 1,
+
+      isGalleryImportAllowed: false,
+      iosScannerOptions: IosScannerOptions(
+        imageFormat: IosImageFormat.jpg,
+        jpgCompressionQuality: 1,
+      ),
+    );
+
+    if (imagesPath == null || imagesPath.isEmpty) return;
+
+    // ⚠️ La librería solo regresa imágenes (PNG/JPG), NO PDFs.
+    // Si quieres PDF tendrías que convertir después.
+    final String path = imagesPath.first;
+    final File file = File(path);
+
+    // Obtener extensión
+    final String extensionFile = path.split('.').last.toLowerCase();
+
+    // Leer bytes
+    final Uint8List imageBytes = await file.readAsBytes();
+
+    // Guardar con tu utilidad
+    documentacion.file = await Utilities().uint8ListToFile(
+      imageBytes,
+      "${documentacion.id}.${documentacion.nombre}_${DateTime.now()}.$extensionFile",
+    );
+
+    documentacion.formato = extensionFile;
+
+    emit(
+      TramiteDetalleData(
+        documentacion: state.documentacion,
+        tramite: state.tramite,
+      ),
+    );
   }
 
   Future<void> sendDocumentation() async {
