@@ -147,6 +147,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   }
 
   Future<void> cambiarPagina(int index, {bool isBack = false}) async {
+    FocusScope.of(_context).unfocus();
     if (!isBack) {
       switch (index - 1) {
         case 0:

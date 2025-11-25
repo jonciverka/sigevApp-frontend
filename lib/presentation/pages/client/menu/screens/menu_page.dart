@@ -15,6 +15,7 @@ class MenuPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppTheme.neutralColorWhite,
         body: BlocProvider(
           create: (context) => MenuCubit(context: context),
@@ -43,6 +44,7 @@ class MenuPageBody extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: AppTheme.neutralColorWhite,
         body: Navigator(
           onGenerateRoute: (RouteSettings settings) {

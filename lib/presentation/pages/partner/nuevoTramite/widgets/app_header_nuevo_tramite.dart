@@ -15,7 +15,10 @@ class AppHeaderNuevoTramite extends StatelessWidget {
     final apellido = cubit.apellidoController.text.trim();
     final nombreCompleto = "$nombre $apellido";
     final tipoTramite = nuevoTramiteCubit.tipoTramite?.nombre ?? '';
+    final aliasTipoTramite = nuevoTramiteCubit.tipoTramite?.alias ?? '';
     final entidad = nuevoTramiteCubit.entidad?.entidadNombre ?? '';
+    final abreviaturaEntidad =
+        nuevoTramiteCubit.entidad?.entidadAbreviatura ?? '';
     final hasNombreCompleto = nombre.isNotEmpty && apellido.isNotEmpty;
     final hasTipoTramite = tipoTramite.isNotEmpty;
     final hasEntidad = entidad.isNotEmpty;
@@ -39,8 +42,22 @@ class AppHeaderNuevoTramite extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             if (hasTipoTramite)
-              Text(tipoTramite, style: context.bodyRegularTextStyle),
-            if (hasEntidad) Text(entidad, style: context.bodyRegularTextStyle),
+              Expanded(
+                child: Text(
+                  overflow: TextOverflow.ellipsis,
+                  "$aliasTipoTramite - $tipoTramite",
+                  style: context.bodyRegularTextStyle,
+                ),
+              ),
+            if (hasEntidad)
+              Expanded(
+                child: Text(
+                  textAlign: TextAlign.end,
+                  overflow: TextOverflow.ellipsis,
+                  "$abreviaturaEntidad - $entidad",
+                  style: context.bodyRegularTextStyle,
+                ),
+              ),
           ],
         ),
       ],

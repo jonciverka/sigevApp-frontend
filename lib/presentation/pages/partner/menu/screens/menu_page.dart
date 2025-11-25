@@ -12,22 +12,20 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        backgroundColor: AppTheme.neutralColorWhite,
-        body: BlocProvider(
-          create: (context) => MenuCubit(context: context),
-          child: BlocBuilder<MenuCubit, MenuState>(
-            builder: (context, state) {
-              switch (state) {
-                case MenuData():
-                  return MenuPageBody();
-                default:
-                  return const AppLoader();
-              }
-            },
-          ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppTheme.neutralColorWhite,
+      body: BlocProvider(
+        create: (context) => MenuCubit(context: context),
+        child: BlocBuilder<MenuCubit, MenuState>(
+          builder: (context, state) {
+            switch (state) {
+              case MenuData():
+                return MenuPageBody();
+              default:
+                return const AppLoader();
+            }
+          },
         ),
       ),
     );
@@ -43,6 +41,7 @@ class MenuPageBody extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: AppTheme.neutralColorWhite,
         body: Navigator(
           onGenerateRoute: (RouteSettings settings) {
