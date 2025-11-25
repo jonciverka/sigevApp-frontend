@@ -19,7 +19,7 @@ Future<T?> showAppBottomSheet<T extends Object?>({
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: FractionallySizedBox(
-        heightFactor: heightFactor,
+        heightFactor: heightFactor == 0 ? null : heightFactor,
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.symmetric(

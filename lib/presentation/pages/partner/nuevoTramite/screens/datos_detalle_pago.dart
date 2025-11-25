@@ -30,6 +30,7 @@ class DatosDetallePago extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       useSafeArea: true,
+      useRootNavigator: true,
       isDismissible: false,
       enableDrag: false,
       builder: (context) {

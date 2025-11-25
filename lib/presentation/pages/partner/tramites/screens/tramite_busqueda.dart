@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_date_pickers/flutter_date_pickers.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
@@ -17,18 +18,49 @@ class TramiteBusqueda extends StatefulWidget {
 
 class _TramiteBusquedaState extends State<TramiteBusqueda> {
   final TextEditingController busquedaController = TextEditingController();
+  List<DateTime> fechas = [
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+  ];
   @override
   void initState() {
     super.initState();
     busquedaController.text = widget.initialValue;
+    fechas = [
+      Utilities.getDateFromIsoWeek(widget.initialValue),
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+    ];
   }
 
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    DatePickerRangeStyles styles = DatePickerRangeStyles(
+      selectedDateStyle: context.bodyRegularTextStyle.copyWith(
+        color: AppTheme.neutralColorWhite,
+      ),
+      selectedPeriodLastDecoration: BoxDecoration(
+        color: AppTheme.primaryColor,
+        borderRadius: BorderRadiusDirectional.only(
+          topEnd: Radius.circular(1000),
+          bottomEnd: Radius.circular(1000),
+        ),
+      ),
+      selectedPeriodStartDecoration: BoxDecoration(
+        color: AppTheme.primaryColor,
+        borderRadius: BorderRadiusDirectional.only(
+          topStart: Radius.circular(1000),
+          bottomStart: Radius.circular(1000),
+        ),
+      ),
+      selectedPeriodMiddleDecoration: BoxDecoration(
+        color: AppTheme.primaryColor,
+        shape: BoxShape.rectangle,
+      ),
+    );
     return Column(
       children: [
-        SizedBox(height: context.spacing16),
+        SizedBox(height: context.spacing8),
         Row(
           children: [
             Expanded(
@@ -37,9 +69,7 @@ class _TramiteBusquedaState extends State<TramiteBusqueda> {
                 child: AppTextFormField(
                   keyboardType: TextInputType.emailAddress,
                   controller: busquedaController,
-                  suffixIcon: AppIcons.refresh,
-                  onIconButtonPressed: () =>
-                      busquedaController.text = Utilities().getYearWeek(),
+                  enabled: false,
                   labelText: AppLocale.inputSearchTramite.getString(context),
                   validator: (value) {
                     final regex = RegExp(
@@ -59,15 +89,26 @@ class _TramiteBusquedaState extends State<TramiteBusqueda> {
                 ),
               ),
             ),
-            // AppSecondaryIconButton(
-            //   icon: AppIcons.refresh,
-            //   onPressed: () {
-            //     busquedaController.text = Utilities().getYearWeek();
-            //   },
-            // ),
           ],
         ),
-        SizedBox(height: context.spacing24),
+        SizedBox(height: context.spacing16),
+        WeekPicker(
+          datePickerLayoutSettings: DatePickerLayoutSettings(),
+          selectedDate: fechas.first,
+          onChanged: (value) {
+            setState(() {
+              fechas.first = value.start;
+              fechas.last = value.end;
+              busquedaController.text = Utilities().getYearWeek(
+                date: fechas.first,
+              );
+            });
+          },
+          firstDate: DateTime(2000, 1, 1),
+          lastDate: DateTime.now(),
+          datePickerStyles: styles,
+        ),
+        SizedBox(height: context.spacing16),
         AppPrimaryButton(
           label: "${AppLocale.textRadioAplica.getString(context)}r",
           onPressed: () {
@@ -82,6 +123,7 @@ class _TramiteBusquedaState extends State<TramiteBusqueda> {
             Navigator.pop(context);
           },
         ),
+        SizedBox(height: MediaQuery.paddingOf(context).bottom),
       ],
     );
   }

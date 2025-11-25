@@ -132,7 +132,6 @@ class AppTramiteDetalleBody extends StatelessWidget {
                 ),
               ),
             ),
-
             Row(
               children: [
                 Expanded(
@@ -147,6 +146,7 @@ class AppTramiteDetalleBody extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: MediaQuery.paddingOf(context).bottom),
           ],
         ),
       ),

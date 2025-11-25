@@ -24,8 +24,8 @@ class Utilities {
     return emailRegex.hasMatch(email);
   }
 
-  String getYearWeek() {
-    final now = DateTime.now();
+  String getYearWeek({DateTime? date}) {
+    final now = date ?? DateTime.now();
     // Ajuste según ISO 8601 (las semanas comienzan en lunes)
     final dayOfYear =
         int.parse(
@@ -38,6 +38,24 @@ class Utilities {
         1;
     final weekNumber = ((dayOfYear - now.weekday + 10) / 7).floor();
     return '${now.year}-W${weekNumber.toString().padLeft(2, '0')}';
+  }
+
+  static DateTime getDateFromIsoWeek(String isoWeek) {
+    // isoWeek viene como "2025-W46"
+    final parts = isoWeek.split('-W');
+    final year = int.parse(parts[0]);
+    final week = int.parse(parts[1]);
+
+    // ISO week: el 4 de enero siempre está en la semana 1
+    final jan4 = DateTime(year, 1, 4);
+
+    // Obtener el lunes de la semana 1
+    final firstWeekMonday = jan4.subtract(Duration(days: jan4.weekday - 1));
+
+    // Calcular lunes de la semana deseada
+    final targetMonday = firstWeekMonday.add(Duration(days: (week - 1) * 7));
+
+    return targetMonday; // puedes devolver targetMonday o cualquier día de esa semana
   }
 
   Future<File> uint8ListToFile(Uint8List data, String filename) async {

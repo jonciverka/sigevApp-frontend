@@ -62,6 +62,7 @@ class DatosDetalleSaldoPago extends StatelessWidget {
                   ),
                   spacer,
                   AppTextFormField(
+                    enabled: false,
                     keyboardType: TextInputType.number,
                     controller: nuevoTramiteCubit.saldoController,
                     labelText: AppLocale.lavelSaldoNuevoTramite.getString(

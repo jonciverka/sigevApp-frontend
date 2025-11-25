@@ -80,7 +80,7 @@ class TramitesPageBody extends StatelessWidget {
                 prefixIcon: AppIcons.calendar,
                 onPressed: () =>
                     showAppBottomSheet(
-                      heightFactor: .40,
+                      heightFactor: 0,
                       useRootNavigator: true,
                       context: context,
                       title: AppLocale.inputSearch.getString(context),
