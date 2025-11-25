@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:keyboard_actions/keyboard_actions.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
@@ -99,23 +100,43 @@ class AppTramiteDetalleBody extends StatelessWidget {
                           Expanded(flex: 2, child: Text(e.alias ?? '')),
                           Expanded(
                             flex: 5,
-                            child: AppTextFormField(
-                              initialValue: e.monto?.toString(),
-                              keyboardType: TextInputType.number,
-                              labelText: AppLocale.inputExtras.getString(
-                                context,
+                            child: KeyboardActions(
+                              config: KeyboardActionsConfig(
+                                actions: [
+                                  KeyboardActionsItem(
+                                    focusNode: FocusNode(),
+                                    toolbarButtons: [
+                                      (node) {
+                                        return IconButton(
+                                          icon: const Icon(Icons.keyboard_hide),
+                                          onPressed: () => FocusManager
+                                              .instance
+                                              .primaryFocus
+                                              ?.unfocus(),
+                                        );
+                                      },
+                                    ],
+                                  ),
+                                ],
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return AppLocale.campoObligatorio.getString(
-                                    context,
-                                  );
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                e.monto = double.tryParse(value);
-                              },
+                              child: AppTextFormField(
+                                initialValue: e.monto?.toString(),
+                                keyboardType: TextInputType.number,
+                                labelText: AppLocale.inputExtras.getString(
+                                  context,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return AppLocale.campoObligatorio.getString(
+                                      context,
+                                    );
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  e.monto = double.tryParse(value);
+                                },
+                              ),
                             ),
                           ),
                           AppSecondaryIconButton(
