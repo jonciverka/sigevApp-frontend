@@ -67,7 +67,7 @@ class HomePageBody extends StatelessWidget {
               children: [
                 Bienvenida(),
                 AppRowCantidadFacturada(
-                  nombre: AppLocale.textSubtituloFacturacionAnioHomeSocio
+                  nombre: AppLocale.textTramitesActivosTotalHomeCliente
                       .getString(context),
                   icono: AppIcons.train,
                   color: AppTheme.semanticColorSuccessLight,

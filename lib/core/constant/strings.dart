@@ -200,7 +200,7 @@ mixin AppLocale {
     botonIniciarSesionLogin: 'Iniciar Sesión',
     textoInstruccionLogin:
         "Si eres cliente, tu contraseña es tu número de trámite",
-    textTramitesActivosTotalHomeCliente: 'Trámites Activos',
+    textTramitesActivosTotalHomeCliente: 'Trámites Totales',
     textTituloHomeCliente: "Mis Trámites",
     textButtonVerMasTramites: "Ver Mas",
     inputSearch: "Buscar...",

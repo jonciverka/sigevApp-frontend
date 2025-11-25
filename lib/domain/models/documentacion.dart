@@ -29,7 +29,7 @@ class Documentacion {
   factory Documentacion.fromJson(Map<String, dynamic> json) => Documentacion(
     id: json["id"],
     nombre: json["nombre"] ?? json["documento"]["nombre"],
-    apellido: json["apellidos"] ?? json["documento"]["apellidos"],
+    apellido: json["clave"] ?? json["documento"]["clave"],
     path: json["url_recurso"],
     urlRecurso:
         "http://${ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/${json["url_recurso"]}",
