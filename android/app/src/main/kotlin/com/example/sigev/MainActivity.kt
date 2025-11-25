@@ -1,4 +1,4 @@
-package com.example.sigev
+package com.grupogevhe.gevhe
 
 import io.flutter.embedding.android.FlutterActivity
 

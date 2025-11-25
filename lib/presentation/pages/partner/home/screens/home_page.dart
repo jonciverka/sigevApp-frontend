@@ -116,17 +116,20 @@ class TabHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: AppTabView(
-        tabsNames: [
-          AppLocale.textPestaniaFacturacionHomeSocioHomeSocio.getString(
-            context,
-          ),
-          AppLocale.textPestaniaTramitesHomeSocioHomeSocio.getString(context),
-        ],
-        isBodyScrollable: false,
-        isBarScrollable: false,
-        isExpanded: true,
-        children: [AppFacturacion(), AppTramites()],
+      child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: context.spacing8),
+        child: AppTabView(
+          tabsNames: [
+            AppLocale.textPestaniaFacturacionHomeSocioHomeSocio.getString(
+              context,
+            ),
+            AppLocale.textPestaniaTramitesHomeSocioHomeSocio.getString(context),
+          ],
+          isBodyScrollable: false,
+          isBarScrollable: false,
+          isExpanded: true,
+          children: [AppFacturacion(), AppTramites()],
+        ),
       ),
     );
   }

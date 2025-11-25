@@ -239,7 +239,7 @@ mixin AppLocale {
     textSubtituloTramitesCanceladosSemanaHomeSocio:
         "Trámites Cancelados de la semana",
     botonVerCatalogoHomeSocio: "Ver Catálogo",
-    botonIrASitioWebHomeSocio: "Ir a SIGHEV",
+    botonIrASitioWebHomeSocio: "Ir a SIGEV",
     textTituloNuevoTramiteNuevoTramite: "Nuevo Trámite",
     lavelSucursalNuevoTramite: "Surcursal *",
     lavelCorreoElectronicoNuevoTramite: "Correo Electronico *",

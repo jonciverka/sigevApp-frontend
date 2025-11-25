@@ -75,52 +75,55 @@ class _AppTabViewState extends State<AppTabView> with TickerProviderStateMixin {
       children: [
         Container(
           color: AppTheme.neutralColorWhite,
-          child: Row(
-            children: [
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.spacing2,
-                    vertical: context.spacing2,
-                  ),
-                  height: context.spacing40,
-                  decoration: BoxDecoration(
-                    color: AppTheme.neutralColorBg,
-                    borderRadius: BorderRadius.circular(80),
-                  ),
-                  child: TabBar(
-                    labelPadding: EdgeInsets.zero,
-                    isScrollable: widget.isBarScrollable,
-                    overlayColor: WidgetStateColor.resolveWith(
-                      (states) => Colors.transparent,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.spacing8),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: context.spacing2,
+                      vertical: context.spacing2,
                     ),
-                    splashFactory: NoSplash.splashFactory,
-                    padding: EdgeInsets.zero,
-                    indicatorWeight: .1,
-                    indicatorColor: Colors.black,
-                    indicator: const BoxDecoration(), // elimina el indicador
-                    indicatorSize: TabBarIndicatorSize
-                        .label, // elimina el espacio del indicador
-                    dividerColor: Colors.transparent,
-                    dividerHeight: 2,
-                    controller: _tabController,
-                    onTap: onTabTap,
-                    automaticIndicatorColorAdjustment: true,
-                    tabAlignment: widget.isBarScrollable
-                        ? TabAlignment.start
-                        : null,
-                    tabs: List.generate(
-                      widget.tabsNames.length,
-                      (int index) => AppTab(
-                        isSelected: index == _tabController.index,
-                        title: widget.tabsNames[index],
-                        onTap: () => changeTab(index),
+                    height: context.spacing40,
+                    decoration: BoxDecoration(
+                      color: AppTheme.neutralColorBg,
+                      borderRadius: BorderRadius.circular(80),
+                    ),
+                    child: TabBar(
+                      labelPadding: EdgeInsets.zero,
+                      isScrollable: widget.isBarScrollable,
+                      overlayColor: WidgetStateColor.resolveWith(
+                        (states) => Colors.transparent,
+                      ),
+                      splashFactory: NoSplash.splashFactory,
+                      padding: EdgeInsets.zero,
+                      indicatorWeight: .1,
+                      indicatorColor: Colors.black,
+                      indicator: const BoxDecoration(), // elimina el indicador
+                      indicatorSize: TabBarIndicatorSize
+                          .label, // elimina el espacio del indicador
+                      dividerColor: Colors.transparent,
+                      dividerHeight: 2,
+                      controller: _tabController,
+                      onTap: onTabTap,
+                      automaticIndicatorColorAdjustment: true,
+                      tabAlignment: widget.isBarScrollable
+                          ? TabAlignment.start
+                          : null,
+                      tabs: List.generate(
+                        widget.tabsNames.length,
+                        (int index) => AppTab(
+                          isSelected: index == _tabController.index,
+                          title: widget.tabsNames[index],
+                          onTap: () => changeTab(index),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         ...widget.widgetsBetweenTabBarAndBody,

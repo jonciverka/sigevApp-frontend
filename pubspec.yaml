@@ -68,3 +68,11 @@ flutter:
     - family: IconsBarProgress 
       fonts:
         - asset: fonts/IconsBarProgress.ttf
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "images/logo_sighev.png"
+  adaptive_icon_background: "#0A8B8F"
+  adaptive_icon_foreground: "images/logo_sighev.png"
+  image_path_ios: "images/logo_sighev.png"
+  remove_alpha_ios: true

@@ -48,7 +48,7 @@ class Utilities {
     return file;
   }
 
-  String formatMoney(num value) {
+  static String formatMoney(num value) {
     final formatter = NumberFormat('#,##0', 'en_US');
     return formatter.format(value);
   }
