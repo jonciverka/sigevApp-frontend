@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:keyboard_actions/keyboard_actions.dart';
-import 'package:keyboard_actions/keyboard_actions_config.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/presentation/widgets/app_icon_buttons.dart';
 
@@ -128,7 +127,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       barSize: 50,
       disableScroll: true,
       autoScroll: false,
-      enable: true,
+      enable: widget.keyboardType == TextInputType.number,
       isDialog: false,
       config: KeyboardActionsConfig(
         keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
