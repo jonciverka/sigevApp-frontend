@@ -45,6 +45,7 @@ mixin AppLocale {
       'textButtonCerrarSesionPerfil';
   static const String textButtonEliminarCuentaPerfil =
       'textButtonEliminarCuentaPerfil';
+  static const String textAvisoPrivacidadPerfil = 'textAvisoPrivacidadPerfil';
   static const String textTituloEliminarCuenta = 'textTituloEliminarCuenta';
   static const String textPreguntaEliminarCuenta = 'textPreguntaEliminarCuenta';
   static const String textoRespuestaSiEliminarCuenta =
@@ -181,6 +182,7 @@ mixin AppLocale {
   static const String textCargando = 'textCargando';
   static const String textCodigoGenerado = 'textCodigoGenerado';
   static const String textAvisoCometario = 'textAvisoCometario';
+  static const String faltaSubirDocumentos = 'faltaSubirDocumentos';
 
   //Extras
   static const String inputExtras = 'inputExtras';
@@ -217,6 +219,7 @@ mixin AppLocale {
     textButtonInicioMenu: "Inicio",
     textButtonMisTramitesMenu: "Mis Trámites",
     textButtonPerfilMenu: "Mi Perfil",
+    textAvisoPrivacidadPerfil: "Aviso de privacidad",
     textTituloEliminarCuenta: "¿Deseas eliminar tu cuenta?",
     textPreguntaEliminarCuenta:
         "Al hacerlo, tus datos y documentos se eliminarán de forma permanente",
@@ -235,7 +238,7 @@ mixin AppLocale {
     textSubtituloTramitesIngresadosSemanaHomeSocio:
         "Trámites Ingresados de la semana",
     textSubtituloTramitesEgresadosSemanaHomeSocio:
-        "Tramites Egresados de la semana",
+        "Tramites Entregados de la semana",
     textSubtituloTramitesCanceladosSemanaHomeSocio:
         "Trámites Cancelados de la semana",
     botonVerCatalogoHomeSocio: "Ver Catálogo",
@@ -324,6 +327,7 @@ mixin AppLocale {
     textSaludoHomeSocio: "¡Hola, %Usuario%!",
     textSaludo2HomeSocio: "Nos alegra que estés aquí",
     textAvisoCometario:
-        "*Cualquier duda o comentario, por favor manda mensaje a tu grupo correspondiente del trámite.",
+        "*Cualquier duda o comentario, por favor manda mensaje a tu grupo de whatsapp que fue creado.",
+    faltaSubirDocumentos: "Te falta subir tus documentos",
   };
 }

@@ -6,11 +6,13 @@ import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/presentation/pages/profile/cubit/profile_cubit.dart';
 import 'package:sigev/presentation/pages/profile/cubit/profile_state.dart';
+import 'package:sigev/presentation/widgets/app_bottom_sheet.dart';
 import 'package:sigev/presentation/widgets/app_bottom_sheet_pregunta.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
 import 'package:sigev/presentation/widgets/app_fondo_curvo.dart';
 import 'package:sigev/presentation/widgets/app_inputs.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -131,6 +133,19 @@ Widget cuerpoWgt(BuildContext context) {
               SizedBox(height: context.spacing16),
               AppTertiaryButton(
                 width: double.nan,
+                label: AppLocale.textAvisoPrivacidadPerfil.getString(context),
+                onPressed: () => showAppBottomSheet(
+                  heightFactor: 0,
+                  useRootNavigator: true,
+                  context: context,
+                  title: AppLocale.inputSearch.getString(context),
+                  child: ClausulasPage(),
+                ),
+                suffixIcon: AppIcons.openInNew,
+              ),
+              SizedBox(height: context.spacing16),
+              AppTertiaryButton(
+                width: double.nan,
                 label: AppLocale.textButtonEliminarCuentaPerfil.getString(
                   context,
                 ),
@@ -173,4 +188,28 @@ Widget cuerpoWgt(BuildContext context) {
       ),
     ),
   );
+}
+
+class ClausulasPage extends StatefulWidget {
+  const ClausulasPage({super.key});
+
+  @override
+  ClausulasPageState createState() => ClausulasPageState();
+}
+
+class ClausulasPageState extends State<ClausulasPage> {
+  final controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..loadRequest(Uri.parse("https://grupogevhe.com/clausulas/"));
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        // height: 100,
+        width: double.infinity,
+        child: WebViewWidget(controller: controller),
+      ),
+    );
+  }
 }

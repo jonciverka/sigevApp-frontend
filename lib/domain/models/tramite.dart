@@ -185,6 +185,8 @@ class Tramite {
       ultimoStatus.idestatus == idEstatus ||
       ultimoStatus.idestatus! > idEstatus;
   String get tituloCarta => '$tipoTramite - $entidad - $tipoServicio';
+  bool get tieneTodasLasDocumentaciones =>
+      documentaciones?.every((item) => item.path != null) ?? false;
 }
 
 List<StatusTramite> statusTramiteFromJsonList(List<dynamic> jsonList) =>

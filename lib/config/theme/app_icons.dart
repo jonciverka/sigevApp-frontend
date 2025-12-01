@@ -26,6 +26,8 @@ class AppIcons {
   static const IconData delete = IconsOwn.delete;
   static const IconData logout = IconsOwn.logout;
   static const IconData refresh = IconsOwn.loop_alt;
+  static const IconData openInNew = Icons.open_in_new_rounded;
+  // static const IconData warning = Icons.warning_rounded;
   //Others
   static const IconData addCircle = IconsOwn.addcircle;
   static const IconData password = IconsOwn.ordersavedpass;

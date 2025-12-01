@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_icons.dart';
 import 'package:sigev/config/theme/app_theme.dart';
+import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/screens/tramite_detalle_page.dart';
@@ -69,8 +71,10 @@ class AppTramiteCard extends StatelessWidget {
                       style: context.bodyRegularTextStyle,
                     ),
                     SizedBox(height: context.spacing8),
-
                     AppStatusSteps(tramite: tramite),
+                    SizedBox(height: context.spacing16),
+                    if (!tramite.tieneTodasLasDocumentaciones)
+                      AppMensajesAdvertencia(tramite: tramite),
                   ],
                 ),
               ),
@@ -115,6 +119,29 @@ class AppStatusSteps extends StatelessWidget {
           children: menuCubit.state.catalogoEstatusTramite.map((estado) {
             return AppStatusStopCircle(active: tramite.yaPaso(estado.id ?? 0));
           }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class AppMensajesAdvertencia extends StatelessWidget {
+  const AppMensajesAdvertencia({super.key, required this.tramite});
+  final Tramite tramite;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(
+          AppIcons.warning,
+          color: AppTheme.semanticColorWarning,
+          size: AppIcons.iconMediumSize,
+        ),
+        SizedBox(width: context.spacing8),
+        Text(
+          AppLocale.faltaSubirDocumentos.getString(context),
+          style: context.captionBoldTextStyle,
         ),
       ],
     );
