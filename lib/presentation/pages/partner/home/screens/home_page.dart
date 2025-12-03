@@ -16,6 +16,7 @@ import 'package:sigev/presentation/widgets/app_fondo_curvo.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 import 'package:sigev/config/globals.dart' as globals;
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -97,7 +98,19 @@ class HomePageBody extends StatelessWidget {
                         label: AppLocale.botonIrASitioWebHomeSocio.getString(
                           context,
                         ),
-                        onPressed: () {},
+                        onPressed: () async {
+                          final Uri url = Uri.parse(
+                            'https://office.grupogevhe.com/',
+                          );
+
+                          if (!await launchUrl(
+                            url,
+                            mode: LaunchMode
+                                .externalApplication, // Abre en el navegador
+                          )) {
+                            throw Exception('Could not launch $url');
+                          }
+                        },
                       ),
                     ),
                   ],
