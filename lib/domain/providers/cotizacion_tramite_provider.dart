@@ -181,7 +181,7 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
     required List<Documentacion> documentaciones,
   }) async {
     try {
-      final String baseUrl = "http://${ApiConstants.urlBase}";
+      final String baseUrl = "https://${ApiConstants.urlBase}";
       final String extension = ApiConstants.url;
       final String endpoint = ApiConstants.apiUploadDocumentsTramiteCliente;
       final Uri url = Uri.parse('$baseUrl$extension$endpoint');
