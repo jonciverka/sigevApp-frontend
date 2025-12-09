@@ -136,7 +136,11 @@ Widget cuerpoWgt(BuildContext context) {
                 label: AppLocale.textAvisoPrivacidadPerfil.getString(context),
                 onPressed: () => showAppBottomSheet(
                   heightFactor: 0,
+                  isScrollControlled: true,
+                  useSafeArea: true,
+                  isDismissible: false,
                   useRootNavigator: true,
+                  enableDrag: false,
                   context: context,
                   title: AppLocale.inputSearch.getString(context),
                   child: ClausulasPage(),

@@ -32,13 +32,7 @@ class AppDropDown<T> extends StatelessWidget {
     if (initialValue != null && initialValue is T) {
       _textController.text = labelBuilder(initialValue as T);
     }
-    return AppTextFormField(
-      labelText: hint,
-      validator: (value) => validator(value),
-      controller: _textController,
-      onChanged: (_) {},
-      suffixIcon: AppIcons.arrowDown,
-      readOnly: true,
+    return GestureDetector(
       onTap: () => showAppBottomSheet(
         context: context,
         title: hint,
@@ -48,6 +42,17 @@ class AppDropDown<T> extends StatelessWidget {
           labelBuilder: labelBuilder,
           initialValue: initialValue,
           textController: _textController,
+        ),
+      ),
+      child: AbsorbPointer(
+        child: AppTextFormField(
+          labelText: hint,
+          validator: (value) => validator(value),
+          controller: _textController,
+          onChanged: (_) {},
+          suffixIcon: AppIcons.arrowDown,
+          readOnly: true,
+          onTap: () => {},
         ),
       ),
     );
@@ -88,7 +93,7 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
       child: Column(
         children: [
           SizedBox(height: context.spacing8),
-          AppSearchBar(
+          AppSearchBar<T>(
             items: widget.items,
             onSearch: (results) {
               setState(() {
@@ -96,16 +101,18 @@ class _BodyBottomSheetState<T> extends State<_BodyBottomSheet<T>> {
               });
             },
             searchPredicate: (item, query) {
-              return item.toString().toLowerCase().contains(
-                query.toLowerCase(),
-              );
+              return widget
+                  .labelBuilder(item)
+                  .toString()
+                  .toLowerCase()
+                  .contains(query.toLowerCase());
             },
           ),
           SizedBox(height: context.spacing16),
           Align(
             alignment: Alignment.centerRight,
             child: Text(
-              "Total de elementos (${widget.items.length})",
+              "Total de elementos (${itemsSearch.length})",
               style: context.captionBoldTextStyle.copyWith(
                 color: AppTheme.neutralColorDarkGrey,
               ),

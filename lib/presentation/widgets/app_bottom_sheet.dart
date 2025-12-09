@@ -9,12 +9,17 @@ Future<T?> showAppBottomSheet<T extends Object?>({
   required String title,
   bool useRootNavigator = true,
   double heightFactor = .9,
+  bool isScrollControlled = true,
+  bool useSafeArea = true,
+  bool isDismissible = true,
+  bool enableDrag = true,
 }) => showModalBottomSheet(
   context: context,
-  isScrollControlled: true,
-  useSafeArea: true,
-  isDismissible: true,
+  isScrollControlled: isScrollControlled,
+  useSafeArea: useSafeArea,
+  isDismissible: isDismissible,
   useRootNavigator: useRootNavigator,
+  enableDrag: enableDrag,
   builder: (context) {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
