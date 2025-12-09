@@ -187,6 +187,7 @@ class Tramite {
   String get tituloCarta => '$tipoTramite - $entidad - $tipoServicio';
   bool get tieneTodasLasDocumentaciones =>
       documentaciones?.every((item) => item.path != null) ?? false;
+  bool get tieneTerminosCondiciones => terminosCondiciones == 1;
 }
 
 List<StatusTramite> statusTramiteFromJsonList(List<dynamic> jsonList) =>

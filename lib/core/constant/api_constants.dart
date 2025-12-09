@@ -25,4 +25,6 @@ class ApiConstants {
   static const String apiUploadDocumentsTramiteCliente =
       'apiUploadDocumentsTramiteCliente';
   static const String apiGetImages = 'mostrarArchivo';
+  static const String apiAceptTerminosYCondiciones =
+      'apiAceptTerminosYCondiciones';
 }

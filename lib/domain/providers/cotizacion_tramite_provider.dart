@@ -176,6 +176,20 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
   }
 
   @override
+  Future<void> aceptTerminosYCondiciones({required String clave}) async {
+    try {
+      await _apiService.putRequest(
+        "${ApiConstants.apiAceptTerminosYCondiciones}/$clave",
+        UtilitiesHeaders.getHeader(),
+      );
+    } on ApiClientException catch (exc) {
+      throw exc.message.toString();
+    } catch (exc) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> uploadImage({
     required List<Documentacion> documentacionesAMandar,
     required List<Documentacion> documentaciones,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sigev/config/theme/app_theme.dart';
 import 'package:sigev/domain/models/tramite.dart';
+import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_tramite_card.dart';
 
 class AppTramites extends StatelessWidget {
@@ -8,6 +10,8 @@ class AppTramites extends StatelessWidget {
   final List<Tramite> tramites;
   @override
   Widget build(BuildContext context) {
+    var tramitesCubit = context.read<TramitesCubit>();
+
     return Expanded(
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -16,7 +20,12 @@ class AppTramites extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: tramites
-                .map((tramite) => AppTramiteCard(tramite: tramite))
+                .map(
+                  (tramite) => AppTramiteCard(
+                    tramite: tramite,
+                    onTap: () => tramitesCubit.getTramiteCliente(),
+                  ),
+                )
                 .toList(),
           ),
         ),

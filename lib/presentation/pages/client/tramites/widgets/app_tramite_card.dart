@@ -7,11 +7,14 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/client/menu/cubit/menu_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/screens/tramite_detalle_page.dart';
+import 'package:sigev/presentation/pages/client/tramites/screens/tramite_terminos_condiciones_page.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_estatus_step_circle.dart';
 
 class AppTramiteCard extends StatelessWidget {
-  const AppTramiteCard({super.key, required this.tramite});
+  const AppTramiteCard({super.key, required this.tramite, required this.onTap});
   final Tramite tramite;
+  final Function onTap;
+
   Future<T?> showTramiteModalDialog<T extends Object?>({
     required BuildContext context,
     required MenuCubit menuCubit,
@@ -32,15 +35,49 @@ class AppTramiteCard extends StatelessWidget {
           );
         },
       ).then((value) async {
+        if (value == null) return null;
+        if (value == false) return null;
+        return null;
+      });
+  Future<T?> showPdfTerminos<T extends Object?>({
+    required BuildContext context,
+    required MenuCubit menuCubit,
+  }) =>
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        useSafeArea: true,
+        isDismissible: false,
+        useRootNavigator: true,
+        showDragHandle: false,
+        enableDrag: false,
+        builder: (context) {
+          return BlocProvider.value(
+            value: menuCubit,
+            child: FractionallySizedBox(
+              heightFactor: 1,
+              child: TramiteTerminosCondicionesPage(tramite: tramite),
+            ),
+          );
+        },
+      ).then((value) async {
+        if (value == null) return null;
+        if (value == false) return null;
+        onTap.call();
         return null;
       });
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => showTramiteModalDialog(
-        context: context,
-        menuCubit: context.read<MenuCubit>(),
-      ),
+      onTap: !tramite.tieneTerminosCondiciones
+          ? () => showPdfTerminos(
+              context: context,
+              menuCubit: context.read<MenuCubit>(),
+            )
+          : () => showTramiteModalDialog(
+              context: context,
+              menuCubit: context.read<MenuCubit>(),
+            ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 3),
         width: double.infinity,
@@ -73,8 +110,18 @@ class AppTramiteCard extends StatelessWidget {
                     SizedBox(height: context.spacing8),
                     AppStatusSteps(tramite: tramite),
                     SizedBox(height: context.spacing16),
+                    if (!tramite.tieneTerminosCondiciones)
+                      AppMensajesAdvertencia(
+                        titulo: AppLocale.faltaTerminosYCondiciones.getString(
+                          context,
+                        ),
+                      ),
                     if (!tramite.tieneTodasLasDocumentaciones)
-                      AppMensajesAdvertencia(tramite: tramite),
+                      AppMensajesAdvertencia(
+                        titulo: AppLocale.faltaSubirDocumentos.getString(
+                          context,
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -126,24 +173,23 @@ class AppStatusSteps extends StatelessWidget {
 }
 
 class AppMensajesAdvertencia extends StatelessWidget {
-  const AppMensajesAdvertencia({super.key, required this.tramite});
-  final Tramite tramite;
-
+  const AppMensajesAdvertencia({super.key, required this.titulo});
+  final String titulo;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          AppIcons.warning,
-          color: AppTheme.semanticColorWarning,
-          size: AppIcons.iconMediumSize,
-        ),
-        SizedBox(width: context.spacing8),
-        Text(
-          AppLocale.faltaSubirDocumentos.getString(context),
-          style: context.captionBoldTextStyle,
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: context.spacing4),
+      child: Row(
+        children: [
+          Icon(
+            AppIcons.warning,
+            color: AppTheme.semanticColorWarning,
+            size: AppIcons.iconMediumSize,
+          ),
+          SizedBox(width: context.spacing8),
+          Expanded(child: Text(titulo, style: context.captionBoldTextStyle)),
+        ],
+      ),
     );
   }
 }

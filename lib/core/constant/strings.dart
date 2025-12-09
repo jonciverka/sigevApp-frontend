@@ -46,6 +46,9 @@ mixin AppLocale {
   static const String textButtonEliminarCuentaPerfil =
       'textButtonEliminarCuentaPerfil';
   static const String textAvisoPrivacidadPerfil = 'textAvisoPrivacidadPerfil';
+  static const String textAvisoPrivacidadAceptarPerfil =
+      'textAvisoPrivacidadAceptarPerfil';
+
   static const String textTituloEliminarCuenta = 'textTituloEliminarCuenta';
   static const String textPreguntaEliminarCuenta = 'textPreguntaEliminarCuenta';
   static const String textoRespuestaSiEliminarCuenta =
@@ -183,6 +186,7 @@ mixin AppLocale {
   static const String textCodigoGenerado = 'textCodigoGenerado';
   static const String textAvisoCometario = 'textAvisoCometario';
   static const String faltaSubirDocumentos = 'faltaSubirDocumentos';
+  static const String faltaTerminosYCondiciones = 'faltaTerminosYCondiciones';
 
   //Extras
   static const String inputExtras = 'inputExtras';
@@ -220,6 +224,8 @@ mixin AppLocale {
     textButtonMisTramitesMenu: "Mis Trámites",
     textButtonPerfilMenu: "Mi Perfil",
     textAvisoPrivacidadPerfil: "Aviso de privacidad",
+    textAvisoPrivacidadAceptarPerfil:
+        "He leido y acepto términos y condiciones de la empresa Grupo Gevhe",
     textTituloEliminarCuenta: "¿Deseas eliminar tu cuenta?",
     textPreguntaEliminarCuenta:
         "Al hacerlo, tus datos y documentos se eliminarán de forma permanente",
@@ -329,5 +335,6 @@ mixin AppLocale {
     textAvisoCometario:
         "*Cualquier duda o comentario, por favor manda mensaje a tu grupo de whatsapp que fue creado.",
     faltaSubirDocumentos: "Te falta subir tus documentos",
+    faltaTerminosYCondiciones: "Te falta aceptar los Terminos y Condiciones",
   };
 }

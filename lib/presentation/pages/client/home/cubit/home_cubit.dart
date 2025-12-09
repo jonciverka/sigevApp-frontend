@@ -57,4 +57,44 @@ class HomeCubit extends Cubit<HomeState> {
       return;
     }
   }
+
+  Future<void> aceptTerminosYCondiciones({required String clave}) async {
+    try {
+      emit(HomeLoading());
+      await provider.aceptTerminosYCondiciones(clave: clave);
+      getTramiteCliente();
+    } on ServerErrorException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(HomeLoading());
+      return;
+    } on NetworkException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.avisoSinInternet.getString(_context),
+        type: ToastType.error,
+      );
+      emit(HomeLoading());
+      return;
+    } on ApiClientException catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.message,
+        type: ToastType.error,
+      );
+      emit(HomeLoading());
+      return;
+    } catch (e) {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(HomeLoading());
+      return;
+    }
+  }
 }

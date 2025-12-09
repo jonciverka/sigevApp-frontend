@@ -32,7 +32,7 @@ class Documentacion {
     apellido: json["clave"] ?? json["documento"]["clave"],
     path: json["url_recurso"],
     urlRecurso:
-        "http://${ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/${json["url_recurso"]}",
+        "https://${ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/${json["url_recurso"]}",
   );
   get haveUrlRecurso => path != null && path != '';
   Documentacion copyWith({

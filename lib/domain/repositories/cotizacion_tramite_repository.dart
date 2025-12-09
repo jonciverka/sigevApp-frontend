@@ -18,4 +18,5 @@ abstract class CotizacionTramiteRepository {
     required List<Documentacion> documentacionesAMandar,
     required List<Documentacion> documentaciones,
   });
+  Future<void> aceptTerminosYCondiciones({required String clave});
 }

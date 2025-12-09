@@ -35,7 +35,14 @@ class AppTramites extends StatelessWidget {
           SizedBox(height: context.spacing12),
           ...tramites
               .sublist(0, min(3, homeCubit.state.tramites.length))
-              .map((tramite) => AppTramiteCard(tramite: tramite)),
+              .map(
+                (tramite) => AppTramiteCard(
+                  tramite: tramite,
+                  onTap: () => homeCubit.aceptTerminosYCondiciones(
+                    clave: tramite.clave ?? '',
+                  ),
+                ),
+              ),
           if (tramites.length > 3)
             AppTertiaryButton(
               width: double.nan,
