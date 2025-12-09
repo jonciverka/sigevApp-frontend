@@ -14,39 +14,41 @@ class AppFacturacion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var homeCubit = context.watch<HomeCubit>();
-    return Column(
-      children: [
-        SizedBox(height: context.spacing16),
-        AppRowCantidadFacturada(
-          nombre: AppLocale.textSubtituloFacturacionAnioHomeSocio.getString(
-            context,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(height: context.spacing16),
+          AppRowCantidadFacturada(
+            nombre: AppLocale.textSubtituloFacturacionAnioHomeSocio.getString(
+              context,
+            ),
+            icono: AppIcons.train,
+            color: AppTheme.semanticColorSuccessLight,
+            numero:
+                "\$${Utilities.formatMoney(homeCubit.state.barraFija.facturaAnual ?? 0)}",
           ),
-          icono: AppIcons.train,
-          color: AppTheme.semanticColorSuccessLight,
-          numero:
-              "\$${Utilities.formatMoney(homeCubit.state.barraFija.facturaAnual ?? 0)}",
-        ),
-        SizedBox(height: context.spacing16),
-        AppRowCantidadFacturada(
-          nombre: AppLocale.textSubtituloFacturacionMesHomeSocio.getString(
-            context,
+          SizedBox(height: context.spacing16),
+          AppRowCantidadFacturada(
+            nombre: AppLocale.textSubtituloFacturacionMesHomeSocio.getString(
+              context,
+            ),
+            numero:
+                "\$${Utilities.formatMoney(homeCubit.state.barraFija.facturaMensual ?? 0)}",
+            icono: AppIcons.bus,
+            color: AppTheme.semanticColorWarningLight,
           ),
-          numero:
-              "\$${Utilities.formatMoney(homeCubit.state.barraFija.facturaMensual ?? 0)}",
-          icono: AppIcons.bus,
-          color: AppTheme.semanticColorWarningLight,
-        ),
-        SizedBox(height: context.spacing16),
-        AppRowCantidadFacturada(
-          nombre: AppLocale.textSubtituloFacturacionSemanaHomeSocio.getString(
-            context,
+          SizedBox(height: context.spacing16),
+          AppRowCantidadFacturada(
+            nombre: AppLocale.textSubtituloFacturacionSemanaHomeSocio.getString(
+              context,
+            ),
+            numero:
+                "\$${Utilities.formatMoney(homeCubit.state.barraFija.facturaSemanal ?? 0)}",
+            icono: AppIcons.car,
+            color: AppTheme.semanticColorInfoLight,
           ),
-          numero:
-              "\$${Utilities.formatMoney(homeCubit.state.barraFija.facturaSemanal ?? 0)}",
-          icono: AppIcons.car,
-          color: AppTheme.semanticColorInfoLight,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
