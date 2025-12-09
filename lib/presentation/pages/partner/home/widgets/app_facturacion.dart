@@ -10,7 +10,6 @@ import 'package:sigev/presentation/widgets/app_row_cantidad_facturada.dart';
 
 class AppFacturacion extends StatelessWidget {
   const AppFacturacion({super.key});
-
   @override
   Widget build(BuildContext context) {
     var homeCubit = context.watch<HomeCubit>();
