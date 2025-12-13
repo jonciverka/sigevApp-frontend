@@ -170,15 +170,13 @@ class NuevoTramiteBody extends StatelessWidget {
                       onButtonGenerateCodePressed: () =>
                           showAppBottomSheetPregunta(
                             context: context,
-                            title: AppLocale.textTituloGenerarCodigo.getString(
-                              context,
-                            ),
-                            question: AppLocale.descripcionGenerarCodigo
+                            title:
+                                "Ofrecemos una disculpa por el inconveniente.",
+                            question: AppLocale.noSePuedeGenerarCodigo
                                 .getString(context),
-                            yes: AppLocale.botonGenerarCodigo.getString(
-                              context,
-                            ),
-                            onYes: () => nuevoTramiteCubit.generarTramite(),
+                            yes: "Ok",
+                            onYes: () => {},
+                            //nuevoTramiteCubit.generarTramite(),
                           ),
                       onButtonBackPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(

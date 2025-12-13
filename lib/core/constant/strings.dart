@@ -166,6 +166,7 @@ mixin AppLocale {
   static const String textoInstruccionDocumentos = 'textoInstruccionDocumentos';
   static const String textTituloGenerarCodigo = 'textTituloGenerarCodigo';
   static const String descripcionGenerarCodigo = 'descripcionGenerarCodigo';
+  static const String noSePuedeGenerarCodigo = 'noSePuedeGenerarCodigo';
   static const String botonGenerarCodigo = 'botonGenerarCodigo';
 
   //Catalogo precios
@@ -317,6 +318,8 @@ mixin AppLocale {
     textTituloGenerarCodigo: "¿Desea continuar con la generación de código?",
     descripcionGenerarCodigo:
         "Una vez generado, podrás continuar con el trámite en la sección de “Trámites”.",
+    noSePuedeGenerarCodigo:
+        "Por ahora esta función no está disponible, pero estamos trabajando para mejorar tu experiencia. ",
     botonGenerarCodigo: "Generar",
     textGenerandoCodigo: "Generando código del trámite...",
     textSolicitandoDocumentos: "Solicitando documentos de forma segura...",
