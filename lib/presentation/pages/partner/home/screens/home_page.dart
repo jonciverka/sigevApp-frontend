@@ -124,27 +124,6 @@ class HomePageBody extends StatelessWidget {
   }
 }
 
-class TabHome extends StatelessWidget {
-  const TabHome({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: AppTabView(
-        tabsNames: [
-          AppLocale.textPestaniaFacturacionHomeSocioHomeSocio.getString(
-            context,
-          ),
-          AppLocale.textPestaniaTramitesHomeSocioHomeSocio.getString(context),
-        ],
-        isBodyScrollable: false,
-        isBarScrollable: false,
-        isExpanded: true,
-        children: [AppFacturacion(), AppTramites()],
-      ),
-    );
-  }
-}
-
 class Bienvenida extends StatelessWidget {
   const Bienvenida({super.key});
   @override
@@ -222,6 +201,27 @@ class BodyHome extends StatelessWidget {
 
           TabHome(),
         ],
+      ),
+    );
+  }
+}
+
+class TabHome extends StatelessWidget {
+  const TabHome({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: AppTabView(
+        tabsNames: [
+          AppLocale.textPestaniaFacturacionHomeSocioHomeSocio.getString(
+            context,
+          ),
+          AppLocale.textPestaniaTramitesHomeSocioHomeSocio.getString(context),
+        ],
+        isBodyScrollable: false,
+        isBarScrollable: false,
+        isExpanded: true,
+        children: [AppFacturacion(), AppTramites()],
       ),
     );
   }
