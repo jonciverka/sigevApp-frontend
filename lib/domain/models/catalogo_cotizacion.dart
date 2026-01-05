@@ -2,10 +2,15 @@ import 'dart:convert';
 
 import 'package:sigev/domain/models/anticipo.dart';
 import 'package:sigev/domain/models/area.dart';
+import 'package:sigev/domain/models/cilindros.dart';
+import 'package:sigev/domain/models/clase.dart';
 import 'package:sigev/domain/models/color.dart';
+import 'package:sigev/domain/models/combustible.dart';
 import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/domain/models/entidad.dart';
 import 'package:sigev/domain/models/extra.dart';
+import 'package:sigev/domain/models/pasajeros.dart';
+import 'package:sigev/domain/models/puerta.dart';
 import 'package:sigev/domain/models/socio.dart';
 import 'package:sigev/domain/models/sucursal.dart';
 import 'package:sigev/domain/models/terminacion_placa.dart';
@@ -14,6 +19,8 @@ import 'package:sigev/domain/models/tipo_modelo.dart';
 import 'package:sigev/domain/models/tipo_servicio.dart';
 import 'package:sigev/domain/models/tipo_tramite.dart';
 import 'package:sigev/domain/models/tipo_vehiculos.dart';
+import 'package:sigev/domain/models/transmision.dart';
+import 'package:sigev/domain/models/transporta.dart';
 import 'package:sigev/domain/models/vehiculo.dart';
 
 CatalogoCotizacion catalogoCotizacionFromJson(String str) =>
@@ -36,6 +43,15 @@ class CatalogoCotizacion {
     this.terminacionPlaca,
     this.anticipos,
     this.documentaciones,
+    this.combustible,
+    this.puertas,
+    this.pasajeros,
+    this.clase,
+    this.cilindros,
+    this.transmision,
+    this.claseCarga,
+    this.transporta,
+    this.claseMoto,
   });
 
   List<TipoTramite>? tiposTramite;
@@ -53,6 +69,15 @@ class CatalogoCotizacion {
   List<TerminacionPlaca>? terminacionPlaca;
   List<Anticipo>? anticipos;
   List<Documentacion>? documentaciones;
+  List<Combustible>? combustible;
+  List<Puerta>? puertas;
+  List<Pasajeros>? pasajeros;
+  List<Clase>? clase;
+  List<Cilindros>? cilindros;
+  List<Transmision>? transmision;
+  List<Clase>? claseCarga;
+  List<Transporta>? transporta;
+  List<Clase>? claseMoto;
 
   factory CatalogoCotizacion.fromJson(Map<String, dynamic> json) {
     return CatalogoCotizacion(
@@ -73,6 +98,15 @@ class CatalogoCotizacion {
       ),
       anticipos: anticiposFromJsonList(json["anticipos"]),
       documentaciones: documentacionsFromJsonList(json["catDocumentos"]),
+      combustible: combustiblesFromJsonList(json["catCombustible"]),
+      puertas: puertasFromJsonList(json["catPuertas"]),
+      pasajeros: pasajerosFromJsonList(json["catPasajeros"]),
+      clase: clasesFromJsonList(json["catClase"]),
+      cilindros: cilindrossFromJsonList(json["catCilindros"]),
+      transmision: transmisionsFromJsonList(json["catTransmision"]),
+      claseCarga: clasesFromJsonList(json["catClaseCarga"]),
+      transporta: transportasFromJsonList(json["catTransporta"]),
+      claseMoto: clasesFromJsonList(json["catClaseMoto"]),
     );
   }
   int? valorSiNombreCoincide(String nombreBuscado) {
