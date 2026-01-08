@@ -8,10 +8,8 @@ class Transmision {
   Transmision({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
-  factory Transmision.fromJson(Map<String, dynamic> json) => Transmision(
-    nombre: json["nombre"].toString(),
-    valor: json["valor"].toString(),
-  );
+  factory Transmision.fromJson(Map<String, dynamic> json) =>
+      Transmision(nombre: json["nombre"].toString(), valor: json["id"]);
 }

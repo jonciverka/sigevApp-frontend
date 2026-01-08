@@ -6,11 +6,11 @@ abstract class NuevoTramiteState {
   static const int datosDelContribuyente = 1;
   static const int datosDelTramite = 2;
   static const int datosDelVehiculo = 3;
-  static const int datosDelVehiculoPlacas = 4;
-  static const int detallePago = 5;
-  // static const int detallePagoExtras = 6;
-  static const int detallePagoSaldo = 6;
-  static const int detalleDocumentos = 7;
+  static const int datosDelVehiculoDetalle = 4;
+  static const int datosDelVehiculoPlacas = 5;
+  static const int detallePago = 6;
+  static const int detallePagoSaldo = 7;
+  static const int detalleDocumentos = 8;
   NuevoTramiteState({
     required this.catalogos,
     this.status = StatusCreandoTramite.inicio,

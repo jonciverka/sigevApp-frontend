@@ -8,10 +8,8 @@ class Transporta {
   Transporta({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
-  factory Transporta.fromJson(Map<String, dynamic> json) => Transporta(
-    nombre: json["nombre"].toString(),
-    valor: json["valor"].toString(),
-  );
+  factory Transporta.fromJson(Map<String, dynamic> json) =>
+      Transporta(nombre: json["nombre"].toString(), valor: json["id"]);
 }

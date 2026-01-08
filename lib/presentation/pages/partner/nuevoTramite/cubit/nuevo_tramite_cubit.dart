@@ -7,11 +7,16 @@ import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
+import 'package:sigev/domain/models/cilindros.dart';
+import 'package:sigev/domain/models/clase.dart';
 import 'package:sigev/domain/models/color.dart';
+import 'package:sigev/domain/models/combustible.dart';
 import 'package:sigev/domain/models/cotizacion.dart';
 import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/domain/models/entidad.dart';
 import 'package:sigev/domain/models/extra.dart';
+import 'package:sigev/domain/models/pasajeros.dart';
+import 'package:sigev/domain/models/puerta.dart';
 import 'package:sigev/domain/models/sucursal.dart';
 import 'package:sigev/domain/models/terminacion_placa.dart';
 import 'package:sigev/domain/models/tipo_desecho.dart';
@@ -19,6 +24,9 @@ import 'package:sigev/domain/models/tipo_modelo.dart';
 import 'package:sigev/domain/models/tipo_servicio.dart';
 import 'package:sigev/domain/models/tipo_tramite.dart';
 import 'package:sigev/domain/models/tipo_vehiculos.dart';
+import 'package:sigev/domain/models/tramite.dart';
+import 'package:sigev/domain/models/transmision.dart';
+import 'package:sigev/domain/models/transporta.dart';
 import 'package:sigev/domain/models/vehiculo.dart';
 import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_state.dart';
@@ -66,6 +74,24 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   final subMarcaController = TextEditingController();
   TipoModelo? tipoModelo;
   ColorVehiculo? color;
+  //Datos del vehiculo detalle
+  GlobalKey<FormState> formularioStateVehiculoDetalle = GlobalKey<FormState>();
+  final noSerieController = TextEditingController();
+  final noMotorController = TextEditingController();
+  Combustible? combustible;
+  Puerta? puerta;
+  Pasajeros? pasajeros;
+  Clase? clase;
+  Clase? claseCarga;
+  Cilindros? cilindros;
+  Transmision? transmision;
+  final capacidadCarga = TextEditingController();
+  Transporta? transporta;
+  Clase? claseMoto;
+  final centimetrosCubicos = TextEditingController();
+  String groupRadioButtonPasajeros = "2";
+  String groupRadioButtonRemolque = "2";
+  String groupRadioButtonTransporta = "2";
 
   //Datos del vehiculo placa
   GlobalKey<FormState> formularioStateVehiculoPlaca = GlobalKey<FormState>();
@@ -150,37 +176,42 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
     FocusScope.of(_context).unfocus();
     if (!isBack) {
       switch (index - 1) {
-        case 0:
+        case NuevoTramiteState.datosDelContribuyenteSucursal:
           if (!validateDatosContribuyenteSucursal()) {
             return;
           }
           break;
-        case 1:
+        case NuevoTramiteState.datosDelContribuyente:
           if (!validateDatosContribuyente()) {
             return;
           }
           break;
-        case 2:
+        case NuevoTramiteState.datosDelTramite:
           if (!validateDatosTramite()) {
             return;
           }
           break;
-        case 3:
+        case NuevoTramiteState.datosDelVehiculo:
           if (!validateDatosVehiculo()) {
             return;
           }
           break;
-        case 4:
+        case NuevoTramiteState.datosDelVehiculoPlacas:
           if (!validateDatosVehiculoPlacas()) {
             return;
           }
           break;
-        case 5:
+        case NuevoTramiteState.detallePago:
           if (!validateDetalleDePago()) {
             return;
           }
-        case 6:
+        case NuevoTramiteState.detallePagoSaldo:
           if (!validateDetalleDePagoSaldo()) {
+            return;
+          }
+          break;
+        case NuevoTramiteState.datosDelVehiculoDetalle:
+          if (!validateDatosVehiculoDetalle()) {
             return;
           }
           break;
@@ -252,6 +283,15 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       return false;
     }
     if (vehiculo == null || tipoModelo == null || color == null) {
+      _showToastNotification();
+      return false;
+    }
+
+    return true;
+  }
+
+  bool validateDatosVehiculoDetalle() {
+    if (!formularioStateVehiculoDetalle.currentState!.validate()) {
       _showToastNotification();
       return false;
     }
@@ -368,6 +408,18 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       case "groupRadioButtonDesechoTarjetaEntregado":
         groupRadioButtonDesechoTarjetaEntregado = value;
         break;
+      case "groupRadioButtonPasajeros":
+        groupRadioButtonPasajeros = value;
+        pasajeros = null;
+        break;
+      case "groupRadioButtonRemolque":
+        groupRadioButtonRemolque = value;
+        claseCarga = null;
+        break;
+      case "groupRadioButtonTransporta":
+        groupRadioButtonTransporta = value;
+        transporta = null;
+        break;
     }
     groupValue = value;
     emit(NuevoTramiteData(catalogos: state.catalogos));
@@ -464,6 +516,44 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       extrasImporte: extras.map((e) => (e.monto ?? 0).toString()).toList(),
       documentacion: documentaciones,
     );
+    Tramite tramiteNormal = Tramite(
+      numeroSerie: noSerieController.text,
+      numeroMotor: noMotorController.text,
+      idCombustible: combustible?.valor ?? 0,
+      combustible: combustible?.nombre ?? '',
+      puertas: puerta?.valor ?? 0,
+      pasajeros: pasajeros?.valor ?? 0,
+      idClase: clase?.valor ?? 0,
+      clase: clase?.nombre ?? '',
+      cilindrada: cilindros?.valor ?? 0,
+      idTransmicion: transmision?.valor ?? 0,
+      transmicion: transmision?.nombre ?? '',
+    );
+    Tramite tramiteCarga = Tramite(
+      pasajeros: pasajeros?.valor ?? 0,
+      idCombustible: combustible?.valor ?? 0,
+      combustible: combustible?.nombre ?? '',
+      cilindrada: cilindros?.valor ?? 0,
+      puertas: puerta?.valor ?? 0,
+      idClase: claseCarga?.valor ?? 0,
+      clase: claseCarga?.nombre ?? '',
+      capacidad: int.tryParse(capacidadCarga.text) ?? 0,
+      idTransporta: transporta?.valor ?? 0,
+      transporta: transporta?.nombre ?? '',
+    );
+    Tramite tramiteRemol = Tramite(
+      capacidad: int.tryParse(capacidadCarga.text) ?? 0,
+      pasajeros: pasajeros?.valor,
+      idClase: claseCarga?.valor,
+      clase: claseCarga?.nombre,
+      idTransporta: transporta?.valor,
+      transporta: transporta?.nombre,
+    );
+    Tramite tramiteMoto = Tramite(
+      idClase: claseMoto?.valor ?? 0,
+      clase: claseMoto?.nombre ?? '',
+      cmCubicos: int.tryParse(centimetrosCubicos.text) ?? 0,
+    );
     try {
       emit(
         NuevoTramiteLoadingCreate(
@@ -479,7 +569,15 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
           status: StatusCreandoTramite.creandoTramite,
         ),
       );
-      claveTramite = await provider.createTramite(clave: clave);
+      claveTramite = await provider.createTramite(
+        clave: clave,
+        tramite: switch (tipoVehiculo?.id ?? 0) {
+          3 => tramiteCarga,
+          5 => tramiteRemol,
+          2 => tramiteMoto,
+          _ => tramiteNormal,
+        },
+      );
       await Future.delayed(const Duration(seconds: 4), () {});
       emit(
         NuevoTramiteLoadingCreate(
@@ -551,7 +649,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
     } else if (page == NuevoTramiteState.datosDelTramite) {
       return ProgressBarStatus.tramite;
     } else if (page == NuevoTramiteState.datosDelVehiculo ||
-        page == NuevoTramiteState.datosDelVehiculoPlacas) {
+        page == NuevoTramiteState.datosDelVehiculoPlacas ||
+        page == NuevoTramiteState.datosDelVehiculoDetalle) {
       return ProgressBarStatus.vehiculo;
     } else if (page == NuevoTramiteState.detallePago ||
         page == NuevoTramiteState.detallePagoSaldo ||

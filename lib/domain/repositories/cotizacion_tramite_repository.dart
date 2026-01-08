@@ -13,7 +13,10 @@ abstract class CotizacionTramiteRepository {
   Future<List<Tramite>> apiBuscarTramitePor(String week);
   Future<List<Status>> apiGetCatalogoEstatusTramite();
   Future<String> createCotizacion({required Cotizacion cotizacion});
-  Future<String> createTramite({required String clave});
+  Future<String> createTramite({
+    required String clave,
+    required Tramite tramite,
+  });
   Future<void> uploadImage({
     required List<Documentacion> documentacionesAMandar,
     required List<Documentacion> documentaciones,

@@ -13,6 +13,7 @@ import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_deta
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_detalle_saldo_pago.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_documentos.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_tramite_page.dart';
+import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_detalle_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/screens/datos_vehiculo_placas_page.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_loader_creando_tramite.dart';
@@ -121,11 +122,22 @@ class NuevoTramiteBody extends StatelessWidget {
                     DatosVehiculoPage(
                       onButtonNextPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(
-                            NuevoTramiteState.datosDelVehiculoPlacas,
+                            NuevoTramiteState.datosDelVehiculoDetalle,
                           ),
                       onButtonBackPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(
                             NuevoTramiteState.datosDelTramite,
+                            isBack: true,
+                          ),
+                    ),
+                    DatosVehiculoDetallePage(
+                      onButtonNextPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelVehiculoPlacas,
+                          ),
+                      onButtonBackPressed: () =>
+                          nuevoTramiteCubit.cambiarPagina(
+                            NuevoTramiteState.datosDelVehiculo,
                             isBack: true,
                           ),
                     ),
@@ -134,7 +146,7 @@ class NuevoTramiteBody extends StatelessWidget {
                           .cambiarPagina(NuevoTramiteState.detallePago),
                       onButtonBackPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(
-                            NuevoTramiteState.datosDelVehiculo,
+                            NuevoTramiteState.datosDelVehiculoDetalle,
                             isBack: true,
                           ),
                     ),
@@ -170,13 +182,11 @@ class NuevoTramiteBody extends StatelessWidget {
                       onButtonGenerateCodePressed: () =>
                           showAppBottomSheetPregunta(
                             context: context,
-                            title:
-                                "Ofrecemos una disculpa por el inconveniente.",
+                            title: "¿Desea generar el código?",
                             question: AppLocale.noSePuedeGenerarCodigo
                                 .getString(context),
                             yes: "Ok",
-                            onYes: () => {},
-                            //nuevoTramiteCubit.generarTramite(),
+                            onYes: () => nuevoTramiteCubit.generarTramite(),
                           ),
                       onButtonBackPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(

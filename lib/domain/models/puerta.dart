@@ -7,10 +7,8 @@ class Puerta {
   Puerta({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
-  factory Puerta.fromJson(Map<String, dynamic> json) => Puerta(
-    nombre: json["nombre"].toString(),
-    valor: json["valor"].toString(),
-  );
+  factory Puerta.fromJson(Map<String, dynamic> json) =>
+      Puerta(nombre: json["nombre"].toString(), valor: json["valor"]);
 }

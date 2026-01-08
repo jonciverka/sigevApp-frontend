@@ -115,6 +115,22 @@ mixin AppLocale {
       'lavelTipoDeServicioNuevoTramite';
   static const String lavelMarcaNuevoTramite = 'lavelMarcaNuevoTramite';
   static const String lavelSubmarcaNuevoTramite = 'lavelSubmarcaNuevoTramite';
+  static const String lavelNoSerieNuevoTramite = 'lavelNoSerieNuevoTramite';
+  static const String lavelNoMotorNuevoTramite = 'lavelNoMotorNuevoTramite';
+  static const String lavelCombustibleNuevoTramite =
+      'lavelCombustibleNuevoTramite';
+  static const String lavelPuertasNuevoTramite = 'lavelPuertasNuevoTramite';
+  static const String lavelPasajerosNuevoTramite = 'lavelPasajerosNuevoTramite';
+  static const String lavelCentimetrosCuadrados = 'lavelCentimetrosCuadrados';
+  static const String lavelClaseNuevoTramite = 'lavelClaseNuevoTramite';
+  static const String lavelCilindrosNuevoTramite = 'lavelCilindrosNuevoTramite';
+  static const String lavelCapacidadCargaNuevoTramite =
+      'lavelCapacidadCargaNuevoTramite';
+  static const String lavelTransmicionNuevoTramite =
+      'lavelTransmicionNuevoTramite';
+
+  static const String lavelTransportaNuevoTramite =
+      'lavelTransportaNuevoTramite';
   static const String lavelModeloNuevoTramite = 'lavelModeloNuevoTramite';
   static const String lavelColorNuevoTramite = 'lavelColorNuevoTramite';
   static const String textButtonSiguiente = 'textButtonSiguiente';
@@ -339,5 +355,16 @@ mixin AppLocale {
         "*Cualquier duda o comentario, por favor manda mensaje a tu grupo de whatsapp que fue creado.",
     faltaSubirDocumentos: "Te falta subir tus documentos",
     faltaTerminosYCondiciones: "Te falta aceptar los Terminos y Condiciones",
+    lavelNoSerieNuevoTramite: "No Serie *",
+    lavelNoMotorNuevoTramite: "No Motor *",
+    lavelCombustibleNuevoTramite: "Combustible *",
+    lavelPuertasNuevoTramite: "Puertas *",
+    lavelPasajerosNuevoTramite: "Pasajeros *",
+    lavelClaseNuevoTramite: "Clase *",
+    lavelCilindrosNuevoTramite: "Cilindros *",
+    lavelTransmicionNuevoTramite: "Transmision *",
+    lavelCapacidadCargaNuevoTramite: "Capacidad de carga * (KG)",
+    lavelTransportaNuevoTramite: "Transporta *",
+    lavelCentimetrosCuadrados: "Centímetros cúbicos *",
   };
 }

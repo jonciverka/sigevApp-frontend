@@ -8,8 +8,8 @@ class Combustible {
   Combustible({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
   factory Combustible.fromJson(Map<String, dynamic> json) =>
-      Combustible(nombre: json["nombre"], valor: json["valor"]);
+      Combustible(nombre: json["nombre"], valor: json["id"]);
 }

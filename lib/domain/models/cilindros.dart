@@ -8,10 +8,8 @@ class Cilindros {
   Cilindros({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
-  factory Cilindros.fromJson(Map<String, dynamic> json) => Cilindros(
-    nombre: json["nombre"].toString(),
-    valor: json["valor"].toString(),
-  );
+  factory Cilindros.fromJson(Map<String, dynamic> json) =>
+      Cilindros(nombre: json["nombre"].toString(), valor: json["valor"]);
 }

@@ -8,10 +8,8 @@ class Pasajeros {
   Pasajeros({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
-  factory Pasajeros.fromJson(Map<String, dynamic> json) => Pasajeros(
-    nombre: json["nombre"].toString(),
-    valor: json["valor"].toString(),
-  );
+  factory Pasajeros.fromJson(Map<String, dynamic> json) =>
+      Pasajeros(nombre: json["nombre"].toString(), valor: json["valor"]);
 }

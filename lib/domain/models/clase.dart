@@ -7,8 +7,8 @@ class Clase {
   Clase({this.nombre, this.valor});
 
   String? nombre;
-  String? valor;
+  int? valor;
 
   factory Clase.fromJson(Map<String, dynamic> json) =>
-      Clase(nombre: json["nombre"].toString(), valor: json["valor"].toString());
+      Clase(nombre: json["nombre"].toString(), valor: json["id"]);
 }

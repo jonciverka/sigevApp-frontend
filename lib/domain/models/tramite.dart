@@ -62,6 +62,21 @@ class Tramite {
     this.idUsuario,
     this.terminosCondiciones,
     this.documentaciones,
+    this.numeroSerie,
+    this.numeroMotor,
+    this.idCombustible,
+    this.combustible,
+    this.puertas,
+    this.pasajeros,
+    this.cilindrada,
+    this.idClase,
+    this.clase,
+    this.capacidad,
+    this.idTransporta,
+    this.transporta,
+    this.cmCubicos,
+    this.idTransmicion,
+    this.transmicion,
   });
 
   int? id;
@@ -119,6 +134,21 @@ class Tramite {
   List<StatusTramite>? estatus;
   List<Documentacion>? documentaciones;
   int? terminosCondiciones;
+  String? numeroSerie;
+  String? numeroMotor;
+  int? idCombustible;
+  String? combustible;
+  int? puertas;
+  int? pasajeros;
+  int? cilindrada;
+  int? idTransmicion;
+  String? transmicion;
+  int? idClase;
+  String? clase;
+  int? capacidad;
+  int? idTransporta;
+  String? transporta;
+  int? cmCubicos;
 
   factory Tramite.fromJson(Map<String, dynamic> json) => Tramite(
     id: json["id"],
@@ -188,6 +218,23 @@ class Tramite {
   bool get tieneTodasLasDocumentaciones =>
       documentaciones?.every((item) => item.path != null) ?? false;
   bool get tieneTerminosCondiciones => terminosCondiciones == 1;
+  Map<String, dynamic> toJson() => {
+    "numeroSerie": numeroSerie,
+    "numeroMotor": numeroMotor,
+    "idCombustible": idCombustible,
+    "combustible": combustible,
+    "puertas": puertas,
+    "pasajeros": pasajeros,
+    "cilindrada": cilindrada,
+    "idClase": idClase,
+    "clase": clase,
+    "capacidad": capacidad,
+    "idTransporta": idTransporta,
+    "transporta": transporta,
+    "cmCubicos": cmCubicos,
+    "idTransmicion": idTransmicion,
+    "transmicion": transmicion,
+  };
 }
 
 List<StatusTramite> statusTramiteFromJsonList(List<dynamic> jsonList) =>
