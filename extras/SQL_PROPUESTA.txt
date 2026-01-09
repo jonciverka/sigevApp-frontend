@@ -1,0 +1,249 @@
+CREATE TABLE IF NOT EXISTS `cat_tipo_comision` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(100) NULL,
+  `descripcion` VARCHAR(200) NULL,
+  PRIMARY KEY (`id`));
+
+
+
+INSERT INTO cat_tipo_comision (nombre,descripcion) VALUES ('Comisión Directa','Comisión Directa');
+INSERT INTO cat_tipo_comision (nombre,descripcion) VALUES ('Cómision Equipo','Cómision Equipo');
+INSERT INTO cat_tipo_comision (nombre,descripcion) VALUES ('Cómision Membresía','Cómision Membresía');
+
+
+ALTER TABLE ent_comision
+ADD COLUMN id_cat_comision INT;
+
+
+ALTER TABLE ent_comision
+ADD CONSTRAINT fk_ent_comision_cat
+FOREIGN KEY (id_cat_comision)
+REFERENCES ent_comision(id);
+
+
+UPDATE ent_comision e
+JOIN cat_tipo_comision c 
+  ON c.nombre = e.socio OR c.nombre = e.referido
+SET e.id_cat_comision = c.id;
+
+
+SELECT e.id, e.socio, e.referido, e.id_cat_comision, c.nombre
+FROM ent_comision e
+LEFT JOIN cat_tipo_comision c ON e.id_cat_comision = c.id;
+
+
+
+UPDATE ent_comision
+SET socio = referido
+WHERE referido <> 'Comisión Directa';
+
+
+UPDATE ent_comision
+SET referido = NULL;
+
+
+
+
+
+
+
+
+
+
+sp_comision_buscar
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_comision_buscar`(IN `fecha1` VARCHAR(20), IN `fecha2` VARCHAR(20), IN `buscasocio` VARCHAR(20))
+BEGIN
+set @fecha_1=fecha1;
+set @fecha_2=fecha2;
+set @busqueda = buscasocio;
+
+IF buscasocio IS NULL THEN 
+	SET @condicion_qry = CONCAT("WHERE (bf.socio <> 'NULL' ) ");
+    SET @condicion_afiliado = "";
+ELSE 
+	SET @condicion_qry = CONCAT("WHERE (bf.socio <> 'NULL' AND s.id in (", @busqueda,")) ");
+    SET @condicion_afiliado = CONCAT("WHERE u2.referred_by IN (
+									SELECT u.id
+									FROM users u
+									INNER JOIN cat_socio s ON s.socio_email = u.email
+									WHERE (s.id in ( ", @busqueda, "))
+									) ");
+END IF;
+
+SET @FQuery = CONCAT("SELECT
+				concat(s.socio_clave,' ',s.socio_nombre,' ',s.socio_apaterno) as socio
+                ,'Comisión Directa' as referido
+                ,s.id as id
+				,sp.fecha
+				,bf.clave
+				,sp.monto as anticipo
+				,tipo_tramite
+				,tipo_vehiculo
+				,entidad
+				,tipo_servicio
+				,modelo
+				,marca
+				,CASE
+					WHEN tipo_tramite IN ('REPTAR','REFAC') THEN 300
+					WHEN tipo_tramite IN ('CERTI','LICEN') THEN 100
+					ELSE rmmc.comision
+				END AS comision
+				,bf.total as facturacion
+				,ecom.pagada
+				,sta.idestatus
+                ,img.pago_validado
+				FROM
+				ent_barrafija bf
+				INNER JOIN (select clave,monto,MIN(fecha) as fecha from tran_pagos
+				 where complemento=0 GROUP BY clave,monto) sp on sp.clave = bf.clave
+				LEFT JOIN rmm_costos rmmc 
+				on  rmmc.id_entidad=bf.identidad 
+				and rmmc.id_tiposervicio = bf.id_tiposervicio 
+				and rmmc.id_tipotramite = bf.idtipo_tramite
+				and rmmc.id_tipovehiculo = bf.idtipo_vehiculo
+				INNER JOIN cat_socio s on s.id=bf.idsocio
+				LEFT JOIN (select clave,idestatus from tran_estatus where idestatus=16) sta ON sta.clave=bf.clave
+				LEFT JOIN (select clave,pagada from ent_comision where estatus=1 AND id_cat_comision = 1) ecom ON ecom.clave=bf.clave
+                LEFT JOIN (select clave,pago_validado from tran_images where estatus=1 and tipo_imagen='ANTICIPO') img ON bf.clave=img.clave ",
+				@condicion_qry,"
+				AND (
+					(bf.idtipo_tramite=3 AND bf.total>=700) /*cuando el tramite es VOE el anticipo minimo debe ser >= $700 */
+				OR 	(bf.idtipo_tramite=36 AND bf.total>=1500) /*cuando el tramite es LEGAL el anticipo minimo debe ser >= $1500 */
+				OR 	(bf.idtipo_tramite<>3 AND bf.idtipo_tramite<>36) /*cuando el tramite SEA diferente de VOE y diferente de LEGAL*/
+				)
+				AND sp.fecha BETWEEN @fecha_1 and @fecha_2
+                
+                UNION
+                
+                SELECT
+                 'Cómision Equipo' as socio,
+				  CONCAT(ref.socio_clave, ' ', ref.socio_nombre, ' ', ref.socio_apaterno) AS referido,
+                  ref.idsocio as id,
+				  min_fecha.fecha_min AS fecha,
+				  bf.clave,
+				  min_fecha.monto AS anticipo,
+				  tipo_tramite,
+				  tipo_vehiculo,
+				  entidad,
+				  tipo_servicio,
+				  modelo,
+				  marca,
+				  CASE 
+					WHEN tipo_tramite IN ('REPTAR','REFAC') THEN 25
+					WHEN referido_count <= 10 THEN 25 
+                    ELSE 50 
+				  END AS comision,
+				  bf.total AS facturacion,
+				  ecom.pagada,
+				  sta.idestatus,
+				  img.pago_validado
+				FROM ent_barrafija bf
+				INNER JOIN (
+				  SELECT clave, monto, MIN(fecha) AS fecha_min
+				  FROM tran_pagos
+				  WHERE complemento = 0
+				  GROUP BY clave, monto
+				) AS min_fecha ON bf.clave = min_fecha.clave AND bf.clave = min_fecha.clave
+
+				LEFT JOIN rmm_costos rmmc 
+				  ON rmmc.id_entidad = bf.identidad 
+				  AND rmmc.id_tiposervicio = bf.id_tiposervicio 
+				  AND rmmc.id_tipotramite = bf.idtipo_tramite
+				  AND rmmc.id_tipovehiculo = bf.idtipo_vehiculo
+
+				LEFT JOIN (
+				  SELECT clave, idestatus FROM tran_estatus WHERE idestatus = 16
+				) sta ON sta.clave = bf.clave
+
+				LEFT JOIN (
+				  SELECT clave, pagada FROM ent_comision WHERE estatus = 1 AND id_cat_comision = 2
+				) ecom ON ecom.clave = bf.clave
+
+				INNER JOIN (
+				  SELECT
+					s.id AS idsocio,
+					s.socio_clave,
+					s.socio_nombre,
+					s.socio_apaterno,
+					u2.referred_by,
+					(
+					  SELECT COUNT(*) 
+					  FROM users hijos 
+					  WHERE hijos.referred_by = u2.referred_by
+					) AS referido_count
+				  FROM cat_socio s
+				  INNER JOIN users u2 ON u2.email = s.socio_email ",
+					@condicion_afiliado,"
+				) ref ON ref.idsocio = bf.idsocio
+                
+				LEFT JOIN (select clave,pago_validado from tran_images where estatus=1 and tipo_imagen='ANTICIPO') img ON bf.clave=img.clave 
+				WHERE (
+				  (bf.idtipo_tramite = 3 AND bf.total >= 700) OR
+				  (bf.idtipo_tramite = 36 AND bf.total >= 1500) OR
+				  (bf.idtipo_tramite <> 3 AND bf.idtipo_tramite <> 36)
+				)
+				AND min_fecha.fecha_min BETWEEN @fecha_1 and @fecha_2
+                
+                UNION
+                
+                SELECT
+				  'Cómision Membresía' as socio,
+				  CONCAT(ref.socio_clave, ' ', ref.socio_nombre, ' ', ref.socio_apaterno) AS referido,
+                  ref.idsocio as id,
+				  pagos.fecha_min AS fecha,
+				  pagos.clave,
+				  pagos.monto AS anticipo,
+				  'Membresía (1 año)',
+				  '' AS tipo_vehiculo,
+				  '' AS entidad,
+				  '' AS tipo_servicio,
+				  '' AS modelo,
+				  '' AS marca,
+				  '400' AS comision,
+				  pagos.monto AS facturacion,
+				  ecom.pagada,
+				  1 AS idestatus,
+                  img.pago_validado
+				FROM 
+				(
+				 SELECT clave, monto, MIN(fecha) AS fecha_min
+				  FROM tran_pagos
+				  WHERE complemento = 0
+				  GROUP BY clave, monto
+				)as pagos
+
+				INNER JOIN 
+				(
+				  SELECT
+					s.id AS idsocio,
+					s.socio_clave,
+					s.socio_nombre,
+					s.socio_apaterno,
+					u2.referred_by,
+					(
+					  SELECT COUNT(*) 
+					  FROM users hijos 
+					  WHERE hijos.referred_by = u2.referred_by
+					) AS referido_count
+				  FROM cat_socio s
+				  INNER JOIN users u2 ON u2.email = s.socio_email ",
+                  @condicion_afiliado,"
+                  ) ref ON ref.socio_clave = pagos.clave
+				
+				LEFT JOIN (
+				  SELECT clave, pagada FROM ent_comision WHERE estatus = 1 AND id_cat_comision = 1
+				) ecom ON ecom.clave = pagos.clave
+                
+				LEFT JOIN (select clave,pago_validado from tran_images where estatus=1 AND tipo_imagen='Membresia') img ON ref.socio_clave=img.clave 
+                
+                WHERE pagos.fecha_min BETWEEN @fecha_1 and @fecha_2
+                ORDER BY referido ASC
+				;");
+
+	
+    PREPARE stmt FROM @FQuery;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+END

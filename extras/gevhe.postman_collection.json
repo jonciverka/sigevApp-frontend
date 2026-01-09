@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "e80bf815-2dff-4964-bba9-24d08a576dcb",
+		"name": "gevhe",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33561421"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"jon@gmail.com\",\r\n  \"password\": \"COTA0024700\"\r\n}\r\n// {\r\n//   \"email\": \"laura.anzo@outlook.com\",\r\n//   \"password\": \"Laura123\"\r\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "barraFija",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc1OTk1OTU1NiwiZXhwIjoxNzU5OTYzMTU2LCJuYmYiOjE3NTk5NTk1NTYsImp0aSI6Im9wZWZYZDJPRDV5cmRvYlIiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.90wqOCB_LL2cHJjNyAl5__YHVDBvd7E2v-RHiJWpkuQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/barrafija",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"barrafija"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiGetClientePorCorreo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDExOTY5NiwiZXhwIjoxNzYwMTIzMjk2LCJuYmYiOjE3NjAxMTk2OTYsImp0aSI6Ik9pZFg1RjdGVURsS2hzTDMiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.i0-FJztVhsASUWVluUi2sj6ZFh3lS5VJCH2yOjhPnsw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiGetClientePorCorreo/jon@gmail.com",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiGetClientePorCorreo",
+						"jon@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiCrearBarraFija",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDEyMTEzNCwiZXhwIjoxNzYwMTI0NzM0LCJuYmYiOjE3NjAxMjExMzQsImp0aSI6Ik1velJQSGF2MERqSmRoQmkiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.lHwyfJWgrQSSlF9C1-7Ja3keONS0BwIhfJUdopPIAjQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiCrearBarraFija/COTA0024698",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiCrearBarraFija",
+						"COTA0024698"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiGetCatalogosNuevaCotizacion",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc1OTk0NDM1NiwiZXhwIjoxNzU5OTQ3OTU2LCJuYmYiOjE3NTk5NDQzNTYsImp0aSI6IlNibEZCNVdGd09GUmJXMnciLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.JqhwNgWr_Yk0m5lIs8OIynMd0VoddKSxeGz0Kohnad8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"cvidal.espinosa@gmail.com\",\r\n  \"password\": \"demo1234!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiGetCatalogosNuevaCotizacion",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiGetCatalogosNuevaCotizacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiGetCotizaciones",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDA1NDgxNCwiZXhwIjoxNzYwMDU4NDE0LCJuYmYiOjE3NjAwNTQ4MTQsImp0aSI6InBYWnV1OFNhcmpCNllENUQiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.7La0_FVl86TCvkxv6hyM2FNVeUL2gkI5XyDuhXaVZ-Y",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiGetCotizaciones",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiGetCotizaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiGetCotizacionesCliente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDEyMDM4NSwiZXhwIjoxNzYwMTIzOTg1LCJuYmYiOjE3NjAxMjAzODUsImp0aSI6IjROTFBaaEJLRVJqZmJtWU0iLCJzdWIiOiIyNDkzNyIsInBydiI6IjcwNTkxOGFkMzAwOGMwN2E4ZmUzZDFmYTc0ZDA0MzAxMTU0NDQ0MjUiLCJ0aXBvX3VzdWFyaW8iOiJjb250cmlidXllbnRlIn0.tjnmKkObai1TUe6J7hNa1EqTsRWxVaLIZjHu8ldcwXY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiGetCotizacionesCliente",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiGetCotizacionesCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiDeleteUser",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDExODcyNSwiZXhwIjoxNzYwMTIyMzI1LCJuYmYiOjE3NjAxMTg3MjUsImp0aSI6IkFnZGx4MTYxWWJiRVM2eFEiLCJzdWIiOiIyNDkzNyIsInBydiI6IjcwNTkxOGFkMzAwOGMwN2E4ZmUzZDFmYTc0ZDA0MzAxMTU0NDQ0MjUiLCJ0aXBvX3VzdWFyaW8iOiJjb250cmlidXllbnRlIn0.YMSDVmC7Bq0_s3ERp87CNlZtIKpIdEF87H5BsublL7o",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiDeleteUser",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiDeleteUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiGetTramitescCliente",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDEyMTM5MSwiZXhwIjoxNzYwMTI0OTkxLCJuYmYiOjE3NjAxMjEzOTEsImp0aSI6IjU5bFlhVnQxMXBqZHFBQ3MiLCJzdWIiOiIyNDkzNyIsInBydiI6IjcwNTkxOGFkMzAwOGMwN2E4ZmUzZDFmYTc0ZDA0MzAxMTU0NDQ0MjUiLCJ0aXBvX3VzdWFyaW8iOiJjb250cmlidXllbnRlIn0.i-jsYv3gmNMU9aa4rfmjGf15iC5J7oW8Z_fwt5GfOKs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiGetTramitesCliente",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiGetTramitesCliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiGetCatalogo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc1OTk1OTU1NiwiZXhwIjoxNzU5OTYzMTU2LCJuYmYiOjE3NTk5NTk1NTYsImp0aSI6Im9wZWZYZDJPRDV5cmRvYlIiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.90wqOCB_LL2cHJjNyAl5__YHVDBvd7E2v-RHiJWpkuQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiGetCatalogo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiGetCatalogo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiBuscarTramitePor",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc1OTk1OTU1NiwiZXhwIjoxNzU5OTYzMTU2LCJuYmYiOjE3NTk5NTk1NTYsImp0aSI6Im9wZWZYZDJPRDV5cmRvYlIiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.90wqOCB_LL2cHJjNyAl5__YHVDBvd7E2v-RHiJWpkuQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiBuscarTramitePor?id=2025-W30",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiBuscarTramitePor"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2025-W30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiCreateCotizacion",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDA1MjcwOSwiZXhwIjoxNzYwMDU2MzA5LCJuYmYiOjE3NjAwNTI3MDksImp0aSI6InVoZE1PVlE0SnJSN0JpNUsiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.xMla0I9UmR2bxR0neOq2ZyZwl-_oHnmB356tx0OczLQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"sucursal\": \"1-A\",\r\n  \"telefono\": \"(12) 31-23-12-31\",\r\n  \"nombre\": \"1323123\",\r\n  \"apellidos\": \"1231232\",\r\n  \"telefono_alterno\": \"(12) 31-23-12-3_\",\r\n  \"email\": \"jon@gmail.com\",\r\n  \"cliente\": \"mismo_contribuyente\",\r\n  \"socio\": null,\r\n  \"noessocio_nombre\": null,\r\n  \"tipo_tramite\": \"5-REE\",\r\n  \"tipo_vehiculo\": \"2-MOTO\",\r\n  \"entidad\": \"15-EDOMEX\",\r\n  \"tipo_servicio\": \"1-VIP\",\r\n  \"marca\": \"1-ACASA\",\r\n  \"submarca\": \"123123\",\r\n  \"modelo\": \"81-2029\",\r\n  \"color\": \"1\",\r\n  \"check_plactualnp\": \"1\",\r\n  \"placa_actual\": null,\r\n  \"entidad_placa\": null,\r\n  \"check_desechonp\": \"1\",\r\n  \"desecho\": null,\r\n  \"check_desechotcnp\": \"1\",\r\n  \"check_placasnp\": \"1\",\r\n  \"terminacion_placa_1\": null,\r\n  \"terminacion_placa_2\": null,\r\n  \"tipo_documento\": null,\r\n  \"imageCarga\": null,\r\n  \"subtotal\": \"10000\",\r\n  \"descuento\": \"10\",\r\n  \"total\": \"9990\",\r\n  \"acuenta\": \"1000\",\r\n  \"saldo\": \"8990\",\r\n  \"nota\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiCreateCotizacion",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiCreateCotizacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiUpdateCotizacion",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDAzNjM1MSwiZXhwIjoxNzYwMDM5OTUxLCJuYmYiOjE3NjAwMzYzNTEsImp0aSI6IlFuMHA0dGtQVVlrYUQ4VUkiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.fLB_qV7kPAOSueABJgRe7l5xeggqDm11ncFT8Zc1f4E",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"sucursal\" :\"1-A\",\r\n      \"telefono\" :\"(12) 31-23-12-31\",\r\n      \"nombre\" :\"nombre\",\r\n      \"apellidos\" :\"apellido\",\r\n      \"telefono_alterno\" :\"(12) 31-23-12-3_\",\r\n      \"email\" :\"jon@gmail.com\",\r\n      \"cliente\" :\"mismo_contribuyente\",\r\n      \"socio\" :null,\r\n      \"noessocio_nombre\" :null,\r\n      \"tipo_tramite\" :\"5-REE\",\r\n      \"tipo_vehiculo\" :\"2-MOTO\",\r\n      \"entidad\" :\"9-CDMX\",\r\n      \"tipo_servicio\" :\"1-VIP\",\r\n      \"marca\" :\"1-ACASA\",\r\n      \"submarca\" :\"123123\",\r\n      \"modelo\" :\"81-2029\",\r\n      \"color\" :\"1\",\r\n      \"check_plactualnp\" :\"1\",\r\n      \"placa_actual\" :null,\r\n      \"entidad_placa\" :null,\r\n      \"check_desechonp\" :\"1\",\r\n      \"desecho\" :null,\r\n      \"check_desechotcnp\" :\"1\",\r\n      \"check_placasnp\" :\"1\",\r\n      \"terminacion_placa_1\" :null,\r\n      \"terminacion_placa_2\" :null,\r\n      \"tipo_documento\" :null,\r\n      \"imageCarga\" :null,\r\n      \"subtotal\" :\"10000\",\r\n      \"descuento\" :\"10\",\r\n      \"total\" :\"9990\",\r\n      \"acuenta\" :\"1000\",\r\n      \"saldo\" :\"8990\",\r\n      \"nota\" :null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiUpdateCotizacion/COTA0024696",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiUpdateCotizacion",
+						"COTA0024696"
+					],
+					"query": [
+						{
+							"key": "clave",
+							"value": "COTA0024696",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "apiDeleteCotizacion",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xL2FwaS9sb2dpbiIsImlhdCI6MTc2MDAzNjM1MSwiZXhwIjoxNzYwMDM5OTUxLCJuYmYiOjE3NjAwMzYzNTEsImp0aSI6IlFuMHA0dGtQVVlrYUQ4VUkiLCJzdWIiOiI5NSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.fLB_qV7kPAOSueABJgRe7l5xeggqDm11ncFT8Zc1f4E",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:80/api/apiDeleteCotizacion/COTA0024696",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "80",
+					"path": [
+						"api",
+						"apiDeleteCotizacion",
+						"COTA0024696"
+					],
+					"query": [
+						{
+							"key": "clave",
+							"value": "COTA0024696",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
