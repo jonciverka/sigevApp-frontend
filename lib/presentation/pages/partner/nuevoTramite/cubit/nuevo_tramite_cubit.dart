@@ -530,6 +530,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       transmicion: transmision?.nombre ?? '',
     );
     Tramite tramiteCarga = Tramite(
+      numeroSerie: noSerieController.text,
+      numeroMotor: noMotorController.text,
       pasajeros: pasajeros?.valor ?? 0,
       idCombustible: combustible?.valor ?? 0,
       combustible: combustible?.nombre ?? '',
@@ -542,6 +544,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       transporta: transporta?.nombre ?? '',
     );
     Tramite tramiteRemol = Tramite(
+      numeroSerie: noSerieController.text,
+      numeroMotor: noMotorController.text,
       capacidad: int.tryParse(capacidadCarga.text) ?? 0,
       pasajeros: pasajeros?.valor,
       idClase: claseCarga?.valor,
@@ -550,6 +554,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       transporta: transporta?.nombre,
     );
     Tramite tramiteMoto = Tramite(
+      numeroSerie: noSerieController.text,
+      numeroMotor: noMotorController.text,
       idClase: claseMoto?.valor ?? 0,
       clase: claseMoto?.nombre ?? '',
       cmCubicos: int.tryParse(centimetrosCubicos.text) ?? 0,
@@ -664,6 +670,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
 
   onSelectItem(Function onSelectItem) {
     emit(NuevoTramiteData(catalogos: state.catalogos));
+    FocusScope.of(_context).unfocus();
     onSelectItem();
   }
 }

@@ -35,82 +35,98 @@ class DatosVehiculoPage extends StatelessWidget {
             style: context.headingMediumTextStyle,
           ),
           spacer,
-          AppDropDown<String>(
-            initialValue: nuevoTramiteCubit.vehiculo?.marca,
-            hint: AppLocale.lavelMarcaNuevoTramite.getString(context),
-            items:
-                catalogos.vehiculos?.map((e) => e.marca ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-              nuevoTramiteCubit.vehiculo = catalogos.vehiculos?.firstWhere(
-                (e) => e.marca == value,
-              );
-            }),
-            labelBuilder: (item) {
-              return item;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
-              return null;
-            },
-          ),
-          spacer,
-          AppTextFormField(
-            keyboardType: TextInputType.text,
-            controller: nuevoTramiteCubit.subMarcaController,
-            labelText: AppLocale.lavelSubmarcaNuevoTramite.getString(context),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
-              return null;
-            },
-            onChanged: (_) {},
-          ),
-          spacer,
-          AppDropDown<String>(
-            initialValue: nuevoTramiteCubit.tipoModelo?.anio,
-            hint: AppLocale.lavelModeloNuevoTramite.getString(context),
-            items:
-                catalogos.tipoModelo?.map((e) => e.anio ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-              nuevoTramiteCubit.tipoModelo = catalogos.tipoModelo?.firstWhere(
-                (e) => e.anio == value,
-              );
-            }),
-            labelBuilder: (item) {
-              return item;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
-              return null;
-            },
-          ),
-          spacer,
-          AppDropDown<String>(
-            initialValue: nuevoTramiteCubit.color?.color,
-            hint: AppLocale.lavelColorNuevoTramite.getString(context),
-            items: catalogos.colores?.map((e) => e.color ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-              nuevoTramiteCubit.color = catalogos.colores?.firstWhere(
-                (e) => e.color == value,
-              );
-            }),
-            labelBuilder: (item) {
-              return item;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  AppDropDown<String>(
+                    initialValue: nuevoTramiteCubit.vehiculo?.marca,
+                    hint: AppLocale.lavelMarcaNuevoTramite.getString(context),
+                    items:
+                        catalogos.vehiculos
+                            ?.map((e) => e.marca ?? '')
+                            .toList() ??
+                        [],
+                    onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+                      nuevoTramiteCubit.vehiculo = catalogos.vehiculos
+                          ?.firstWhere((e) => e.marca == value);
+                    }),
+                    labelBuilder: (item) {
+                      return item;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocale.campoObligatorio.getString(context);
+                      }
+                      return null;
+                    },
+                  ),
+                  spacer,
+                  AppTextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: nuevoTramiteCubit.subMarcaController,
+                    labelText: AppLocale.lavelSubmarcaNuevoTramite.getString(
+                      context,
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocale.campoObligatorio.getString(context);
+                      }
+                      return null;
+                    },
+                    onChanged: (_) {},
+                  ),
+                  spacer,
+                  AppDropDown<String>(
+                    initialValue: nuevoTramiteCubit.tipoModelo?.anio,
+                    hint: AppLocale.lavelModeloNuevoTramite.getString(context),
+                    items:
+                        catalogos.tipoModelo
+                            ?.map((e) => e.anio ?? '')
+                            .toList() ??
+                        [],
+                    onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+                      nuevoTramiteCubit.tipoModelo = catalogos.tipoModelo
+                          ?.firstWhere((e) => e.anio == value);
+                    }),
+                    labelBuilder: (item) {
+                      return item;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocale.campoObligatorio.getString(context);
+                      }
+                      return null;
+                    },
+                  ),
+                  spacer,
+                  AppDropDown<String>(
+                    initialValue: nuevoTramiteCubit.color?.color,
+                    hint: AppLocale.lavelColorNuevoTramite.getString(context),
+                    items:
+                        catalogos.colores?.map((e) => e.color ?? '').toList() ??
+                        [],
+                    onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+                      nuevoTramiteCubit.color = catalogos.colores?.firstWhere(
+                        (e) => e.color == value,
+                      );
+                    }),
+                    labelBuilder: (item) {
+                      return item;
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return AppLocale.campoObligatorio.getString(context);
+                      }
 
-              return null;
-            },
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
-          Spacer(),
+          spacer,
           AppFooter(
             onButtonBackPressed: onButtonBackPressed,
             onButtonCatalogPressed: onButtonCatalogPressed,
