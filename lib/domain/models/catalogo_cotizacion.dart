@@ -52,6 +52,7 @@ class CatalogoCotizacion {
     this.claseCarga,
     this.transporta,
     this.claseMoto,
+    this.claseRemolque,
   });
 
   List<TipoTramite>? tiposTramite;
@@ -78,6 +79,7 @@ class CatalogoCotizacion {
   List<Clase>? claseCarga;
   List<Transporta>? transporta;
   List<Clase>? claseMoto;
+  List<Clase>? claseRemolque;
 
   factory CatalogoCotizacion.fromJson(Map<String, dynamic> json) {
     return CatalogoCotizacion(
@@ -101,12 +103,13 @@ class CatalogoCotizacion {
       combustible: combustiblesFromJsonList(json["catCombustible"]),
       puertas: puertasFromJsonList(json["catPuertas"]),
       pasajeros: pasajerosFromJsonList(json["catPasajeros"]),
-      clase: clasesFromJsonList(json["catClase"]),
       cilindros: cilindrossFromJsonList(json["catCilindros"]),
       transmision: transmisionsFromJsonList(json["catTransmision"]),
-      claseCarga: clasesFromJsonList(json["catClaseCarga"]),
       transporta: transportasFromJsonList(json["catTransporta"]),
+      clase: clasesFromJsonList(json["catClase"]),
       claseMoto: clasesFromJsonList(json["catClaseMoto"]),
+      claseCarga: clasesFromJsonList(json["catClaseCarga"]),
+      claseRemolque: clasesFromJsonList(json["catClaseRemolque"]),
     );
   }
   int? valorSiNombreCoincide(String nombreBuscado) {

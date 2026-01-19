@@ -482,92 +482,77 @@ class DatosVehiculoDetallePage extends StatelessWidget {
           onChanged: (_) {},
         ),
         spacer,
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonPasajeros,
-          label: AppLocale.lavelPasajerosNuevoTramite.getString(context),
-          child: AppDropDown<String>(
-            initialValue: nuevoTramiteCubit.pasajeros?.nombre,
-            hint: AppLocale.lavelPasajerosNuevoTramite.getString(context),
-            items:
-                catalogos.pasajeros?.map((e) => e.nombre ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-              nuevoTramiteCubit.pasajeros = catalogos.pasajeros?.firstWhere(
-                (e) => e.nombre == value,
-              );
-            }),
-            labelBuilder: (item) {
-              return item;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
-              return null;
-            },
-          ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonPasajeros",
-          ),
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.pasajeros?.nombre,
+          hint: AppLocale.lavelPasajerosNuevoTramite.getString(context),
+          items: catalogos.pasajeros?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.pasajeros = catalogos.pasajeros?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
         ),
 
         spacer,
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonRemolque,
-          label: AppLocale.lavelClaseNuevoTramite.getString(context),
-          child: AppDropDown<String>(
-            initialValue: nuevoTramiteCubit.claseCarga?.nombre,
-            hint: AppLocale.lavelClaseNuevoTramite.getString(context),
-            items:
-                catalogos.claseCarga?.map((e) => e.nombre ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-              nuevoTramiteCubit.claseCarga = catalogos.claseCarga?.firstWhere(
-                (e) => e.nombre == value,
-              );
-            }),
-            labelBuilder: (item) {
-              return item;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
-              return null;
-            },
-          ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonRemolque",
-          ),
-        ),
-        spacer,
-        AppRowOpcionsRadioButton(
-          groupValue: nuevoTramiteCubit.groupRadioButtonTransporta,
-          label: AppLocale.lavelTransportaNuevoTramite.getString(context),
-          child: AppDropDown<String>(
-            initialValue: nuevoTramiteCubit.transporta?.nombre,
-            hint: AppLocale.lavelTransportaNuevoTramite.getString(context),
-            items:
-                catalogos.transporta?.map((e) => e.nombre ?? '').toList() ?? [],
-            onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-              nuevoTramiteCubit.transporta = catalogos.transporta?.firstWhere(
-                (e) => e.nombre == value,
-              );
-            }),
-            labelBuilder: (item) {
-              return item;
-            },
-            validator: (value) {
-              if (value!.isEmpty) {
-                return AppLocale.campoObligatorio.getString(context);
-              }
-              return null;
-            },
-          ),
-          onChanged: (value) => nuevoTramiteCubit.changeValueRadio(
-            value ?? '',
-            "groupRadioButtonTransporta",
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: AppDropDown<String>(
+                initialValue: nuevoTramiteCubit.claseRemol?.nombre,
+                hint: AppLocale.lavelClaseNuevoTramite.getString(context),
+                items:
+                    catalogos.claseRemolque
+                        ?.map((e) => e.nombre ?? '')
+                        .toList() ??
+                    [],
+                onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+                  nuevoTramiteCubit.claseRemol = catalogos.claseRemolque
+                      ?.firstWhere((e) => e.nombre == value);
+                }),
+                labelBuilder: (item) {
+                  return item;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppLocale.campoObligatorio.getString(context);
+                  }
+                  return null;
+                },
+              ),
+            ),
+            spacer,
+            Expanded(
+              child: AppDropDown<String>(
+                initialValue: nuevoTramiteCubit.transporta?.nombre,
+                hint: AppLocale.lavelTransportaNuevoTramite.getString(context),
+                items:
+                    catalogos.transporta?.map((e) => e.nombre ?? '').toList() ??
+                    [],
+                onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+                  nuevoTramiteCubit.transporta = catalogos.transporta
+                      ?.firstWhere((e) => e.nombre == value);
+                }),
+                labelBuilder: (item) {
+                  return item;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return AppLocale.campoObligatorio.getString(context);
+                  }
+                  return null;
+                },
+              ),
+            ),
+          ],
         ),
         spacer,
       ],
@@ -643,6 +628,47 @@ class DatosVehiculoDetallePage extends StatelessWidget {
             return null;
           },
           onChanged: (_) {},
+        ),
+        spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.combustible?.nombre,
+          hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
+          items:
+              catalogos.combustible?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.combustible = catalogos.combustible?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.cilindros?.nombre,
+          hint: AppLocale.lavelCilindrosNuevoTramite.getString(context),
+          items: catalogos.cilindros?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.cilindros = catalogos.cilindros?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
         ),
       ],
     );

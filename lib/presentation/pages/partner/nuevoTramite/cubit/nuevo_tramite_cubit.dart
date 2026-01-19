@@ -89,9 +89,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
   Transporta? transporta;
   Clase? claseMoto;
   final centimetrosCubicos = TextEditingController();
-  String groupRadioButtonPasajeros = "2";
-  String groupRadioButtonRemolque = "2";
-  String groupRadioButtonTransporta = "2";
+  Clase? claseRemol;
 
   //Datos del vehiculo placa
   GlobalKey<FormState> formularioStateVehiculoPlaca = GlobalKey<FormState>();
@@ -211,9 +209,10 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
           }
           break;
         case NuevoTramiteState.datosDelVehiculoDetalle:
-          if (!validateDatosVehiculoDetalle()) {
-            return;
+          if (mostrarDatosVehiculoDetalle()) {
+            if (!validateDatosVehiculoDetalle()) return;
           }
+
           break;
       }
     }
@@ -223,6 +222,11 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       curve: Curves.easeInOut,
     );
     emit(NuevoTramiteData(catalogos: state.catalogos));
+  }
+
+  bool mostrarDatosVehiculoDetalle() {
+    if (tipoTramite?.id == 18) return false;
+    return true;
   }
 
   bool validateDatosContribuyenteSucursal() {
@@ -409,15 +413,12 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         groupRadioButtonDesechoTarjetaEntregado = value;
         break;
       case "groupRadioButtonPasajeros":
-        groupRadioButtonPasajeros = value;
         pasajeros = null;
         break;
       case "groupRadioButtonRemolque":
-        groupRadioButtonRemolque = value;
         claseCarga = null;
         break;
       case "groupRadioButtonTransporta":
-        groupRadioButtonTransporta = value;
         transporta = null;
         break;
     }
@@ -548,8 +549,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       numeroMotor: noMotorController.text,
       capacidad: int.tryParse(capacidadCarga.text) ?? 0,
       pasajeros: pasajeros?.valor,
-      idClase: claseCarga?.valor,
-      clase: claseCarga?.nombre,
+      idClase: claseRemol?.valor,
+      clase: claseRemol?.nombre,
       idTransporta: transporta?.valor,
       transporta: transporta?.nombre,
     );
@@ -559,6 +560,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       idClase: claseMoto?.valor ?? 0,
       clase: claseMoto?.nombre ?? '',
       cmCubicos: int.tryParse(centimetrosCubicos.text) ?? 0,
+      combustible: combustible?.nombre ?? '',
+      cilindrada: cilindros?.valor ?? 0,
     );
     try {
       emit(
@@ -569,6 +572,12 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       );
       var clave = await provider.createCotizacion(cotizacion: cotizacion);
       await Future.delayed(const Duration(seconds: 5), () {});
+      Tramite? tramiteMandar = switch (tipoVehiculo?.id ?? 0) {
+        3 => tramiteCarga,
+        5 => tramiteRemol,
+        2 => tramiteMoto,
+        _ => tramiteNormal,
+      };
       emit(
         NuevoTramiteLoadingCreate(
           catalogos: state.catalogos,
@@ -577,12 +586,7 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       );
       claveTramite = await provider.createTramite(
         clave: clave,
-        tramite: switch (tipoVehiculo?.id ?? 0) {
-          3 => tramiteCarga,
-          5 => tramiteRemol,
-          2 => tramiteMoto,
-          _ => tramiteNormal,
-        },
+        tramite: mostrarDatosVehiculoDetalle() ? tramiteMandar : null,
       );
       await Future.delayed(const Duration(seconds: 4), () {});
       emit(

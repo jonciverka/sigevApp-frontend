@@ -122,7 +122,9 @@ class NuevoTramiteBody extends StatelessWidget {
                     DatosVehiculoPage(
                       onButtonNextPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(
-                            NuevoTramiteState.datosDelVehiculoDetalle,
+                            nuevoTramiteCubit.mostrarDatosVehiculoDetalle()
+                                ? NuevoTramiteState.datosDelVehiculoDetalle
+                                : NuevoTramiteState.datosDelVehiculoPlacas,
                           ),
                       onButtonBackPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(
@@ -146,7 +148,9 @@ class NuevoTramiteBody extends StatelessWidget {
                           .cambiarPagina(NuevoTramiteState.detallePago),
                       onButtonBackPressed: () =>
                           nuevoTramiteCubit.cambiarPagina(
-                            NuevoTramiteState.datosDelVehiculoDetalle,
+                            nuevoTramiteCubit.mostrarDatosVehiculoDetalle()
+                                ? NuevoTramiteState.datosDelVehiculoDetalle
+                                : NuevoTramiteState.datosDelVehiculo,
                             isBack: true,
                           ),
                     ),
