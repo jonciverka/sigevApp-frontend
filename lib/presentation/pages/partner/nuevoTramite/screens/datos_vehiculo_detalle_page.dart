@@ -6,7 +6,6 @@ import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/catalogo_cotizacion.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/cubit/nuevo_tramite_cubit.dart';
 import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_footer.dart';
-import 'package:sigev/presentation/pages/partner/nuevoTramite/widgets/app_row_opcions_radio_button.dart';
 import 'package:sigev/presentation/widgets/app_dropdown.dart';
 import 'package:sigev/presentation/widgets/app_inputs.dart';
 
