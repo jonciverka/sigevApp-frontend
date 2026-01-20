@@ -58,32 +58,49 @@ class DatosVehiculoDetallePage extends StatelessWidget {
           onChanged: (_) {},
         ),
         spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.combustible?.nombre,
+          hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
+          items:
+              catalogos.combustible?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.combustible = catalogos.combustible?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.cilindros?.nombre,
+          hint: AppLocale.lavelCilindrosNuevoTramite.getString(context),
+          items: catalogos.cilindros?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.cilindros = catalogos.cilindros?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
         Row(
           children: [
-            Expanded(
-              child: AppDropDown<String>(
-                initialValue: nuevoTramiteCubit.combustible?.nombre,
-                hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
-                items:
-                    catalogos.combustible
-                        ?.map((e) => e.nombre ?? '')
-                        .toList() ??
-                    [],
-                onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-                  nuevoTramiteCubit.combustible = catalogos.combustible
-                      ?.firstWhere((e) => e.nombre == value);
-                }),
-                labelBuilder: (item) {
-                  return item;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppLocale.campoObligatorio.getString(context);
-                  }
-                  return null;
-                },
-              ),
-            ),
             Expanded(
               child: AppDropDown<String>(
                 initialValue: nuevoTramiteCubit.puerta?.nombre,
@@ -107,11 +124,6 @@ class DatosVehiculoDetallePage extends StatelessWidget {
                 },
               ),
             ),
-          ],
-        ),
-        spacer,
-        Row(
-          children: [
             Expanded(
               child: AppDropDown<String>(
                 initialValue: nuevoTramiteCubit.pasajeros?.nombre,
@@ -135,6 +147,11 @@ class DatosVehiculoDetallePage extends StatelessWidget {
                 },
               ),
             ),
+          ],
+        ),
+        spacer,
+        Row(
+          children: [
             Expanded(
               child: AppDropDown<String>(
                 initialValue: nuevoTramiteCubit.clase?.nombre,
@@ -143,34 +160,6 @@ class DatosVehiculoDetallePage extends StatelessWidget {
                     catalogos.clase?.map((e) => e.nombre ?? '').toList() ?? [],
                 onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
                   nuevoTramiteCubit.clase = catalogos.clase?.firstWhere(
-                    (e) => e.nombre == value,
-                  );
-                }),
-                labelBuilder: (item) {
-                  return item;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppLocale.campoObligatorio.getString(context);
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-        spacer,
-        Row(
-          children: [
-            Expanded(
-              child: AppDropDown<String>(
-                initialValue: nuevoTramiteCubit.cilindros?.nombre,
-                hint: AppLocale.lavelCilindrosNuevoTramite.getString(context),
-                items:
-                    catalogos.cilindros?.map((e) => e.nombre ?? '').toList() ??
-                    [],
-                onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-                  nuevoTramiteCubit.cilindros = catalogos.cilindros?.firstWhere(
                     (e) => e.nombre == value,
                   );
                 }),
@@ -251,6 +240,47 @@ class DatosVehiculoDetallePage extends StatelessWidget {
           onChanged: (_) {},
         ),
         spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.combustible?.nombre,
+          hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
+          items:
+              catalogos.combustible?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.combustible = catalogos.combustible?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.cilindros?.nombre,
+          hint: AppLocale.lavelCilindrosNuevoTramite.getString(context),
+          items: catalogos.cilindros?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.cilindros = catalogos.cilindros?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
         Row(
           children: [
             Expanded(
@@ -276,59 +306,6 @@ class DatosVehiculoDetallePage extends StatelessWidget {
                 },
               ),
             ),
-            Expanded(
-              child: AppDropDown<String>(
-                initialValue: nuevoTramiteCubit.combustible?.nombre,
-                hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
-                items:
-                    catalogos.combustible
-                        ?.map((e) => e.nombre ?? '')
-                        .toList() ??
-                    [],
-                onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-                  nuevoTramiteCubit.combustible = catalogos.combustible
-                      ?.firstWhere((e) => e.nombre == value);
-                }),
-                labelBuilder: (item) {
-                  return item;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppLocale.campoObligatorio.getString(context);
-                  }
-                  return null;
-                },
-              ),
-            ),
-          ],
-        ),
-        spacer,
-        Row(
-          children: [
-            Expanded(
-              child: AppDropDown<String>(
-                initialValue: nuevoTramiteCubit.cilindros?.nombre,
-                hint: AppLocale.lavelCilindrosNuevoTramite.getString(context),
-                items:
-                    catalogos.cilindros?.map((e) => e.nombre ?? '').toList() ??
-                    [],
-                onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-                  nuevoTramiteCubit.cilindros = catalogos.cilindros?.firstWhere(
-                    (e) => e.nombre == value,
-                  );
-                }),
-                labelBuilder: (item) {
-                  return item;
-                },
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return AppLocale.campoObligatorio.getString(context);
-                  }
-                  return null;
-                },
-              ),
-            ),
-
             Expanded(
               child: AppDropDown<String>(
                 initialValue: nuevoTramiteCubit.puerta?.nombre,
@@ -465,6 +442,47 @@ class DatosVehiculoDetallePage extends StatelessWidget {
           onChanged: (_) {},
         ),
         spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.combustible?.nombre,
+          hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
+          items:
+              catalogos.combustible?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.combustible = catalogos.combustible?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.cilindros?.nombre,
+          hint: AppLocale.lavelCilindrosNuevoTramite.getString(context),
+          items: catalogos.cilindros?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.cilindros = catalogos.cilindros?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
         AppTextFormField(
           keyboardType: TextInputType.number,
           maxLengthFormatter: 5,
@@ -595,41 +613,6 @@ class DatosVehiculoDetallePage extends StatelessWidget {
         ),
         spacer,
         AppDropDown<String>(
-          initialValue: nuevoTramiteCubit.claseMoto?.nombre,
-          hint: AppLocale.lavelClaseNuevoTramite.getString(context),
-          items: catalogos.claseMoto?.map((e) => e.nombre ?? '').toList() ?? [],
-          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
-            nuevoTramiteCubit.claseMoto = catalogos.claseMoto?.firstWhere(
-              (e) => e.nombre == value,
-            );
-          }),
-          labelBuilder: (item) {
-            return item;
-          },
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-        ),
-        spacer,
-
-        AppTextFormField(
-          keyboardType: TextInputType.number,
-          maxLengthFormatter: 5,
-          controller: nuevoTramiteCubit.centimetrosCubicos,
-          labelText: AppLocale.lavelCentimetrosCuadrados.getString(context),
-          validator: (value) {
-            if (value!.isEmpty) {
-              return AppLocale.campoObligatorio.getString(context);
-            }
-            return null;
-          },
-          onChanged: (_) {},
-        ),
-        spacer,
-        AppDropDown<String>(
           initialValue: nuevoTramiteCubit.combustible?.nombre,
           hint: AppLocale.lavelCombustibleNuevoTramite.getString(context),
           items:
@@ -668,6 +651,41 @@ class DatosVehiculoDetallePage extends StatelessWidget {
             }
             return null;
           },
+        ),
+        spacer,
+        AppDropDown<String>(
+          initialValue: nuevoTramiteCubit.claseMoto?.nombre,
+          hint: AppLocale.lavelClaseNuevoTramite.getString(context),
+          items: catalogos.claseMoto?.map((e) => e.nombre ?? '').toList() ?? [],
+          onSelectItem: (value) => nuevoTramiteCubit.onSelectItem(() {
+            nuevoTramiteCubit.claseMoto = catalogos.claseMoto?.firstWhere(
+              (e) => e.nombre == value,
+            );
+          }),
+          labelBuilder: (item) {
+            return item;
+          },
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+        ),
+        spacer,
+
+        AppTextFormField(
+          keyboardType: TextInputType.number,
+          maxLengthFormatter: 5,
+          controller: nuevoTramiteCubit.centimetrosCubicos,
+          labelText: AppLocale.lavelCentimetrosCuadrados.getString(context),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocale.campoObligatorio.getString(context);
+            }
+            return null;
+          },
+          onChanged: (_) {},
         ),
       ],
     );

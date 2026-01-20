@@ -551,6 +551,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
       pasajeros: pasajeros?.valor,
       idClase: claseRemol?.valor,
       clase: claseRemol?.nombre,
+      combustible: combustible?.nombre ?? '',
+      cilindrada: cilindros?.valor ?? 0,
       idTransporta: transporta?.valor,
       transporta: transporta?.nombre,
     );
