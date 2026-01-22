@@ -211,6 +211,8 @@ class NuevoTramiteCubit extends Cubit<NuevoTramiteState> {
         case NuevoTramiteState.datosDelVehiculoDetalle:
           if (mostrarDatosVehiculoDetalle()) {
             if (!validateDatosVehiculoDetalle()) return;
+          } else {
+            if (!validateDatosVehiculo()) return;
           }
 
           break;
