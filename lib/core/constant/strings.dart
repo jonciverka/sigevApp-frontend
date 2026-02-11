@@ -379,9 +379,9 @@ mixin AppLocale {
     codigoTramiteController: "Código del tramite",
     anioVehiculoController: "Año del vehículo / Año de Nacimiento",
     comprobarEstadoController: "Comprobar Estado",
-    lavelTituloSeguimiento: "Seguimiento de tramite rapido",
+    lavelTituloSeguimiento: "Seguimiento rápido de tramite ",
     paraMasInformacion:
-        "Para un seguimiento mas detallado de tu tramite, por favor inicie sesion.",
+        "Para un seguimiento mas detallado de tu tramite, debes de iniciar sesión.",
     lavelcerrar: "Cerrar",
     errorRecursoNoEncontrado: "Recurso no encontrado",
   };

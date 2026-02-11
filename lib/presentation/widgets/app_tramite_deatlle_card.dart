@@ -9,14 +9,16 @@ class AppTramiteDetalleCard extends StatelessWidget {
     required this.number,
     required this.active,
     required this.estado,
+    this.fecha,
   });
   final int number;
   final bool active;
   final Status estado;
+  final String? fecha;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.spacing80,
+      height: context.spacing88,
       margin: EdgeInsets.only(bottom: context.spacing12),
       decoration: BoxDecoration(
         boxShadow: AppTheme.smallElevationShadow,
@@ -29,23 +31,45 @@ class AppTramiteDetalleCard extends StatelessWidget {
           AppStatusStopCircle(numer: number, active: active),
           SizedBox(width: context.spacing8),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  estado.nombre ?? '',
-                  textAlign: TextAlign.left,
-                  style: context.bodyBoldTextStyle,
-                ),
-                if (estado.nombrePortada != '')
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: context.spacing12,
+                top: context.spacing12,
+                right: context.spacing16,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Text(
-                    (estado.nombrePortada ?? '').split('-')[0],
+                    estado.nombre ?? '',
                     textAlign: TextAlign.left,
-                    style: context.bodyRegularTextStyle,
-                    overflow: TextOverflow.clip,
+                    style: context.bodyBoldTextStyle,
                   ),
-              ],
+                  if (estado.nombrePortada != '')
+                    Text(
+                      (estado.nombrePortada ?? '').split('-')[0].trim(),
+                      textAlign: TextAlign.left,
+                      style: context.bodyRegularTextStyle,
+                      overflow: TextOverflow.clip,
+                    ),
+                  if (fecha != null)
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          top: context.spacing4,
+                          bottom: context.spacing4,
+                        ),
+                        child: Text(
+                          fecha ?? '',
+                          textAlign: TextAlign.left,
+                          style: context.captionRegularTextStyle,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ],

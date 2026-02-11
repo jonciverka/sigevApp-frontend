@@ -110,6 +110,7 @@ class AppTramitesDetalleBody extends StatelessWidget {
                     active: true,
                     estado: estado.status ?? Status(),
                     number: 1,
+                    fecha: estado.fecha ?? '',
                   ),
                 ) ??
                 [],
