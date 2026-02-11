@@ -51,7 +51,7 @@ class DatosDetalleSaldoPago extends StatelessWidget {
                                   .valorSiNombreCoincide(
                                     nuevoTramiteCubit.tipoTramite?.alias ?? '',
                                   ) ??
-                              0) >=
+                              0) >
                           (double.tryParse(value) ?? 0)) {
                         return AppLocale.errorNoCumpleConElMontoMinimoAnticipo
                             .getString(context);

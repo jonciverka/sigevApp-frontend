@@ -113,6 +113,8 @@ class CatalogoCotizacion {
     );
   }
   int? valorSiNombreCoincide(String nombreBuscado) {
-    return anticipos?.firstWhere((e) => e.nombre == nombreBuscado).valor;
+    int anticipo =
+        anticipos?.firstWhere((e) => e.nombre == nombreBuscado).valor ?? 0;
+    return anticipo;
   }
 }
