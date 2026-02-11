@@ -12,7 +12,7 @@ import 'package:sigev/domain/models/api_error_model.dart';
 class ApiService {
   static const String devName = "Api Call";
 
-  final String baseUrl = "http://${ApiConstants.urlBase}";
+  final String baseUrl = "https://${ApiConstants.urlBase}";
   final String extension = ApiConstants.url;
 
   final String accesTokenEndpoint = 'refresh';
@@ -22,6 +22,7 @@ class ApiService {
   final String errorRefreshMsg = "Error Refreshing Token";
 
   // Método para hacer GET request
+
   Future<dynamic> getRequest(
     String endpoint,
     Map<String, String> headers,
