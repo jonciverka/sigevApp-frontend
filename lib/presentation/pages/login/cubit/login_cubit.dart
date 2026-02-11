@@ -17,8 +17,8 @@ class LoginCubit extends Cubit<LoginState> {
   final BuildContext _context;
   final usuarioController = TextEditingController();
   final passcontroller = TextEditingController();
-  bool passwordVisible = true;
   GlobalKey<FormState> fomularioState = GlobalKey<FormState>();
+  bool passwordVisible = true;
   AuthenticationProvider authenticationProvider = AuthenticationProvider();
   UserProvider userProvider = UserProvider();
 
@@ -83,6 +83,10 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginData());
       return;
     }
+  }
+
+  Future<void> irSeguimientoTramite() async {
+    _context.push(ScreenPaths.loginSeguimientoTramite);
   }
 
   // void setPushNotificationToken(String token) async {

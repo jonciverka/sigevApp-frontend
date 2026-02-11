@@ -4,12 +4,10 @@ import 'package:sigev/config/theme/app_theme.dart';
 class AppFondoCurvo extends StatelessWidget {
   const AppFondoCurvo({
     super.key,
-    this.showArrow = false,
     required this.child,
     required this.paddingTop,
     required this.paddingBottom,
   });
-  final bool showArrow;
   final Widget child;
   final double paddingTop;
   final double paddingBottom;

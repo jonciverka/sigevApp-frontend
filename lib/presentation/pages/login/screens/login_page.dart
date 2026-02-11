@@ -54,7 +54,7 @@ Widget cuerpoWgt(BuildContext context) {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(AssetsConstants.sigevLogo, width: 313),
+          Image.asset(AssetsConstants.sigevLogo, width: 300),
           SizedBox(height: context.spacing24),
           Text(
             AppLocale.textBienvenido.getString(context),
@@ -106,6 +106,11 @@ Widget cuerpoWgt(BuildContext context) {
             label: AppLocale.botonIniciarSesionLogin.getString(context),
           ),
           SizedBox(height: context.spacing12),
+          AppSecondaryButton(
+            onPressed: () => loginCubit.irSeguimientoTramite(),
+            label: AppLocale.botonSeguimientoTramite.getString(context),
+          ),
+          SizedBox(height: context.spacing40),
         ],
       ),
     ),

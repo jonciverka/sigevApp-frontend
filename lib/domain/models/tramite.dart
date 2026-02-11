@@ -206,7 +206,9 @@ class Tramite {
     estatus: statusTramiteFromJsonList(
       json["estatus"] is! List ? json["ultimo_status"] : json["estatus"],
     ),
-    documentaciones: documentacionsFromJsonList(json["documentaciones"]),
+    documentaciones: json["documentaciones"] == null
+        ? null
+        : documentacionsFromJsonList(json["documentaciones"]),
   );
   StatusTramite get ultimoStatus =>
       estatus?.reduce((a, b) => (a.id ?? 0) > (b.id ?? 0) ? a : b) ??

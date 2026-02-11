@@ -1,6 +1,6 @@
 class ApiConstants {
-  // static String urlBase = "192.168.1.80:80";
-  static String urlBase = "my.grupogevhe.com";
+  static String urlBase = "192.168.1.80:80";
+  //   static String urlBase = "my.grupogevhe.com";
   static String url = "/api/";
 
   /// [Endpoints]
@@ -27,4 +27,5 @@ class ApiConstants {
   static const String apiGetImages = 'mostrarArchivo';
   static const String apiAceptTerminosYCondiciones =
       'apiAceptTerminosYCondiciones';
+  static const String apiSeguimientoEndpoint = 'seguimiento';
 }

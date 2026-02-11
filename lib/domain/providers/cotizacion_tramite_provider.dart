@@ -238,4 +238,25 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<Tramite> apiGetSeguimiento({
+    required String anio,
+    required String code,
+  }) async {
+    try {
+      final dynamic response = await _apiService.getRequest(
+        "${ApiConstants.apiSeguimientoEndpoint}?modelo=$anio&clave=$code",
+        UtilitiesHeaders.getHeader(),
+      );
+      Tramite estatusTramite = tramiteFromJsonMap(
+        json.decode(response)["data"],
+      );
+      return estatusTramite;
+    } on ApiClientException catch (exc) {
+      throw exc.message.toString();
+    } catch (exc) {
+      rethrow;
+    }
+  }
 }

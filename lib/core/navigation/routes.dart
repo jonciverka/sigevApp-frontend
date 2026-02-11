@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sigev/core/constant/screen_paths.dart';
 import 'package:sigev/presentation/pages/client/menu/screens/menu_page.dart';
 import 'package:sigev/presentation/pages/client/tramites/screens/documentos_page.dart';
+import 'package:sigev/presentation/pages/login/screens/seguimiento_tramite_page.dart';
 import 'package:sigev/presentation/pages/partner/menu/screens/menu_page.dart'
     as partner_menu_page;
 import 'package:sigev/presentation/pages/login/screens/login_page.dart';
@@ -65,6 +66,15 @@ final GoRouter router = GoRouter(
       pageBuilder: (context, state) => CustomTransitionPage(
         key: state.pageKey,
         child: DocumentosPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
+    ),
+    GoRoute(
+      path: ScreenPaths.loginSeguimientoTramite,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        key: state.pageKey,
+        child: SeguimientoTramitePage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
             FadeTransition(opacity: animation, child: child),
       ),

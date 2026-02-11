@@ -5,7 +5,14 @@ mixin AppLocale {
   static const String inputLoginUsuarioLogin = 'inputLoginUsuarioLogin';
   static const String inputLoginPasswordLogin = 'inputLoginPasswordLogin';
   static const String botonIniciarSesionLogin = 'botonIniciarSesionLogin';
+  static const String botonSeguimientoTramite = 'botonSeguimientoTramite';
   static const String textoInstruccionLogin = 'textoInstruccionLogin';
+  static const String codigoTramiteController = 'codigoTramiteController';
+  static const String anioVehiculoController = 'anioVehiculoController';
+  static const String comprobarEstadoController = 'comprobarEstadoController';
+  static const String lavelTituloSeguimiento = 'lavelTituloSeguimiento';
+  static const String lavelcerrar = 'lavelcerrar';
+
   //Home cliente
   static const String textTramitesActivosTotalHomeCliente =
       'textTramitesActivosTotalHomeCliente';
@@ -15,6 +22,7 @@ mixin AppLocale {
   //Mensajes
   static const String avisoSinInternet = 'avisoSinInternet';
   static const String error = 'error';
+  static const String errorRecursoNoEncontrado = 'errorRecursoNoEncontrado';
   static const String errorInicioSesion = 'errorInicioSesion';
   static const String campoObligatorio = 'campoObligatorio';
   static const String camposObligatorios = 'camposObligatorios';
@@ -204,6 +212,7 @@ mixin AppLocale {
   static const String textAvisoCometario = 'textAvisoCometario';
   static const String faltaSubirDocumentos = 'faltaSubirDocumentos';
   static const String faltaTerminosYCondiciones = 'faltaTerminosYCondiciones';
+  static const String paraMasInformacion = 'paraMasInformacion';
 
   //Extras
   static const String inputExtras = 'inputExtras';
@@ -366,5 +375,14 @@ mixin AppLocale {
     lavelCapacidadCargaNuevoTramite: "Capacidad de carga * (KG)",
     lavelTransportaNuevoTramite: "Transporta *",
     lavelCentimetrosCuadrados: "Centímetros cúbicos *",
+    botonSeguimientoTramite: "Ver seguimiento rapido de tramite",
+    codigoTramiteController: "Código del tramite",
+    anioVehiculoController: "Año del vehículo / Año de Nacimiento",
+    comprobarEstadoController: "Comprobar Estado",
+    lavelTituloSeguimiento: "Seguimiento de tramite rapido",
+    paraMasInformacion:
+        "Para un seguimiento mas detallado de tu tramite, por favor inicie sesion.",
+    lavelcerrar: "Cerrar",
+    errorRecursoNoEncontrado: "Recurso no encontrado",
   };
 }

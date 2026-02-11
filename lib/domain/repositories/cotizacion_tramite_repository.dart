@@ -22,4 +22,8 @@ abstract class CotizacionTramiteRepository {
     required List<Documentacion> documentaciones,
   });
   Future<void> aceptTerminosYCondiciones({required String clave});
+  Future<Tramite> apiGetSeguimiento({
+    required String anio,
+    required String code,
+  });
 }

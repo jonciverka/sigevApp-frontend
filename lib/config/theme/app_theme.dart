@@ -336,7 +336,7 @@ class AppTheme {
           if (states.contains(WidgetState.focused)) {
             return semanticColorInfo;
           }
-          return Colors.transparent;
+          return Colors.white;
         }),
         foregroundColor: WidgetStateProperty.resolveWith<Color?>((
           Set<WidgetState> states,
