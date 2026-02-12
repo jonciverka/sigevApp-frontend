@@ -67,8 +67,6 @@ Widget cuerpoWgt(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(AssetsConstants.sigevLogo, width: 300),
-              SizedBox(height: context.spacing24),
               Text(
                 textAlign: TextAlign.center,
                 AppLocale.lavelTituloSeguimiento.getString(context),
