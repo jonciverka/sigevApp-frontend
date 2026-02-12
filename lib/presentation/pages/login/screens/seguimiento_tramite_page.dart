@@ -67,10 +67,42 @@ Widget cuerpoWgt(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
+              RichText(
                 textAlign: TextAlign.center,
-                AppLocale.lavelTituloSeguimiento.getString(context),
-                style: context.headingLargeTextStyle,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'Da ',
+                      style: context.headingMediumTextStyle.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'seguimiento',
+                      style: context.headingMediumTextStyle.copyWith(
+                        fontSize: context.spacing24,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' a tu trámite consultando el ',
+                      style: context.headingMediumTextStyle.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'estatus',
+                      style: context.headingMediumTextStyle.copyWith(
+                        fontSize: context.spacing24,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' en tiempo real',
+                      style: context.headingMediumTextStyle.copyWith(
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(height: context.spacing24),
               AppTextFormField(
