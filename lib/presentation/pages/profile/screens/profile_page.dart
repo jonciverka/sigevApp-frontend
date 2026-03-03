@@ -185,6 +185,14 @@ Widget cuerpoWgt(BuildContext context) {
                 ),
                 suffixIcon: AppIcons.logout,
               ),
+              SizedBox(height: context.spacing16),
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Versión: ${profileCubit.version.split('+').first}",
+                  style: context.bodyBoldTextStyle,
+                ),
+              ),
               Spacer(),
             ],
           ),

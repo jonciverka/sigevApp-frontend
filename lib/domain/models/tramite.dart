@@ -216,6 +216,16 @@ class Tramite {
   bool yaPaso(int idEstatus) =>
       ultimoStatus.idestatus == idEstatus ||
       ultimoStatus.idestatus! > idEstatus;
+  String? fechaStatus(int idEstatus) {
+    String? fecha = estatus
+        ?.firstWhere(
+          (e) => e.idestatus == idEstatus,
+          orElse: () => StatusTramite(),
+        )
+        .fecha;
+    return fecha;
+  }
+
   String get tituloCarta => '$tipoTramite - $entidad - $tipoServicio';
   bool get tieneTodasLasDocumentaciones =>
       documentaciones?.every((item) => item.path != null) ?? false;

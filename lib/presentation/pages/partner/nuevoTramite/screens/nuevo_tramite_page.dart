@@ -186,8 +186,9 @@ class NuevoTramiteBody extends StatelessWidget {
                       onButtonGenerateCodePressed: () =>
                           showAppBottomSheetPregunta(
                             context: context,
-                            title: AppLocale.textTituloGenerarCodigo
-                                .getString(context),
+                            title: AppLocale.textTituloGenerarCodigo.getString(
+                              context,
+                            ),
                             question: AppLocale.descripcionGenerarCodigo
                                 .getString(context),
                             yes: "Ok",

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +13,6 @@ class Utilities {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
     globals.token = '';
-    globals.refresh = '';
     globals.user = null;
   }
 
@@ -69,6 +69,33 @@ class Utilities {
   static String formatMoney(num value) {
     final formatter = NumberFormat('#,##0', 'en_US');
     return formatter.format(value);
+  }
+
+  Future<Uint8List> compressIfNeeded(Uint8List bytes) async {
+    const int maxSize = 2 * 1024 * 1024; // 2MB
+
+    if (bytes.lengthInBytes <= maxSize) {
+      return bytes;
+    }
+
+    int quality = 90;
+    Uint8List? compressedBytes = bytes;
+
+    while (compressedBytes!.lengthInBytes > maxSize && quality > 10) {
+      compressedBytes = await FlutterImageCompress.compressWithList(
+        bytes,
+        quality: quality,
+        format: CompressFormat.jpeg,
+      );
+
+      quality -= 10;
+    }
+
+    if (compressedBytes.lengthInBytes > maxSize) {
+      throw Exception("File could not be compressed below 2MB");
+    }
+
+    return compressedBytes;
   }
 }
 

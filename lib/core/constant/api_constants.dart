@@ -1,10 +1,14 @@
 class ApiConstants {
-  // static String urlBase = "192.168.1.80:80";
-  static String urlBase = "my.grupogevhe.com";
+  static String urlBase = "192.168.1.80:80";
+  static String urlBaseChat = "192.168.1.80:3002";
+  static String protocol = "http://";
+  // static String urlBase = "my.grupogevhe.com";
+  // static String urlBase = "office.grupogevhe.com";
   static String url = "/api/";
 
   /// [Endpoints]
   static const String loginEndpoint = 'login';
+  static const String refreshTokenEndpoint = 'refreshToken';
   static const String getUserEndpoint = 'getUser';
   static const String getUserClienteEndpoint = 'getUserCliente';
   static const String apiDeleteUserEndpoint = 'apiDeleteUser';

@@ -1,7 +1,7 @@
 name: sigev
-description: "A new Flutter project."
+description: "Sistema de gestión de ventas"
 publish_to: 'none'
-version: 0.2.1
+version: 1.1.0+1
 
 environment:
   sdk: ^3.8.1
@@ -36,6 +36,11 @@ dependencies:
   keyboard_actions: ^4.2.1
   webview_flutter: ^4.13.0
   flutter_inappwebview: ^6.1.5
+  fluttertoast: ^9.0.0
+  socket_io_client: ^3.1.4
+  upgrader: ^12.5.0
+  flutter_image_compress: ^2.4.0
+  package_info_plus: ^9.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

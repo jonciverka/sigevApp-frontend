@@ -4,6 +4,7 @@ class UtilitiesHeaders {
   static Map<String, String> getHeader() {
     Map<String, String> map = {
       'Content-Type': 'application/json; charset=UTF-8',
+      'Accept': 'application/json',
       "Authorization": "Bearer ${globals.token}",
     };
     return map;
@@ -11,8 +12,8 @@ class UtilitiesHeaders {
 
   static Map<String, String> getHeaderRefresh() {
     Map<String, String> map = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "X-Access-Token": globals.refresh,
+      'Accept': 'application/json',
+      "Authorization": "Bearer ${globals.token}",
     };
     return map;
   }
@@ -20,7 +21,8 @@ class UtilitiesHeaders {
   static Map<String, String> getHeaderSinToken() {
     Map<String, String> map = {
       'Content-Type': 'application/json; charset=UTF-8',
-      "X-Access-Token": globals.refresh,
+      'Accept': 'application/json',
+      "X-Access-Token": "Bearer ${globals.token}",
     };
     return map;
   }

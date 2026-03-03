@@ -13,7 +13,7 @@ if (localPropertiesFile.exists()) {
         localProperties.load(it)
     }
 }
-val flutterVersionCode = localProperties.getProperty("flutter.versionCode") ?: "1"
+val flutterVersionCode = localProperties.getProperty("flutter.versionCode")?.toInt() ?: 1
 val flutterVersionName = localProperties.getProperty("flutter.versionName") ?: "1.0"
 
 val keystoreProperties = Properties()
@@ -47,8 +47,8 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = 6
-        versionName = "1.0.1"
+        versionCode = flutterVersionCode
+        versionName = flutterVersionName
     }
     signingConfigs {
         create("release") {

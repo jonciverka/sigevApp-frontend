@@ -47,12 +47,12 @@ class Ingresos {
 
   String? dia;
   String? semanaPasada;
-  int? porcentaje;
+  double? porcentaje;
 
   factory Ingresos.fromJson(Map<String, dynamic> json) => Ingresos(
     dia: json["hoy"] ?? json["actual"],
     semanaPasada: json["hoy_semana_pasada"] ?? json["semana_pasada"],
-    porcentaje: json["porcentaje"],
+    porcentaje: int.tryParse(json["porcentaje"].toString())?.toDouble(),
   );
 }
 

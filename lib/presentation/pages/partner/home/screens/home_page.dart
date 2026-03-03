@@ -16,6 +16,7 @@ import 'package:sigev/presentation/widgets/app_fondo_curvo.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 import 'package:sigev/presentation/widgets/app_tab_view.dart';
 import 'package:sigev/config/globals.dart' as globals;
+import 'package:sigev/presentation/widgets/app_upgrader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
@@ -25,23 +26,25 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        backgroundColor: AppTheme.neutralColorWhite,
-        body: BlocProvider(
-          create: (context) => HomeCubit(context: context),
-          child: BlocBuilder<HomeCubit, HomeState>(
-            builder: (context, state) {
-              switch (state) {
-                case HomeError():
-                  return Container();
-                case HomeLoading():
-                  return const AppLoader();
-                case HomeData():
-                  return HomePageBody();
-                default:
-                  return const AppLoader();
-              }
-            },
+      child: AppUpgrader(
+        child: Scaffold(
+          backgroundColor: AppTheme.neutralColorWhite,
+          body: BlocProvider(
+            create: (context) => HomeCubit(context: context),
+            child: BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) {
+                switch (state) {
+                  case HomeError():
+                    return Container();
+                  case HomeLoading():
+                    return const AppLoader();
+                  case HomeData():
+                    return HomePageBody();
+                  default:
+                    return const AppLoader();
+                }
+              },
+            ),
           ),
         ),
       ),

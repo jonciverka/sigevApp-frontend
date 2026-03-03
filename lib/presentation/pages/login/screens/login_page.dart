@@ -10,6 +10,7 @@ import 'package:sigev/presentation/pages/login/cubit/login_state.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
 import 'package:sigev/presentation/widgets/app_inputs.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
+import 'package:sigev/presentation/widgets/app_upgrader.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -18,24 +19,26 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      child: Scaffold(
-        backgroundColor: AppTheme.neutralColorWhite,
-        body: SafeArea(
-          child: BlocProvider(
-            create: (context) => LoginCubit(context: context),
-            child: BlocBuilder<LoginCubit, LoginState>(
-              builder: (context, state) {
-                switch (state) {
-                  case LoginError():
-                    return cuerpoWgt(context);
-                  case LoginLoading():
-                    return const AppLoader();
-                  case LoginData():
-                    return cuerpoWgt(context);
-                  default:
-                    return const AppLoader();
-                }
-              },
+      child: AppUpgrader(
+        child: Scaffold(
+          backgroundColor: AppTheme.neutralColorWhite,
+          body: SafeArea(
+            child: BlocProvider(
+              create: (context) => LoginCubit(context: context),
+              child: BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) {
+                  switch (state) {
+                    case LoginError():
+                      return cuerpoWgt(context);
+                    case LoginLoading():
+                      return const AppLoader();
+                    case LoginData():
+                      return cuerpoWgt(context);
+                    default:
+                      return const AppLoader();
+                  }
+                },
+              ),
             ),
           ),
         ),

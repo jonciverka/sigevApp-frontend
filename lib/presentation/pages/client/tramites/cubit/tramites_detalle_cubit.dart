@@ -16,6 +16,7 @@ import 'package:sigev/domain/models/documentacion.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/domain/providers/cotizacion_tramite_provider.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_detalle_state.dart';
+import 'package:sigev/presentation/pages/client/tramites/screens/tramite_support_page.dart';
 import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 
 class TramiteDetalleCubit extends Cubit<TramiteDetalleState> {
@@ -54,7 +55,7 @@ class TramiteDetalleCubit extends Cubit<TramiteDetalleState> {
       } else if (extensionFile.toLowerCase() == 'jpg' ||
           extensionFile.toLowerCase() == 'jpeg' ||
           extensionFile.toLowerCase() == 'png') {
-        image = result.files.single.bytes!;
+        image = await Utilities().compressIfNeeded(result.files.single.bytes!);
       }
 
       documentacion.file = await Utilities().uint8ListToFile(
@@ -82,7 +83,7 @@ class TramiteDetalleCubit extends Cubit<TramiteDetalleState> {
       isGalleryImportAllowed: false,
       iosScannerOptions: IosScannerOptions(
         imageFormat: IosImageFormat.jpg,
-        jpgCompressionQuality: 1,
+        jpgCompressionQuality: 90,
       ),
     );
 
@@ -97,7 +98,10 @@ class TramiteDetalleCubit extends Cubit<TramiteDetalleState> {
     final String extensionFile = path.split('.').last.toLowerCase();
 
     // Leer bytes
-    final Uint8List imageBytes = await file.readAsBytes();
+    final Uint8List originalBytes = await file.readAsBytes();
+    final Uint8List imageBytes = await Utilities().compressIfNeeded(
+      originalBytes,
+    );
 
     // Guardar con tu utilidad
     documentacion.file = await Utilities().uint8ListToFile(
@@ -187,4 +191,18 @@ class TramiteDetalleCubit extends Cubit<TramiteDetalleState> {
       return;
     }
   }
+
+  Future<T?> openSupport<T extends Object?>() => showModalBottomSheet(
+    context: _context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    isDismissible: false,
+    useRootNavigator: true,
+    builder: (context) {
+      return FractionallySizedBox(
+        heightFactor: 1,
+        child: TramiteSupportPage(tramite: state.tramite),
+      );
+    },
+  );
 }

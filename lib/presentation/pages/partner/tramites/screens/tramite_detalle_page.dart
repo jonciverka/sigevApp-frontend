@@ -87,6 +87,7 @@ class AppTramitesDetalleBody extends StatelessWidget {
             active: tramite.yaPaso(estado.id ?? 0),
             estado: estado,
             number: index + 1,
+            fecha: tramite.fechaStatus(estado.id ?? 0),
           );
         }),
       ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/screen_paths.dart';
 import 'package:sigev/core/constant/strings.dart';
@@ -20,11 +21,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   GlobalKey<FormState> fomularioState = GlobalKey<FormState>();
   final userProvider = UserProvider();
   final BuildContext context;
+  String version = '';
 
   ProfileCubit({required this.context}) : super(ProfileData()) {
     nombreController.text = globals.user?.name ?? 'N/A';
     correoElectronicoController.text = globals.user?.email ?? 'N/A';
     numeroDeTelefonoCelularController.text = globals.user?.phone ?? 'N/A';
+    loadVersion();
   }
 
   Future<void> logout() async {
@@ -32,6 +35,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     await Utilities().clearCache();
     if (!context.mounted) return;
     context.go(ScreenPaths.loginRoute);
+  }
+
+  Future<void> loadVersion() async {
+    final info = await PackageInfo.fromPlatform();
+    version = '${info.version}+${info.buildNumber}';
+    emit(ProfileData());
   }
 
   Future<void> deleteUser() async {

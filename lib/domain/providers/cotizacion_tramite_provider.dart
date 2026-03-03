@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as dev;
 
 import 'package:http/http.dart' as http;
 import 'package:sigev/config/dependency_injection.dart';
@@ -144,6 +145,7 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
   @override
   Future<String> createCotizacion({required Cotizacion cotizacion}) async {
     try {
+      dev.log(cotizacion.toJson().toString());
       final dynamic response = await _apiService.postRequest(
         ApiConstants.apiCreateCotizacion,
         cotizacion.toJson(),
@@ -198,7 +200,7 @@ class CotizacionTramiteProvider implements CotizacionTramiteRepository {
     required List<Documentacion> documentaciones,
   }) async {
     try {
-      final String baseUrl = "https://${ApiConstants.urlBase}";
+      final String baseUrl = "${ApiConstants.protocol}${ApiConstants.urlBase}";
       final String extension = ApiConstants.url;
       final String endpoint = ApiConstants.apiUploadDocumentsTramiteCliente;
       final Uri url = Uri.parse('$baseUrl$extension$endpoint');

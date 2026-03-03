@@ -18,39 +18,43 @@ class AppTramites extends StatelessWidget {
     var homeCubit = context.watch<HomeCubit>();
     var menuCubit = context.read<MenuCubit>();
     var tramites = homeCubit.state.tramites;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.spacing16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Center(
-            child: Text(
-              AppLocale.textTituloHomeCliente.getString(context),
-              style: context.headingMediumTextStyle.copyWith(
-                color: AppTheme.primaryColor,
-              ),
-            ),
-          ),
-          SizedBox(height: context.spacing12),
-          ...tramites
-              .sublist(0, min(3, homeCubit.state.tramites.length))
-              .map(
-                (tramite) => AppTramiteCard(
-                  tramite: tramite,
-                  onTap: () => homeCubit.aceptTerminosYCondiciones(
-                    clave: tramite.clave ?? '',
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.spacing16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Center(
+                child: Text(
+                  AppLocale.textTituloHomeCliente.getString(context),
+                  style: context.headingMediumTextStyle.copyWith(
+                    color: AppTheme.primaryColor,
                   ),
                 ),
               ),
-          if (tramites.length > 3)
-            AppTertiaryButton(
-              width: double.nan,
-              label: AppLocale.textButtonVerMasTramites.getString(context),
-              onPressed: () =>
-                  menuCubit.changeIndex(index: MenuState.homeMisTramites),
-            ),
-        ],
+              SizedBox(height: context.spacing12),
+              ...tramites
+                  .sublist(0, min(3, homeCubit.state.tramites.length))
+                  .map(
+                    (tramite) => AppTramiteCard(
+                      tramite: tramite,
+                      onTap: () => homeCubit.aceptTerminosYCondiciones(
+                        clave: tramite.clave ?? '',
+                      ),
+                    ),
+                  ),
+              if (tramites.length > 3)
+                AppTertiaryButton(
+                  width: double.nan,
+                  label: AppLocale.textButtonVerMasTramites.getString(context),
+                  onPressed: () =>
+                      menuCubit.changeIndex(index: MenuState.homeMisTramites),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }

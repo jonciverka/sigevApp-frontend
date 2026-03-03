@@ -11,15 +11,10 @@ import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_detalle_
 import 'package:sigev/presentation/widgets/app_bottom_sheet_pregunta.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
 
-class AppTramitesDocumentos extends StatefulWidget {
+class AppTramitesDocumentos extends StatelessWidget {
   const AppTramitesDocumentos({super.key, required this.tramite});
   final Tramite tramite;
 
-  @override
-  State<AppTramitesDocumentos> createState() => _AppTramitesDocumentosState();
-}
-
-class _AppTramitesDocumentosState extends State<AppTramitesDocumentos> {
   @override
   Widget build(BuildContext context) {
     var tramiteDetalleCubit = context.watch<TramiteDetalleCubit>();
@@ -33,7 +28,6 @@ class _AppTramitesDocumentosState extends State<AppTramitesDocumentos> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: context.spacing24),
-
                 ...tramiteDetalleCubit.state.documentacion.map(
                   (documentacion) => InkWell(
                     onTap: () => showAppBottomSheetPregunta(
@@ -118,6 +112,22 @@ class _AppTramitesDocumentosState extends State<AppTramitesDocumentos> {
               : null,
         ),
       ],
+    );
+  }
+}
+
+class AppTramitesDocumentosEmpty extends StatelessWidget {
+  const AppTramitesDocumentosEmpty({super.key, required this.tramite});
+  final Tramite tramite;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        AppLocale.emptyDocuments.getString(context),
+        style: context.bodyBoldTextStyle,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

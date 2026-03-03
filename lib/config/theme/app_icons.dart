@@ -43,6 +43,8 @@ class AppIcons {
   static const IconData directionCar = IconsBarProgress.directions_car;
   static const IconData dollar = IconsBarProgress.dollar;
   static const IconData list = IconsBarProgress.list;
+  static const IconData support = Icons.support_agent_rounded;
+  static const IconData send = Icons.send;
   // Icons
   static Icon smallIcon(IconData icon, {Color? color}) =>
       Icon(icon, size: iconSmallSize, color: color);

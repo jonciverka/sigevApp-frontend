@@ -12,6 +12,7 @@ mixin AppLocale {
   static const String comprobarEstadoController = 'comprobarEstadoController';
   static const String lavelTituloSeguimiento = 'lavelTituloSeguimiento';
   static const String lavelcerrar = 'lavelcerrar';
+  static const String emptyDocuments = 'emptyDocuments';
 
   //Home cliente
   static const String textTramitesActivosTotalHomeCliente =
@@ -31,10 +32,12 @@ mixin AppLocale {
       'errorNoCumpleConElMontoMinimoAnticipo';
   //Tramites
   static const String inputSearch = 'inputSearch';
+  static const String inputChat = 'inputChat';
   static const String inputSearchTramite = 'inputSearchTramite';
   static const String errorFormaBusquedaString = 'errorFormaBusquedaString';
   static const String tabEstadosTramites = 'tabEstadosTramites';
   static const String tabDocumentosTramites = 'tabDocumentosTramites';
+  static const String tabDocumentosSoporte = 'tabDocumentosSoporte';
   static const String textTituloSubirDocumento = 'textTituloSubirDocumento';
   static const String buttonSubirDocumentoTramites =
       'buttonSubirDocumentoTramites';
@@ -216,6 +219,8 @@ mixin AppLocale {
 
   //Extras
   static const String inputExtras = 'inputExtras';
+  //Chat
+  static const String botonIniciarChat = 'botonIniciarChat';
 
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
@@ -352,6 +357,7 @@ mixin AppLocale {
     textCodigoGenerado: "Código Generado",
     tabEstadosTramites: "Estados",
     tabDocumentosTramites: "Documentos",
+    tabDocumentosSoporte: "Soporte",
     textTituloSubirDocumento: "Agrega tu documento",
     buttonSubirDocumentoTramites: "Subir Documento",
     buttonTomarFotoTramites: "Tomar Foto",
@@ -383,5 +389,8 @@ mixin AppLocale {
         "Para un seguimiento mas detallado de tu tramite, debes de iniciar sesión.",
     lavelcerrar: "Cerrar",
     errorRecursoNoEncontrado: "Recurso no encontrado",
+    inputChat: "Escribe un mensaje",
+    botonIniciarChat: "Contactar con soporte",
+    emptyDocuments: "No se han solicidado documentos para este tramite",
   };
 }

@@ -2,20 +2,25 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/api_constants.dart';
+import 'package:sigev/core/constant/local_storage_keys.dart';
 import 'package:sigev/core/services/crash_service.dart';
 import 'dart:developer' as dev;
+import 'package:sigev/config/globals.dart' as globals;
+import 'package:sigev/core/utilities/utilities_headers.dart';
 
 import 'package:sigev/domain/models/api_error_model.dart';
+import 'package:sigev/domain/models/token.dart';
 
 class ApiService {
   static const String devName = "Api Call";
 
-  final String baseUrl = "https://${ApiConstants.urlBase}";
+  final String baseUrl = "${ApiConstants.protocol}${ApiConstants.urlBase}";
+  final String baseUrlChat =
+      "${ApiConstants.protocol}${ApiConstants.urlBaseChat}";
   final String extension = ApiConstants.url;
-
-  final String accesTokenEndpoint = 'refresh';
 
   final String noConnectionErrorMsg = "No Internet Connection";
   final String sessionExpiredMsg = "Session Expired";
@@ -25,16 +30,23 @@ class ApiService {
 
   Future<dynamic> getRequest(
     String endpoint,
-    Map<String, String> headers,
-  ) async {
-    final Uri url = Uri.parse('$baseUrl$extension$endpoint');
+    Map<String, String> headers, {
+    bool isChat = false,
+  }) async {
+    Uri url;
+    if (isChat) {
+      url = Uri.parse('$baseUrlChat$extension$endpoint');
+    } else {
+      url = Uri.parse('$baseUrl$extension$endpoint');
+    }
     try {
       dev.log("Url: ${url.toString()}", name: devName);
       final http.Response response = await http.get(url, headers: headers);
       dev.log("Response: ${response.body}", name: devName);
       return _handleResponse(
         response,
-        resetTokenCallback: () => getRequest(endpoint, headers),
+        resetTokenCallback: (headerCurrent) =>
+            getRequest(endpoint, headerCurrent),
       );
     } on SocketException {
       throw NetworkException();
@@ -47,9 +59,15 @@ class ApiService {
   Future<dynamic> postRequest(
     String endpoint,
     Map<String, dynamic> body,
-    Map<String, String> headers,
-  ) async {
-    final Uri url = Uri.parse('$baseUrl$extension$endpoint');
+    Map<String, String> headers, {
+    bool isChat = false,
+  }) async {
+    Uri url;
+    if (isChat) {
+      url = Uri.parse('$baseUrlChat$extension$endpoint');
+    } else {
+      url = Uri.parse('$baseUrl$extension$endpoint');
+    }
     try {
       dev.log("Url: ${url.toString()}", name: devName);
       dev.log("Body:${body.toString()} ", name: devName);
@@ -61,8 +79,8 @@ class ApiService {
       dev.log("Response: ${response.body}", name: devName);
       return _handleResponse(
         response,
-        resetTokenCallback: () {
-          postRequest(endpoint, body, headers);
+        resetTokenCallback: (headerCurrent) {
+          postRequest(endpoint, body, headerCurrent);
         },
       );
     } on SocketException {
@@ -83,8 +101,8 @@ class ApiService {
 
       return _handleResponse(
         response,
-        resetTokenCallback: () {
-          postWithoutBodyRequest(endpoint, headers);
+        resetTokenCallback: (headerCurrent) {
+          postWithoutBodyRequest(endpoint, headerCurrent);
         },
       );
     } on SocketException {
@@ -111,8 +129,8 @@ class ApiService {
       dev.log(jsonEncode(body));
       return _handleResponse(
         response,
-        resetTokenCallback: () {
-          putRequest(endpoint, headers, body: body);
+        resetTokenCallback: (headerCurrent) {
+          putRequest(endpoint, headerCurrent, body: body);
         },
       );
     } on SocketException {
@@ -137,8 +155,8 @@ class ApiService {
       );
       return _handleResponse(
         response,
-        resetTokenCallback: () {
-          patchRequest(endpoint, data, headers);
+        resetTokenCallback: (headerCurrent) {
+          patchRequest(endpoint, data, headerCurrent);
         },
       );
     } on SocketException {
@@ -158,8 +176,8 @@ class ApiService {
       final http.Response response = await http.delete(url, headers: headers);
       return _handleResponse(
         response,
-        resetTokenCallback: () {
-          deleteRequest(endpoint, headers);
+        resetTokenCallback: (headerCurrent) {
+          deleteRequest(endpoint, headerCurrent);
         },
       );
     } on SocketException {
@@ -185,8 +203,8 @@ class ApiService {
       dev.log(jsonEncode(body), name: 'Request Body');
       return _handleResponse(
         response,
-        resetTokenCallback: () {
-          putRequestWithUrl(urlString, headers, body: body);
+        resetTokenCallback: (headerCurrent) {
+          putRequestWithUrl(urlString, headerCurrent, body: body);
         },
       );
     } catch (e) {
@@ -197,15 +215,15 @@ class ApiService {
   // Manejo de la respuesta
   dynamic _handleResponse(
     http.Response response, {
-    required Function resetTokenCallback,
+    required Function(Map<String, String>) resetTokenCallback,
   }) async {
     switch (response.statusCode) {
       case 200:
         dev.log(response.body);
         return response.body;
       case 401:
-        await resetToken(response.headers);
-        return resetTokenCallback();
+        await resetToken(UtilitiesHeaders.getHeaderRefresh());
+        return resetTokenCallback(UtilitiesHeaders.getHeader());
       case 500:
         throw ServerErrorException();
       default:
@@ -228,33 +246,35 @@ class ApiService {
     }
   }
 
-  // TODO : HACER REFRESH TOKEN
   Future<void> resetToken(Map<String, String> headers) async {
     try {
-      // final Uri url = Uri.parse('$baseUrl$extension$accesTokenEndpoint');
-      // dev.log(url.toString());
-      // final http.Response response = await http.get(url, headers: headers);
+      final Uri url = Uri.parse(
+        '$baseUrl$extension${ApiConstants.refreshTokenEndpoint}',
+      );
+      dev.log(url.toString());
 
-      // if (response.statusCode == 400) {
-      //   Token res = tokenFromJson(response.body);
-      //   if (res.code == "1") {
-      //     throw ' ${res.message}';
-      //   } else if (res.code == "2") {
-      //     throw ' ${res.message}';
-      //   }
-      // } else if (response.statusCode == 401) {
-      //   throw SessionExpiredException();
-      // } else if (response.statusCode == 200) {
-      //   Token res = tokenFromJson(response.body);
-      //   SharedPreferences prefs = await SharedPreferences.getInstance();
-      //   prefs.setString(globals.keyAccesToken, res.accessToken!);
-      //   globals.token = res.accessToken!;
-      //   return;
-      // } else {
-      //   throw RefreshingErrorException(
-      //     msg: 'StatusCode: ${response.statusCode}',
-      //   );
-      // }
+      final http.Response response = await http.post(url, headers: headers);
+
+      if (response.statusCode == 400) {
+        // Token res = tokenFromJson(response.body);
+        // if (res.code == "1") {
+        //   throw ' ${res.message}';
+        // } else if (res.code == "2") {
+        //   throw ' ${res.message}';
+        // }
+      } else if (response.statusCode == 401) {
+        throw SessionExpiredException();
+      } else if (response.statusCode == 200) {
+        Token token = tokenFromJson(response.body);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString(LocalStorageKeys.keyAccesToken, token.accessToken!);
+        globals.token = token.accessToken!;
+        return;
+      } else {
+        throw RefreshingErrorException(
+          msg: 'StatusCode: ${response.statusCode}',
+        );
+      }
     } catch (e) {
       throw Exception('Error en GET request: $e');
     }
