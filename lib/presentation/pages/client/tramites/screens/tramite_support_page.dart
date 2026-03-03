@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:sigev/config/theme/app_theme.dart';
-import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_state.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_input_chat.dart';
-import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_button_cliente.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_button_soporte.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_cliente.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_soporte.dart';
-import 'package:sigev/presentation/widgets/app_buttons.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
 import 'package:sigev/config/globals.dart' as globals;
 

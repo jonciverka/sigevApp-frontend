@@ -32,4 +32,13 @@ class ApiConstants {
   static const String apiAceptTerminosYCondiciones =
       'apiAceptTerminosYCondiciones';
   static const String apiSeguimientoEndpoint = 'seguimiento';
+  //CHAT
+  static const String generarNuevoChat = "generarNuevoChat";
+  static const String finalizarChat = "finalizarChat";
+  static const String obtenerMensajesChat = "obtenerMensajesChat";
+  //BOT
+  static const String apiObtenerCategorias = "obtenerCategorias";
+  static const String apiObtenerSubCategorias = "obtenerSubCategorias";
+  static const String apiObtenerPreguntas = "obtenerPreguntas";
+  static const String apiObtenerRespuestas = "obtenerRespuestas";
 }
