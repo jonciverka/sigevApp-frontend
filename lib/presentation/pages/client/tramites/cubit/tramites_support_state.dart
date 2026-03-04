@@ -10,10 +10,10 @@ abstract class TramiteSupportState {
 }
 
 class TramiteSupportInitial extends TramiteSupportState {
-  TramiteSupportInitial() : super(tramite: Tramite(), chats: []);
+  TramiteSupportInitial({required super.tramite}) : super(chats: []);
 
   @override
-  TramiteSupportState copyWith() => TramiteSupportInitial();
+  TramiteSupportState copyWith() => TramiteSupportInitial(tramite: tramite);
 }
 
 class TramiteSupportLoading extends TramiteSupportState {

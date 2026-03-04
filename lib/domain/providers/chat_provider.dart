@@ -63,4 +63,22 @@ class ChatProvider implements ChatRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<int?> obtenerChat({required String claveTramite}) async {
+    try {
+      final dynamic response = await _apiService.getRequest(
+        "${ApiConstants.obtenerChat}?claveTramite=$claveTramite",
+        UtilitiesHeaders.getHeaderSinToken(),
+        isChat: true,
+      );
+      var responseJSON = json.decode(response)["data"];
+      if (responseJSON.length == 0) return null;
+      return responseJSON[0]["id"];
+    } on ApiClientException catch (exc) {
+      throw exc.message.toString();
+    } catch (exc) {
+      rethrow;
+    }
+  }
 }

@@ -36,6 +36,7 @@ class ApiConstants {
   static const String generarNuevoChat = "generarNuevoChat";
   static const String finalizarChat = "finalizarChat";
   static const String obtenerMensajesChat = "obtenerMensajesChat";
+  static const String obtenerChat = "obtenerChat";
   //BOT
   static const String apiObtenerCategorias = "obtenerCategorias";
   static const String apiObtenerSubCategorias = "obtenerSubCategorias";

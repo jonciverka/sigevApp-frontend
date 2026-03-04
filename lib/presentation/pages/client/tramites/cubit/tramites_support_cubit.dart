@@ -25,34 +25,14 @@ class TramiteSupportCubit extends Cubit<TramiteSupportState> {
 
   TramiteSupportCubit({required BuildContext context, required Tramite tramite})
     : _context = context,
-      super(
-        TramiteSupportData(
-          tramite: tramite,
-          chats: [
-            Mensaje(
-              fechaRegistro: DateTime.now(),
-              pkUsuario: 0,
-              mensaje: '''Hola ${globals.user?.name.capitalize},
-
-Bienvenido(a) al asistente virtual de soporte. 🤖  
-Estoy aquí para ayudarte de manera rápida y sencilla.
-
-Selecciona una algún tema que tengas dudas:''',
-              tipoMensaje: TipoMensaje.texto,
-            ),
-          ],
-        ),
-      ) {
+      super(TramiteSupportInitial(tramite: tramite)) {
     inicializarInfo();
   }
   late io.Socket socket;
 
   inicializarInfo() async {
-    // await contactarSocket();
-    // await unirseASocket();
     //Quitar obtener mensajes y mejor valida con obtenerChat
-    // await obtenerMensajes();
-    _obtenerCategoriasBot();
+    _obtenerChatActivo();
   }
 
   Mensaje get volverAMenuPrincipal => Mensaje(
@@ -96,6 +76,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
       pkUsuario: 0,
       tipoMensaje: TipoMensaje.opcion,
       onTap: () => _quitarMensajesDeOpcionesYAgregarMensajes(
+        callback: () => _generarNuevoChat(),
         mensajes: [
           Mensaje(
             fechaRegistro: DateTime.now(),
@@ -107,7 +88,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
             fechaRegistro: DateTime.now(),
             pkUsuario: 0,
             mensaje:
-                '''En seguida te contactaremos con un asesor de soporte.''',
+                '''En seguida te contactaremos con un asesor de soporte. El tiempo máximo de respuesta es de 30  minutos''',
             tipoMensaje: TipoMensaje.texto,
           ),
         ],
@@ -168,65 +149,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
     );
   }
 
-  //claveTramite, pkUsuario
-  cerrarSocket() async {
-    socket.emit('leave', {
-      "claveTramite": state.tramite.clave ?? '',
-      "pkUsuario": {globals.user?.id ?? ''},
-    });
-    socket.off(
-      'chat message gpt',
-      recibirMensajeSocket,
-    ); // 🔑 liberar el listener
-  }
-
-  Future<void> obtenerMensajes() async {
-    try {
-      List<Mensaje> mensajes = await chatProvider.obtenerMensajesChat(
-        claveTramite: state.tramite.clave ?? '',
-      );
-      if (mensajes.isEmpty) {
-        emit(TramiteSupportEmpty(tramite: state.tramite));
-      } else {
-        emit(TramiteSupportData(tramite: state.tramite, chats: mensajes));
-      }
-    } on ServerErrorException {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.error.getString(_context),
-        type: ToastType.error,
-      );
-      emit(TramiteSupportInitial());
-      return;
-    } on NetworkException {
-      showToastNotification(
-        context: _context,
-        message: AppLocale.avisoSinInternet.getString(_context),
-        type: ToastType.error,
-      );
-      emit(TramiteSupportInitial());
-      return;
-    } on ApiClientException catch (e) {
-      showToastNotification(
-        context: _context,
-        message: e.message,
-        type: ToastType.error,
-      );
-      emit(TramiteSupportInitial());
-      return;
-    } catch (e) {
-      showToastNotification(
-        context: _context,
-        message: e.toString(),
-        type: ToastType.error,
-      );
-
-      emit(TramiteSupportInitial());
-      return;
-    }
-  }
-
-  Future<void> generarNuevoChat() async {
+  Future<void> _generarNuevoChat() async {
     try {
       int idChat = await chatProvider.generarNuevoChat(
         claveTramite: state.tramite.clave ?? '',
@@ -237,7 +160,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         message: AppLocale.error.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on NetworkException {
       showToastNotification(
@@ -245,7 +168,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         message: AppLocale.avisoSinInternet.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on ApiClientException catch (e) {
       showToastNotification(
@@ -253,7 +176,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         message: e.message,
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } catch (e) {
       showToastNotification(
@@ -262,15 +185,131 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         type: ToastType.error,
       );
 
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     }
+  }
+
+  Future<void> _obtenerChatActivo() async {
+    try {
+      int? idChat = await chatProvider.obtenerChat(
+        claveTramite: state.tramite.clave ?? '',
+      );
+      if (idChat == null) {
+        await _iniciarBot();
+      } else {
+        await _obtenerMensajes();
+      }
+    } on ServerErrorException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } on NetworkException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.avisoSinInternet.getString(_context),
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } on ApiClientException catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.message,
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.toString(),
+        type: ToastType.error,
+      );
+
+      emit(TramiteSupportError());
+      return;
+    }
+  }
+
+  Future<void> _obtenerMensajes() async {
+    try {
+      List<Mensaje> mensajes = await chatProvider.obtenerMensajesChat(
+        claveTramite: state.tramite.clave ?? '',
+      );
+      if (mensajes.isEmpty) {
+        emit(TramiteSupportEmpty(tramite: state.tramite));
+      } else {
+        emit(TramiteSupportData(tramite: state.tramite, chats: mensajes));
+      }
+      await contactarSocket();
+      await unirseASocket();
+    } on ServerErrorException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } on NetworkException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.avisoSinInternet.getString(_context),
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } on ApiClientException catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.message,
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.toString(),
+        type: ToastType.error,
+      );
+
+      emit(TramiteSupportError());
+      return;
+    }
+  }
+
+  Future<void> _iniciarBot() async {
+    emit(TramiteSupportLoading(tramite: state.tramite, chats: state.chats));
+    await Future.delayed(const Duration(seconds: 1));
+    await _quitarMensajesDeOpcionesYAgregarMensajes(
+      mensajes: [
+        Mensaje(
+          fechaRegistro: DateTime.now(),
+          pkUsuario: 0,
+          mensaje: '''Hola ${globals.user?.name.capitalize},
+
+Bienvenido(a) al asistente virtual de soporte. 🤖  
+Estoy aquí para ayudarte de manera rápida y sencilla.
+
+Selecciona una algún tema que tengas dudas:''',
+          tipoMensaje: TipoMensaje.texto,
+        ),
+      ],
+    );
+
+    await _obtenerCategoriasBot(mostrarCargando: true);
   }
 
   Future<void> _obtenerCategoriasBot({bool mostrarCargando = true}) async {
     try {
       if (mostrarCargando) {
-        emit(TramiteSupportLoading(tramite: state.tramite, chats: state.chats));
+        // emit(TramiteSupportLoading(tramite: state.tramite, chats: state.chats));
         await Future.delayed(const Duration(seconds: 1));
       }
       List<CategoriaBot> mensajes = await botProvider.obtenerCategorias();
@@ -300,7 +339,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         message: AppLocale.error.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on NetworkException {
       showToastNotification(
@@ -308,7 +347,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         message: AppLocale.avisoSinInternet.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on ApiClientException catch (e) {
       showToastNotification(
@@ -316,7 +355,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         message: e.message,
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } catch (e) {
       showToastNotification(
@@ -325,7 +364,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
         type: ToastType.error,
       );
 
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     }
   }
@@ -378,7 +417,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: AppLocale.error.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on NetworkException {
       showToastNotification(
@@ -386,7 +425,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: AppLocale.avisoSinInternet.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on ApiClientException catch (e) {
       showToastNotification(
@@ -394,7 +433,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: e.message,
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } catch (e) {
       showToastNotification(
@@ -403,7 +442,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         type: ToastType.error,
       );
 
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     }
   }
@@ -454,7 +493,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: AppLocale.error.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on NetworkException {
       showToastNotification(
@@ -462,7 +501,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: AppLocale.avisoSinInternet.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on ApiClientException catch (e) {
       showToastNotification(
@@ -470,7 +509,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: e.message,
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } catch (e) {
       showToastNotification(
@@ -479,7 +518,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         type: ToastType.error,
       );
 
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     }
   }
@@ -522,7 +561,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: AppLocale.error.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on NetworkException {
       showToastNotification(
@@ -530,7 +569,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: AppLocale.avisoSinInternet.getString(_context),
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } on ApiClientException catch (e) {
       showToastNotification(
@@ -538,7 +577,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         message: e.message,
         type: ToastType.error,
       );
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     } catch (e) {
       showToastNotification(
@@ -547,7 +586,7 @@ Selecciona la que mejor se adapte a tu consulta:''',
         type: ToastType.error,
       );
 
-      emit(TramiteSupportInitial());
+      emit(TramiteSupportError());
       return;
     }
   }
@@ -575,9 +614,21 @@ Selecciona la que mejor se adapte a tu consulta:''',
     callback?.call();
   }
 
+  //claveTramite, pkUsuario
+  cerrarSocket() async {
+    socket.emit('leave', {
+      "claveTramite": state.tramite.clave ?? '',
+      "pkUsuario": globals.user?.id ?? '',
+    });
+    socket.off(
+      'chat message gpt',
+      recibirMensajeSocket,
+    ); // 🔑 liberar el listener
+  }
+
   @override
   Future<void> close() {
-    // cerrarSocket();
+    cerrarSocket();
     return super.close();
   }
 }

@@ -84,26 +84,15 @@ class TramiteSupportDataBodyEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TramiteSupportCubit cubit = context.read<TramiteSupportCubit>();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            reverse: true,
-            child: Column(
-              children: [
-                AppMensajeButtonSoporte(onTap: () => cubit.generarNuevoChat()),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: context.spacing16),
-        AppInputChat(
-          onSubmit: () => cubit.mandarMensaje(),
-          textController: cubit.chatText,
-        ),
-        SizedBox(height: context.spacing16),
-      ],
+    return Center(
+      child: Text(
+        '''¡Gracias por contactarnos! 😊
+    Tu solicitud ya está en proceso.
+    Actualmente todos nuestros agentes están ocupados, pero el tiempo máximo de espera es de 30 minutos.
+    Gracias por tu paciencia.''',
+        style: context.bodyBoldTextStyle,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }
