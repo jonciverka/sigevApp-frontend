@@ -216,11 +216,13 @@ mixin AppLocale {
   static const String faltaSubirDocumentos = 'faltaSubirDocumentos';
   static const String faltaTerminosYCondiciones = 'faltaTerminosYCondiciones';
   static const String paraMasInformacion = 'paraMasInformacion';
+  static const String textoImagenSolicitud = 'textoImagenSolicitud';
 
   //Extras
   static const String inputExtras = 'inputExtras';
   //Chat
   static const String botonIniciarChat = 'botonIniciarChat';
+  static const String seleccionarImagen = 'seleccionarImagen';
 
   // ignore: constant_identifier_names
   static const Map<String, dynamic> ES = {
@@ -392,5 +394,7 @@ mixin AppLocale {
     inputChat: "Escribe un mensaje",
     botonIniciarChat: "Contactar con soporte",
     emptyDocuments: "No se han solicidado documentos para este tramite",
+    textoImagenSolicitud: "Agrega imagen",
+    seleccionarImagen: "Seleccionar imagen",
   };
 }

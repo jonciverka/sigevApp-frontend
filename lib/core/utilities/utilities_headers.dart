@@ -26,4 +26,13 @@ class UtilitiesHeaders {
     };
     return map;
   }
+
+  static Map<String, String> multipartHeader() {
+    Map<String, String> map = {
+      'Content-Type': 'application/octet-stream',
+      'Accept': 'application/json',
+      "X-Access-Token": "Bearer ${globals.token}",
+    };
+    return map;
+  }
 }

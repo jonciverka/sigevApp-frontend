@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:sigev/core/constant/api_constants.dart';
+import 'package:sigev/core/utilities/utilities.dart';
 
 Documentacion documentacionFromJsonMap(Map<String, dynamic> json) =>
     Documentacion.fromJson(json);
@@ -31,8 +32,7 @@ class Documentacion {
     nombre: json["nombre"] ?? json["documento"]["nombre"],
     apellido: json["clave"] ?? json["documento"]["clave"],
     path: json["url_recurso"],
-    urlRecurso:
-        "${ApiConstants.protocol}${ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/${json["url_recurso"]}",
+    urlRecurso: Utilities().getURLImage(json["url_recurso"]),
   );
   get haveUrlRecurso => path != null && path != '';
   Documentacion copyWith({

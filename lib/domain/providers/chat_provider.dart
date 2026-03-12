@@ -82,4 +82,22 @@ class ChatProvider implements ChatRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<String> guardarFotoChat({required String foto}) async {
+    try {
+      final dynamic response = await _apiService.postRequestFile(
+        ApiConstants.guardarFoto,
+        {'foto': foto},
+        {},
+        isChat: true,
+      );
+      String responseJSON = json.decode(response)["data"];
+      return responseJSON;
+    } on ApiClientException catch (exc) {
+      throw exc.message.toString();
+    } catch (exc) {
+      rethrow;
+    }
+  }
 }

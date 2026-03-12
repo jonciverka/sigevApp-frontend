@@ -1,4 +1,10 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:file_picker/file_picker.dart'
+    show FilePickerResult, FilePicker, FileType;
 import 'package:flutter_localization/flutter_localization.dart';
+import 'package:pdfx/pdfx.dart';
 import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/api_constants.dart';
 import 'package:sigev/core/constant/strings.dart';
@@ -8,6 +14,7 @@ import 'package:sigev/domain/models/chat.dart';
 import 'package:sigev/domain/models/chats.dart';
 import 'package:sigev/domain/providers/bot_provider.dart';
 import 'package:sigev/domain/providers/chat_provider.dart';
+import 'package:sigev/presentation/pages/client/tramites/screens/preview_image_page.dart';
 import 'package:sigev/presentation/widgets/app_toast_notification.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -112,14 +119,17 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
     });
   }
 
-  Future<void> mandarMensaje() async {
-    String mensaje = _textController.text;
+  Future<void> mandarMensaje({
+    String? mensajeText,
+    TipoMensaje? tipoMensaje,
+  }) async {
+    String mensaje = mensajeText ?? _textController.text;
     _textController.text = '';
     _textController.clear();
     var mensajeEnviado = Mensaje.mensajeLocal({
       "MENSAJE": mensaje,
       "FECHA_REGISTRO": DateTime.now(),
-      "TIPO_MENSAJE": TipoMensaje.texto,
+      "TIPO_MENSAJE": tipoMensaje ?? TipoMensaje.texto,
       "PK_USUARIO": globals.user?.id ?? '',
     });
     emit(
@@ -135,7 +145,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
       state.tramite.clave ?? '',
       mensaje,
       "${globals.user?.id ?? ''}",
-      TipoMensaje.texto.value,
+      (tipoMensaje ?? TipoMensaje.texto).value,
       chatBarraFija?.idSoporteUsuario ?? '',
     ]);
   }
@@ -615,6 +625,106 @@ Selecciona la que mejor se adapte a tu consulta:''',
       await Future.delayed(const Duration(seconds: 1));
     }
     callback?.call();
+  }
+
+  Future<void> selectFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      compressionQuality: 9,
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png'],
+      withData: true, // 🔹 importante para usar result.files.single.bytes
+    );
+    String extensionFile = result?.files.single.extension ?? '';
+    if (result != null) {
+      Uint8List? image;
+      if (extensionFile == 'pdf') {
+        final document = await PdfDocument.openData(result.files.single.bytes!);
+        final page = await document.getPage(1);
+        final pageImage = await page.render(
+          width: page.width,
+          height: page.height,
+          format: PdfPageImageFormat.png, // Puedes usar también jpeg
+        );
+        image = pageImage?.bytes ?? Uint8List(0);
+        await document.close();
+      } else if (extensionFile.toLowerCase() == 'jpg' ||
+          extensionFile.toLowerCase() == 'jpeg' ||
+          extensionFile.toLowerCase() == 'png') {
+        image = await Utilities().compressIfNeeded(result.files.single.bytes!);
+      }
+      Navigator.of(_context).push(
+        MaterialPageRoute(
+          builder: (context) => PreviewImagePage(
+            bytes: image ?? Uint8List(0),
+            onBackPressed: (foto) async => await subirArchivo(foto: foto),
+          ),
+        ),
+      );
+
+      // documentacion.file = await Utilities().uint8ListToFile(
+      //   image!,
+      //   "${documentacion.id}.${documentacion.nombre}_${DateTime.now()}.$extensionFile",
+      // );
+
+      // documentacion.formato = extensionFile;
+
+      // emit(
+      //   TramiteDetalleData(
+      //     documentacion: state.documentacion,
+      //     tramite: state.tramite,
+      //   ),
+      // );
+      // } else {
+      //   // User canceled the picker
+      // }
+    }
+  }
+
+  Future<void> subirArchivo({required Uint8List foto}) async {
+    try {
+      String fotoBase = base64Encode(foto);
+      String nameFile = await chatProvider.guardarFotoChat(foto: fotoBase);
+      emit(
+        TramiteSupportData(
+          tramite: state.tramite,
+          chats: [...state.chats.where((element) => element.mensaje != '')],
+        ),
+      );
+      mandarMensaje(mensajeText: nameFile, tipoMensaje: TipoMensaje.imagen);
+    } on ServerErrorException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.error.getString(_context),
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } on NetworkException {
+      showToastNotification(
+        context: _context,
+        message: AppLocale.avisoSinInternet.getString(_context),
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } on ApiClientException catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.message,
+        type: ToastType.error,
+      );
+      emit(TramiteSupportError());
+      return;
+    } catch (e) {
+      showToastNotification(
+        context: _context,
+        message: e.toString(),
+        type: ToastType.error,
+      );
+
+      emit(TramiteSupportError());
+      return;
+    }
   }
 
   //claveTramite, pkUsuario

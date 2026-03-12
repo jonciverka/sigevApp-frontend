@@ -6,4 +6,5 @@ abstract class ChatRepository {
   Future<void> finalizarChat({required String pkChatBarraFija});
   Future<List<Mensaje>> obtenerMensajesChat({required String claveTramite});
   Future<Chat?> obtenerChat({required String claveTramite});
+  Future<void> guardarFotoChat({required String foto});
 }

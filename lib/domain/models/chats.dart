@@ -1,4 +1,6 @@
 import 'package:intl/intl.dart';
+import 'package:sigev/core/constant/api_constants.dart';
+import 'package:sigev/core/utilities/utilities.dart';
 
 enum TipoMensaje {
   texto(1),
@@ -17,12 +19,14 @@ List<Mensaje> mensajessFromJsonList(List<dynamic> jsonList) =>
 
 class Mensaje {
   String? mensaje;
+  String? urlImage;
   TipoMensaje? tipoMensaje;
   DateTime? fechaRegistro;
   int? pkUsuario;
   Function? onTap;
   Mensaje({
     this.mensaje,
+    this.urlImage,
     this.tipoMensaje,
     this.fechaRegistro,
     this.pkUsuario,
@@ -44,12 +48,15 @@ class Mensaje {
     fechaRegistro = DateFormat(
       "yyyy-MM-ddTHH:mm:ss",
     ).parse(json['FECHA_REGISTRO']).add(dateTime.timeZoneOffset);
+
+    urlImage = Utilities().getURLImage(json["MENSAJE"], isChat: true);
   }
   Mensaje.mensajeLocal(Map<String, dynamic> json) {
     mensaje = json['MENSAJE'];
     tipoMensaje = json['TIPO_MENSAJE'];
     fechaRegistro = json['FECHA_REGISTRO'];
     pkUsuario = json['PK_USUARIO'];
+    urlImage = Utilities().getURLImage(json["MENSAJE"], isChat: true);
   }
 
   toJson() => {

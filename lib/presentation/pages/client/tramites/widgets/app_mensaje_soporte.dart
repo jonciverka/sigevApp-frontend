@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sigev/config/theme/app_theme.dart';
+import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/domain/models/chats.dart';
+import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_cubit.dart';
+import 'package:sigev/presentation/widgets/app_bottom_sheet_pregunta.dart';
 import 'package:sigev/presentation/widgets/app_buttons.dart';
 
 class AppMensajeSoporte extends StatelessWidget {
@@ -34,7 +39,7 @@ class AppMensajeSoporte extends StatelessWidget {
               }
             },
             child: switch (mensaje.tipoMensaje) {
-              TipoMensaje.texto => AppMensajeSoporteTexto(
+              TipoMensaje.texto => AppMessageText(
                 mensaje: mensaje,
                 fecha: fecha,
               ),
@@ -42,7 +47,11 @@ class AppMensajeSoporte extends StatelessWidget {
                 mensaje: mensaje,
                 fecha: fecha,
               ),
-              _ => AppMensajeSoporteTexto(mensaje: mensaje, fecha: fecha),
+              TipoMensaje.imagen => AppMessageImage(
+                mensaje: mensaje,
+                fecha: fecha,
+              ),
+              _ => AppMessageText(mensaje: mensaje, fecha: fecha),
             },
           ),
         ],
@@ -51,8 +60,8 @@ class AppMensajeSoporte extends StatelessWidget {
   }
 }
 
-class AppMensajeSoporteTexto extends StatelessWidget {
-  const AppMensajeSoporteTexto({super.key, required this.mensaje, this.fecha});
+class AppMessageText extends StatelessWidget {
+  const AppMessageText({super.key, required this.mensaje, this.fecha});
   final Mensaje mensaje;
   final String? fecha;
   @override
@@ -115,6 +124,46 @@ class AppMensajeSoporteOpcion extends StatelessWidget {
               AppPrimaryButton(
                 label: mensaje.mensaje ?? '',
                 onPressed: () => mensaje.onTap?.call(),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class AppMessageImage extends StatelessWidget {
+  const AppMessageImage({super.key, required this.mensaje, this.fecha});
+  final Mensaje mensaje;
+  final String? fecha;
+  @override
+  Widget build(BuildContext context) {
+    TramiteSupportCubit tramiteDetalleCubit = context
+        .read<TramiteSupportCubit>();
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          decoration: BoxDecoration(
+            color: AppTheme.neutralColorWhite,
+            borderRadius: BorderRadius.circular(15),
+          ),
+
+          margin: const EdgeInsets.only(right: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              AppPrimaryButton(
+                onPressed: () => showAppBottomSheetPregunta(
+                  context: context,
+                  title: AppLocale.textoImagenSolicitud.getString(context),
+                  yes: AppLocale.seleccionarImagen.getString(context),
+                  onYes: () async => await tramiteDetalleCubit.selectFile(),
+                  no: AppLocale.textButtonCancelar.getString(context),
+                  onNo: () => {},
+                ),
+                label: AppLocale.textoImagenSolicitud.getString(context),
               ),
             ],
           ),

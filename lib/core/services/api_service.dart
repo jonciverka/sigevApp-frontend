@@ -90,6 +90,39 @@ class ApiService {
     }
   }
 
+  Future<dynamic> postRequestFile(
+    String endpoint,
+    Map<String, dynamic> body,
+    Map<String, String> headers, {
+    bool isChat = false,
+  }) async {
+    Uri url;
+    if (isChat) {
+      url = Uri.parse('$baseUrlChat$extension$endpoint');
+    } else {
+      url = Uri.parse('$baseUrl$extension$endpoint');
+    }
+    try {
+      dev.log("Url: ${url.toString()}", name: devName);
+      final http.Response response = await http.post(
+        url,
+        headers: headers,
+        body: body,
+      );
+      dev.log("Response: ${response.body}", name: devName);
+      return _handleResponse(
+        response,
+        resetTokenCallback: (headerCurrent) {
+          postRequest(endpoint, body, headerCurrent);
+        },
+      );
+    } on SocketException {
+      throw NetworkException();
+    } catch (e) {
+      throw Exception('Error en POST request: $e');
+    }
+  }
+
   Future<dynamic> postWithoutBodyRequest(
     String endpoint,
     Map<String, String> headers,

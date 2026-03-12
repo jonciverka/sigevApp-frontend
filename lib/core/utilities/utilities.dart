@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sigev/config/globals.dart' as globals;
+import 'package:sigev/core/constant/api_constants.dart';
 
 class Utilities {
   Future<void> clearCache() async {
@@ -72,7 +73,7 @@ class Utilities {
   }
 
   Future<Uint8List> compressIfNeeded(Uint8List bytes) async {
-    const int maxSize = 2 * 1024 * 1024; // 2MB
+    const int maxSize = 1 * 1024 * 1024; // 2MB
 
     if (bytes.lengthInBytes <= maxSize) {
       return bytes;
@@ -96,6 +97,10 @@ class Utilities {
     }
 
     return compressedBytes;
+  }
+
+  getURLImage(String? path, {bool isChat = false}) {
+    return "${isChat ? ApiConstants.protocolChat : ApiConstants.protocol}${isChat ? ApiConstants.urlBaseChat : ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/$path";
   }
 }
 

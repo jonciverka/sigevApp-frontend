@@ -5,7 +5,6 @@ import 'package:sigev/domain/models/tramite.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_state.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_input_chat.dart';
-import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_button_soporte.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_cliente.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_mensaje_soporte.dart';
 import 'package:sigev/presentation/widgets/app_loader.dart';
@@ -83,7 +82,6 @@ class TramiteSupportDataBodyEmpty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TramiteSupportCubit cubit = context.read<TramiteSupportCubit>();
     return Center(
       child: Text(
         '''¡Gracias por contactarnos! 😊
