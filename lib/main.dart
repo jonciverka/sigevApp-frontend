@@ -39,7 +39,7 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Sigen App',
+      title: 'Sighev App',
       supportedLocales: _localization.supportedLocales,
       localizationsDelegates: _localization.localizationsDelegates,
       theme: AppTheme.getAppTheme(context),

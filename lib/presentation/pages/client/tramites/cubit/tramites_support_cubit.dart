@@ -4,6 +4,7 @@ import 'package:sigev/core/constant/api_constants.dart';
 import 'package:sigev/core/constant/strings.dart';
 import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/bot.dart';
+import 'package:sigev/domain/models/chat.dart';
 import 'package:sigev/domain/models/chats.dart';
 import 'package:sigev/domain/providers/bot_provider.dart';
 import 'package:sigev/domain/providers/chat_provider.dart';
@@ -22,7 +23,7 @@ class TramiteSupportCubit extends Cubit<TramiteSupportState> {
   ChatProvider chatProvider = ChatProvider();
   BotProvider botProvider = BotProvider();
   BuildContext _context;
-
+  Chat? chatBarraFija;
   TramiteSupportCubit({required BuildContext context, required Tramite tramite})
     : _context = context,
       super(TramiteSupportInitial(tramite: tramite)) {
@@ -31,7 +32,6 @@ class TramiteSupportCubit extends Cubit<TramiteSupportState> {
   late io.Socket socket;
 
   inicializarInfo() async {
-    //Quitar obtener mensajes y mejor valida con obtenerChat
     _obtenerChatActivo();
   }
 
@@ -95,7 +95,8 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
       ),
     ),
   ];
-  contactarSocket() async {
+
+  Future<void> contactarSocket() async {
     socket = io.io(
       '${ApiConstants.protocol}${ApiConstants.urlBaseChat}',
       io.OptionBuilder().setTransports(['websocket']).build(),
@@ -103,7 +104,7 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
     socket.connect();
   }
 
-  unirseASocket() async {
+  Future<void> unirseASocket() async {
     socket.on('chat message gpt', recibirMensajeSocket);
     socket.emit('join', {
       "claveTramite": state.tramite.clave ?? '',
@@ -111,14 +112,14 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
     });
   }
 
-  mandarMensaje() async {
+  Future<void> mandarMensaje() async {
     String mensaje = _textController.text;
     _textController.text = '';
     _textController.clear();
     var mensajeEnviado = Mensaje.mensajeLocal({
       "MENSAJE": mensaje,
       "FECHA_REGISTRO": DateTime.now(),
-      "TIPO_MENSAJE": TipoMensaje.texto.value,
+      "TIPO_MENSAJE": TipoMensaje.texto,
       "PK_USUARIO": globals.user?.id ?? '',
     });
     emit(
@@ -135,12 +136,13 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
       mensaje,
       "${globals.user?.id ?? ''}",
       TipoMensaje.texto.value,
+      chatBarraFija?.idSoporteUsuario ?? '',
     ]);
   }
 
   //SOCKET
   recibirMensajeSocket(mensajeString) {
-    var mensaje = Mensaje.fromJson(mensajeString);
+    var mensaje = Mensaje.fromJson(mensajeString["data"]);
     emit(
       TramiteSupportData(
         tramite: state.tramite,
@@ -151,9 +153,10 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
 
   Future<void> _generarNuevoChat() async {
     try {
-      int idChat = await chatProvider.generarNuevoChat(
+      await chatProvider.generarNuevoChat(
         claveTramite: state.tramite.clave ?? '',
       );
+      _obtenerMensajes();
     } on ServerErrorException {
       showToastNotification(
         context: _context,
@@ -192,10 +195,10 @@ Estoy listo para seguir ayudándote. Elige una opción:''',
 
   Future<void> _obtenerChatActivo() async {
     try {
-      int? idChat = await chatProvider.obtenerChat(
+      chatBarraFija = await chatProvider.obtenerChat(
         claveTramite: state.tramite.clave ?? '',
       );
-      if (idChat == null) {
+      if (chatBarraFija == null) {
         await _iniciarBot();
       } else {
         await _obtenerMensajes();

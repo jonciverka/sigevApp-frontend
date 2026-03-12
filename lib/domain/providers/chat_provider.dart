@@ -5,6 +5,7 @@ import 'package:sigev/config/errors/exceptions.dart';
 import 'package:sigev/core/constant/api_constants.dart';
 import 'package:sigev/core/services/api_service.dart';
 import 'package:sigev/core/utilities/utilities_headers.dart';
+import 'package:sigev/domain/models/chat.dart';
 import 'package:sigev/domain/models/chats.dart';
 import 'package:sigev/domain/repositories/chat_repository.dart';
 
@@ -54,9 +55,9 @@ class ChatProvider implements ChatRepository {
         UtilitiesHeaders.getHeaderSinToken(),
         isChat: true,
       );
-      var responseJSON = json.decode(response)["data"];
+      List responseJSON = json.decode(response)["data"];
       if (responseJSON.isEmpty) return [];
-      return mensajessFromJsonList(response["catCilindros"]);
+      return mensajessFromJsonList(responseJSON);
     } on ApiClientException catch (exc) {
       throw exc.message.toString();
     } catch (exc) {
@@ -65,16 +66,16 @@ class ChatProvider implements ChatRepository {
   }
 
   @override
-  Future<int?> obtenerChat({required String claveTramite}) async {
+  Future<Chat?> obtenerChat({required String claveTramite}) async {
     try {
       final dynamic response = await _apiService.getRequest(
         "${ApiConstants.obtenerChat}?claveTramite=$claveTramite",
         UtilitiesHeaders.getHeaderSinToken(),
         isChat: true,
       );
-      var responseJSON = json.decode(response)["data"];
-      if (responseJSON.length == 0) return null;
-      return responseJSON[0]["id"];
+      List responseJSON = json.decode(response)["data"];
+      if (responseJSON.isEmpty) return null;
+      return chatsFromJsonMap(responseJSON.first);
     } on ApiClientException catch (exc) {
       throw exc.message.toString();
     } catch (exc) {

@@ -21,7 +21,7 @@ class AppMensajeCliente extends StatelessWidget {
           if (fecha != null) AppDias(dia: fecha ?? ""),
           GestureDetector(
             onLongPress: () {
-              if (mensaje.tipoMensaje == 1) {
+              if (mensaje.tipoMensaje == TipoMensaje.texto) {
                 Clipboard.setData(ClipboardData(text: mensaje.mensaje!));
                 Fluttertoast.showToast(
                   msg: "Text copied to your clipboard",

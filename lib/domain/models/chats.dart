@@ -30,7 +30,7 @@ class Mensaje {
   });
   Mensaje.fromJson(Map json) {
     DateTime dateTime = DateTime.now();
-    pkUsuario = json['PK_USUARIO'];
+    pkUsuario = int.tryParse(json['PK_USUARIO']);
     mensaje = json['MENSAJE'];
     tipoMensaje = json['TIPO_MENSAJE'] == 1
         ? TipoMensaje.texto
