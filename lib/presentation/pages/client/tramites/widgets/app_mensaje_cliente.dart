@@ -8,7 +8,6 @@ import 'package:sigev/domain/models/chats.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/screens/preview_images_page.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_dias.dart';
-import 'package:sigev/config/globals.dart' as globals;
 
 class AppMensajeCliente extends StatelessWidget {
   const AppMensajeCliente({super.key, required this.mensaje, this.fecha});
@@ -151,28 +150,43 @@ class AppMessageImage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Flexible(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FotoViewer(
-                          initialIndex: 0,
-                          fotos: cubit.state.chats
-                              .where((e) => e.tipoMensaje == TipoMensaje.imagen)
-                              .map((e) => e.urlImage!)
-                              .toList(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FotoViewer(
+                              initialIndex: 0,
+                              fotos: cubit.state.chats
+                                  .where(
+                                    (e) => e.tipoMensaje == TipoMensaje.imagen,
+                                  )
+                                  .map((e) => e.urlImage!)
+                                  .toList(),
+                            ),
+                          ),
+                        );
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(context.spacing24),
+                        child: Image.network(
+                          mensaje.urlImage ?? '',
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    );
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(context.spacing24),
-                    child: Image.network(
-                      mensaje.urlImage ?? '',
-                      fit: BoxFit.cover,
                     ),
-                  ),
+                    SizedBox(height: context.spacing4),
+                    Text(
+                      Utilities().obtenerHora(
+                        mensaje.fechaRegistro ?? DateTime.now(),
+                      ),
+                      style: context.captionRegularTextStyle,
+                    ),
+                  ],
                 ),
               ),
             ],
