@@ -3,10 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sigev/config/theme/app_theme.dart';
+import 'package:sigev/core/utilities/utilities.dart';
 import 'package:sigev/domain/models/chats.dart';
 import 'package:sigev/presentation/pages/client/tramites/cubit/tramites_support_cubit.dart';
 import 'package:sigev/presentation/pages/client/tramites/screens/preview_images_page.dart';
 import 'package:sigev/presentation/pages/client/tramites/widgets/app_dias.dart';
+import 'package:sigev/config/globals.dart' as globals;
 
 class AppMensajeCliente extends StatelessWidget {
   const AppMensajeCliente({super.key, required this.mensaje, this.fecha});
@@ -14,8 +16,7 @@ class AppMensajeCliente extends StatelessWidget {
   final String? fecha;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 3, right: 0, left: 0),
+    return SizedBox(
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -42,7 +43,6 @@ class AppMensajeCliente extends StatelessWidget {
                 mensaje: mensaje,
                 fecha: fecha,
               ),
-
               TipoMensaje.imagen => AppMessageImage(
                 mensaje: mensaje,
                 fecha: fecha,
@@ -66,34 +66,48 @@ class AppMessageText extends StatelessWidget {
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(
-            color: AppTheme.primaryColor,
-            borderRadius: BorderRadius.circular(context.spacing20),
+            color: AppTheme.primaryColorDisabledAndChat,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(context.spacing12),
+              bottomRight: Radius.circular(0),
+              topLeft: Radius.circular(context.spacing12),
+              topRight: Radius.circular(context.spacing12),
+            ),
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: context.spacing16,
+            horizontal: context.spacing12,
             vertical: context.spacing8,
           ),
           margin: EdgeInsets.only(
             right: context.spacing12,
             left: context.spacing40,
+            top: context.spacing8,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Flexible(
-                    child: Text(
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SizedBox(height: context.spacing4),
+                    Text(
                       mensaje.mensaje ?? '',
                       style: context.bodyRegularTextStyle.copyWith(
-                        color: AppTheme.neutralColorWhite,
+                        color: AppTheme.neutralColorBlack,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: context.spacing4),
+                    Text(
+                      Utilities().obtenerHora(
+                        mensaje.fechaRegistro ?? DateTime.now(),
+                      ),
+                      style: context.captionRegularTextStyle,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -114,53 +128,52 @@ class AppMessageImage extends StatelessWidget {
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(
-            color: AppTheme.primaryColor,
-            borderRadius: BorderRadius.circular(context.spacing20),
+            color: AppTheme.primaryColorDisabledAndChat,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(context.spacing12),
+              bottomRight: Radius.circular(0),
+              topLeft: Radius.circular(context.spacing12),
+              topRight: Radius.circular(context.spacing12),
+            ),
           ),
           padding: EdgeInsets.symmetric(
-            horizontal: context.spacing8,
+            horizontal: context.spacing12,
             vertical: context.spacing8,
           ),
           margin: EdgeInsets.only(
             right: context.spacing12,
             left: context.spacing40,
+            top: context.spacing8,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Flexible(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FotoViewer(
-                              initialIndex: 0,
-                              fotos: cubit.state.chats
-                                  .where(
-                                    (e) => e.tipoMensaje == TipoMensaje.imagen,
-                                  )
-                                  .map((e) => e.urlImage!)
-                                  .toList(),
-                            ),
-                          ),
-                        );
-                      },
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(context.spacing24),
-                        child: Image.network(
-                          mensaje.urlImage ?? '',
-                          fit: BoxFit.cover,
+              Flexible(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FotoViewer(
+                          initialIndex: 0,
+                          fotos: cubit.state.chats
+                              .where((e) => e.tipoMensaje == TipoMensaje.imagen)
+                              .map((e) => e.urlImage!)
+                              .toList(),
                         ),
                       ),
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(context.spacing24),
+                    child: Image.network(
+                      mensaje.urlImage ?? '',
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ],
+                ),
               ),
             ],
           ),

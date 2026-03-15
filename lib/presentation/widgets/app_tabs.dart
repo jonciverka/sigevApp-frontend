@@ -57,7 +57,7 @@ class _AppTabState extends State<AppTab> {
               : _state.isHovered
               ? AppTheme.neutralColorWhite
               : _state.isFocused
-              ? AppTheme.primaryColorDisabled
+              ? AppTheme.primaryColorDisabledAndChat
               : widget.isSelected
               ? AppTheme.primaryColor
               : null,

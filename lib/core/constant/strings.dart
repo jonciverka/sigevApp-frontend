@@ -391,7 +391,7 @@ mixin AppLocale {
         "Para un seguimiento mas detallado de tu tramite, debes de iniciar sesión.",
     lavelcerrar: "Cerrar",
     errorRecursoNoEncontrado: "Recurso no encontrado",
-    inputChat: "Escribe un mensaje",
+    inputChat: "Mensaje",
     botonIniciarChat: "Contactar con soporte",
     emptyDocuments: "No se han solicidado documentos para este tramite",
     textoImagenSolicitud: "Agrega imagen",

@@ -102,6 +102,10 @@ class Utilities {
   getURLImage(String? path, {bool isChat = false}) {
     return "${isChat ? ApiConstants.protocolChat : ApiConstants.protocol}${isChat ? ApiConstants.urlBaseChat : ApiConstants.urlBase}${ApiConstants.url}${ApiConstants.apiGetImages}/$path";
   }
+
+  String obtenerHora(DateTime fecha) {
+    return DateFormat('HH:mm').format(fecha);
+  }
 }
 
 extension StringExtension on String? {

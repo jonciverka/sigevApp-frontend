@@ -62,16 +62,18 @@ class TramiteSupportDataBody extends StatelessWidget {
                   }
                   return AppMensajeSoporte(mensaje: mensaje);
                 }),
+                if (cubit.chatActivo == null)
+                  SizedBox(height: context.spacing16),
               ],
             ),
           ),
         ),
         SizedBox(height: context.spacing16),
-        AppInputChat(
-          onSubmit: () => cubit.mandarMensaje(),
-          textController: cubit.chatText,
-        ),
-        SizedBox(height: context.spacing16),
+        if (cubit.chatActivo != null)
+          AppInputChat(
+            onSubmit: () => cubit.mandarMensaje(),
+            textController: cubit.chatText,
+          ),
       ],
     );
   }

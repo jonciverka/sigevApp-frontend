@@ -5,7 +5,9 @@ class AppTheme {
   // Primary Color
   static const Color primaryColor = Color(0xff033a68);
   static const Color primaryColorHover = Color(0xff021e36);
-  static const Color primaryColorDisabled = Color(0xffa0d3fd);
+  static const Color primaryColorDisabledAndChat = Color(0xffa0d3fd);
+  static const Color primaryColorChat = Color(0xffD2EAFE);
+  // Chat Color
 
   //Neutrals Colors
   static const Color neutralColorBlack = Color(0xFF1c1c1e);
@@ -866,7 +868,7 @@ class AppTheme {
       Set<WidgetState> states,
     ) {
       if (states.contains(WidgetState.pressed)) {
-        return primaryColorDisabled;
+        return primaryColorDisabledAndChat;
       }
       if (states.contains(WidgetState.hovered)) {
         return neutralColorBg;

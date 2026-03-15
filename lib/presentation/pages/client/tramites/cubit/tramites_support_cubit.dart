@@ -31,6 +31,7 @@ class TramiteSupportCubit extends Cubit<TramiteSupportState> {
   BotProvider botProvider = BotProvider();
   BuildContext _context;
   Chat? chatBarraFija;
+  get chatActivo => chatBarraFija;
   TramiteSupportCubit({required BuildContext context, required Tramite tramite})
     : _context = context,
       super(TramiteSupportInitial(tramite: tramite)) {
